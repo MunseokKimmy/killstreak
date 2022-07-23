@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:killstreak/model/user_service.dart';
+import 'package:killstreak/view/game_page.dart';
 import 'package:killstreak/view/groups_page.dart';
 import 'package:killstreak/view/stats_page.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -32,6 +33,8 @@ class HomePage extends StatelessWidget {
               ),
             ),
             const RecentGamesCarousel(),
+            //const MyGroupsButton(),
+            //const MyStatsButton(),
           ],
         ),
       ),
@@ -127,66 +130,76 @@ class GameCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.white),
-        borderRadius: BorderRadius.circular(15.0),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Expanded(
-            flex: 2,
-            child: Center(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Expanded(
-                    flex: 4,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          game.groupName,
-                          style: const TextStyle(
-                              color: Colors.grey,
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold),
-                        ),
-                        Text(
-                          game.gameCompleted
-                              ? game.gameName
-                              : "${game.gameName} \n(Ongoing)",
-                          style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ],
+    return InkWell(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const GamePage(),
+          ),
+        );
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          border: Border.all(color: Colors.white),
+          borderRadius: BorderRadius.circular(15.0),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Expanded(
+              flex: 2,
+              child: Center(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      flex: 4,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            game.groupName,
+                            style: const TextStyle(
+                                color: Colors.grey,
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          Text(
+                            game.gameCompleted
+                                ? game.gameName
+                                : "${game.gameName} \n(Ongoing)",
+                            style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                  Expanded(
-                    flex: 1,
-                    child: Column(
-                      children: [Text(game.gameDate)],
-                    ),
-                  )
-                ],
+                    Expanded(
+                      flex: 1,
+                      child: Column(
+                        children: [Text(game.gameDate)],
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
-          ),
-          Expanded(
-            flex: 1,
-            child: GameCardScores(
-              teamOneName: game.teamOneName,
-              teamTwoName: game.teamTwoName,
-              teamOneScore: game.teamOneScore,
-              teamTwoScore: game.teamTwoScore,
-              teamOneServing: game.teamOneServing,
+            Expanded(
+              flex: 1,
+              child: GameCardScores(
+                teamOneName: game.teamOneName,
+                teamTwoName: game.teamTwoName,
+                teamOneScore: game.teamOneScore,
+                teamTwoScore: game.teamTwoScore,
+                teamOneServing: game.teamOneServing,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
