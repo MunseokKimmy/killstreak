@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:killstreak/model/user_service.dart';
 import 'package:killstreak/view/groups_page.dart';
 import 'package:killstreak/view/stats_page.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -10,6 +11,8 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    UserService userService = UserService();
+    User testUser = userService.getUser();
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -20,116 +23,15 @@ class HomePage extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            const RecentGamesCarousel(),
             Container(
               margin: const EdgeInsets.all(20.0),
-              child: const Text(
-                'Hello ____!',
+              child: Text(
+                'Hello ${testUser.username}!',
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 20),
+                style: const TextStyle(fontSize: 20),
               ),
             ),
-            Center(
-              child: Container(
-                margin: const EdgeInsets.only(
-                    left: 20.0, right: 20.0, bottom: 20.0),
-                child: Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15.0),
-                    side: const BorderSide(color: Colors.white),
-                  ),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      const ListTile(
-                        leading: Icon(
-                          Icons.stacked_bar_chart,
-                          color: Colors.white,
-                        ),
-                        title: Text('Lifetime Totals'),
-                        subtitle: Text('Stats'),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: const [
-                          Text('Ace'),
-                          Text('Kill'),
-                          Text('Assist'),
-                          Text('Dig'),
-                          Text('Block'),
-                        ],
-                      ),
-                      Center(
-                        child: OutlinedButton.icon(
-                          icon: const Icon(Icons.web),
-                          onPressed: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (BuildContext context) {
-                                  return const StatsPage();
-                                },
-                              ),
-                            );
-                          },
-                          label: const Text("View Your Stats"),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            Center(
-              child: Container(
-                margin: const EdgeInsets.only(left: 20.0, right: 20.0),
-                child: Card(
-                  shape: const RoundedRectangleBorder(
-                    side: BorderSide(color: Colors.white),
-                  ),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    children: <Widget>[
-                      Card(
-                        shape: const RoundedRectangleBorder(
-                          side: BorderSide(color: Colors.white),
-                        ),
-                        child: Container(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: const <Widget>[
-                              Text(
-                                "Aldair's Volleyball Group",
-                                style: TextStyle(fontSize: 20),
-                              ),
-                              Text(
-                                "#6424",
-                                style: TextStyle(fontSize: 20),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      Center(
-                        child: OutlinedButton.icon(
-                          icon: const Icon(Icons.group),
-                          onPressed: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (BuildContext context) {
-                                  return const GroupPage();
-                                },
-                              ),
-                            );
-                          },
-                          label: const Text("View Your Groups"),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
+            const RecentGamesCarousel(),
           ],
         ),
       ),
