@@ -80,7 +80,13 @@ class _RootPageState extends State<RootPage> {
         ],
         onTap: (int index) {
           setState(() {
-            currentPage = index;
+            // currentPage = index;
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => pages[index],
+              ),
+            );
           });
         },
         currentIndex: currentPage,

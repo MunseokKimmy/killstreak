@@ -21,22 +21,29 @@ class ProfilePage extends StatelessWidget {
   const ProfilePage({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: itemCount,
-      itemBuilder: (BuildContext context, int index) {
-        int key = colors.keys.elementAt(index);
-        return Container(
-          color: colors[key],
-          child: ListTile(
-            title: Text('Item $key'),
-            leading: const Icon(Icons.person),
-            trailing: const Icon(Icons.select_all),
-            onTap: () {
-              debugPrint('Color ${colors[key]}');
+    return Scaffold(
+        appBar: AppBar(
+          title: const Text('My Profile'),
+          automaticallyImplyLeading: false,
+          actions: [
+            IconButton(
+              onPressed: () {
+                debugPrint('stats');
+              },
+              icon: const Icon(Icons.info_outline),
+            ),
+          ],
+          leading: IconButton(
+            onPressed: () {
+              Navigator.of(context).pop();
             },
+            icon: const Icon(Icons.arrow_back_ios),
           ),
-        );
-      },
-    );
+        ),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [],
+          ),
+        ));
   }
 }
