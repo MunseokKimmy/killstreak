@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:killstreak/model/user_service.dart';
+import 'package:killstreak/view/groups_page.dart';
 import 'package:killstreak/view/my_stats_page.dart';
 import 'package:killstreak/widgets/recent_games_carousel.dart';
 
@@ -29,8 +30,17 @@ class HomePage extends StatelessWidget {
               ),
             ),
             const RecentGamesCarousel(),
-            const MyGroupsButton(),
-            const MyStatsButton(),
+            Padding(
+              padding: const EdgeInsets.only(top: 10.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: const [
+                  MyGroupsButton(),
+                  MyStatsButton(),
+                ],
+              ),
+            ),
           ],
         ),
       ),
@@ -43,28 +53,30 @@ class MyStatsButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      child: Container(
-        decoration: BoxDecoration(
-          border: Border.all(color: Colors.white),
-          borderRadius: BorderRadius.circular(15.0),
-        ),
-        child: Column(
-          children: [
-            Image.asset('resources/images/net.png'),
-            const Text("My Stats"),
-          ],
-        ),
-      ),
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const MyStatsPage(),
+    return OutlinedButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const MyStatsPage(),
+            ),
+          );
+        },
+        child: SizedBox(
+          width: MediaQuery.of(context).size.width / 4,
+          height: MediaQuery.of(context).size.width / 3,
+          child: Container(
+            padding: const EdgeInsets.all(10.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset('resources/images/net.png'),
+                const Text("My Stats"),
+              ],
+            ),
           ),
-        );
-      },
-    );
+        ));
   }
 }
 
@@ -73,6 +85,33 @@ class MyGroupsButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return OutlinedButton(
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const GroupPage(),
+          ),
+        );
+      },
+      child: SizedBox(
+        width: MediaQuery.of(context).size.width / 4,
+        height: MediaQuery.of(context).size.width / 3,
+        child: Container(
+          padding: const EdgeInsets.all(5.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: const [
+              Icon(
+                Icons.groups,
+                size: 48,
+              ),
+              Text("My Groups"),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
