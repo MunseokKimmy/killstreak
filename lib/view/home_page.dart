@@ -71,8 +71,15 @@ class MyStatsButton extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Image.asset('resources/images/net.png'),
-                const Text("My Stats"),
+                Image.asset(
+                  'resources/images/net.png',
+                  height: 40,
+                  width: 40,
+                ),
+                const Text(
+                  "My Stats",
+                  style: TextStyle(fontSize: 18),
+                ),
               ],
             ),
           ),
@@ -105,9 +112,12 @@ class MyGroupsButton extends StatelessWidget {
             children: const [
               Icon(
                 Icons.groups,
-                size: 48,
+                size: 40,
               ),
-              Text("My Groups"),
+              Text(
+                "My Groups",
+                style: TextStyle(fontSize: 18),
+              ),
             ],
           ),
         ),
