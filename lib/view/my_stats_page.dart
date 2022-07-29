@@ -36,8 +36,11 @@ class MyStatsPage extends StatelessWidget {
             ),
             const LifeTimeTotals(),
             Container(
-              margin: const EdgeInsets.only(top: 20.0),
-              child: const Text("Recent Games"),
+              margin: const EdgeInsets.only(top: 10.0, bottom: 10.0),
+              child: const Text(
+                "Recent Games",
+                style: TextStyle(fontSize: 28),
+              ),
             ),
             const RecentGames(),
           ],
@@ -59,9 +62,9 @@ class LifeTimeTotals extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         border: Border.all(color: Colors.white),
-        borderRadius: BorderRadius.circular(15.0),
+        borderRadius: BorderRadius.circular(5.0),
       ),
-      width: MediaQuery.of(context).size.width / 1.25,
+      width: MediaQuery.of(context).size.width / 1.15,
       margin: const EdgeInsets.only(top: 20.0),
       padding: const EdgeInsets.all(15.0),
       child: ExpansionTile(
@@ -104,13 +107,14 @@ class LifeTimeTotals extends StatelessWidget {
         textColor: Colors.white,
         children: [
           Container(
-            margin: const EdgeInsets.all(10.0),
+            margin: const EdgeInsets.only(top: 10, right: 10, left: 10),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Row(
                   children: [
                     Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: const [
                         Text("Attack Errors: "),
@@ -118,6 +122,7 @@ class LifeTimeTotals extends StatelessWidget {
                       ],
                     ),
                     Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: const [
                         Text("2"),
@@ -193,24 +198,24 @@ class _GameSummaryExpansionPanelState extends State<GameSummaryExpansionPanel> {
       Center(
         child: Container(
           margin: const EdgeInsets.all(10),
-          color: Colors.green,
+          color: Colors.white,
           child: ExpansionPanelList(
             animationDuration: const Duration(milliseconds: 500),
             children: [
               ExpansionPanel(
-                headerBuilder: (context, isExpanded) {
-                  return ListTile(
-                    title: Text(
-                      widget.game.gameName,
-                    ),
-                  );
-                },
-                body: ListTile(title: Text(widget.game.groupName)),
-                isExpanded: _expanded,
-                canTapOnHeader: true,
-              ),
+                  headerBuilder: (context, isExpanded) {
+                    return ListTile(
+                      title: Text(
+                        widget.game.gameName,
+                      ),
+                    );
+                  },
+                  body: ListTile(title: Text(widget.game.groupName)),
+                  isExpanded: _expanded,
+                  canTapOnHeader: true,
+                  backgroundColor: Color.fromRGBO(8, 51, 88, 1)),
             ],
-            dividerColor: Colors.grey,
+            dividerColor: Colors.white,
             expansionCallback: (panelIndex, isExpanded) {
               _expanded = !_expanded;
               setState(() {});
