@@ -39,6 +39,7 @@ class _RecentGamesCarouselState extends State<RecentGamesCarousel> {
       children: [
         CarouselSlider(
           options: CarouselOptions(
+            viewportFraction: .95,
             height: 200.0,
             autoPlay: false,
             autoPlayInterval: const Duration(seconds: 3),
