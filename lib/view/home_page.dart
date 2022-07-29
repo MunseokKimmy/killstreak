@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:killstreak/model/user_service.dart';
 import 'package:killstreak/view/groups_page.dart';
 import 'package:killstreak/view/my_stats_page.dart';
+import 'package:killstreak/widgets/bottom_navigation.dart';
 import 'package:killstreak/widgets/recent_games_carousel.dart';
 
 class HomePage extends StatelessWidget {
@@ -12,11 +13,9 @@ class HomePage extends StatelessWidget {
     UserService userService = UserService();
     User testUser = userService.getUser();
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          debugPrint('Floating action button');
-        },
-        child: const Icon(Icons.add),
+      appBar: AppBar(
+        title: const Text('Killstreak'),
+        automaticallyImplyLeading: false,
       ),
       body: SingleChildScrollView(
         child: Column(

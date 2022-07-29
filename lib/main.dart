@@ -5,6 +5,7 @@ import 'package:killstreak/view/home_page.dart';
 import 'package:killstreak/view/my_games_page.dart';
 import 'package:killstreak/view/profile_page.dart';
 import 'package:killstreak/view/stats_page.dart';
+import 'package:killstreak/widgets/bottom_navigation.dart';
 
 void main() {
   runApp(const MyApp());
@@ -33,7 +34,7 @@ class MyApp extends StatelessWidget {
         cardColor: baseColor,
         textTheme: Typography.whiteMountainView,
       ),
-      home: const RootPage(),
+      home: const HomePage(),
     );
   }
 }
@@ -46,50 +47,22 @@ class RootPage extends StatefulWidget {
 }
 
 class _RootPageState extends State<RootPage> {
-  int currentPage = 0;
-  List<Widget> pages = const [
-    HomePage(),
-    GamePage(),
-    ProfilePage(),
-    StatsPage(),
-    MyGamesPage(),
-  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          debugPrint('Floating action button');
+        },
+        child: const Icon(Icons.add),
+      ),
       appBar: AppBar(
         title: const Text('Killstreak'),
       ),
-      body: pages[currentPage],
-      bottomNavigationBar: BottomNavigationBar(
-        unselectedItemColor: Colors.white,
-        selectedItemColor: Colors.yellow,
-        backgroundColor: const Color(0xff001f3f),
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-              icon: Icon(
-                Icons.home,
-              ),
-              label: 'Home'),
-          BottomNavigationBarItem(
-              icon: Icon(
-                Icons.sports_volleyball,
-              ),
-              label: 'Current Game'),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
-        ],
-        onTap: (int index) {
-          setState(() {
-            // currentPage = index;
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => pages[index],
-              ),
-            );
-          });
-        },
-        currentIndex: currentPage,
+      body: const HomePage(),
+      bottomNavigationBar: BottomNavigation(
+        currentPage: 0,
+        shortcut: true,
       ),
     );
   }

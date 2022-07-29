@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:killstreak/model/game_service.dart';
 
 class MyStatsPage extends StatelessWidget {
   const MyStatsPage({Key? key}) : super(key: key);
@@ -26,10 +27,18 @@ class MyStatsPage extends StatelessWidget {
         ),
         body: SingleChildScrollView(
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
-            children: const [
-              LifeTimeTotals(),
-              RecentGames(),
+            children: [
+              const SizedBox(
+                width: double.infinity,
+              ),
+              const LifeTimeTotals(),
+              Container(
+                margin: const EdgeInsets.only(top: 20.0),
+                child: const Text("Recent Games"),
+              ),
+              const RecentGames(),
             ],
           ),
         ));
@@ -88,18 +97,121 @@ class LifeTimeTotals extends StatelessWidget {
         collapsedTextColor: Colors.white,
         textColor: Colors.white,
         children: [
-          ListTile(title: Text("asdfsad")),
+          Container(
+            margin: const EdgeInsets.all(10.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Row(
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: const [
+                        Text("Attack Errors: "),
+                        Text("Service Errors: "),
+                      ],
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: const [
+                        Text("2"),
+                        Text("2"),
+                      ],
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Column(
+                      children: const [
+                        Text("Assist Errors: "),
+                        Text("Block Errors: "),
+                      ],
+                    ),
+                    Column(
+                      children: const [
+                        Text("2"),
+                        Text("2"),
+                      ],
+                    )
+                  ],
+                )
+              ],
+            ),
+          )
         ],
       ),
     );
   }
 }
 
-class RecentGames extends StatelessWidget {
+class RecentGames extends StatefulWidget {
   const RecentGames({Key? key}) : super(key: key);
 
   @override
+  State<RecentGames> createState() => _RecentGamesState();
+}
+
+class _RecentGamesState extends State<RecentGames> {
+  @override
   Widget build(BuildContext context) {
-    return Container();
+    GameService gameService = GameService();
+    var games = gameService.getGameShorts();
+    return SizedBox(
+      height: MediaQuery.of(context).size.height / 2,
+      child: ListView.builder(
+        itemCount: 5,
+        itemBuilder: (context, index) {
+          return GameSummaryExpansionPanel(game: games[index]);
+        },
+      ),
+    );
+  }
+}
+
+class GameSummaryExpansionPanel extends StatefulWidget {
+  final GameShort game;
+  const GameSummaryExpansionPanel({Key? key, required this.game})
+      : super(key: key);
+
+  @override
+  State<GameSummaryExpansionPanel> createState() =>
+      _GameSummaryExpansionPanelState();
+}
+
+class _GameSummaryExpansionPanelState extends State<GameSummaryExpansionPanel> {
+  bool _expanded = false;
+  @override
+  Widget build(BuildContext context) {
+    return Column(children: [
+      Center(
+        child: Container(
+          margin: const EdgeInsets.all(10),
+          color: Colors.green,
+          child: ExpansionPanelList(
+            animationDuration: const Duration(milliseconds: 500),
+            children: [
+              ExpansionPanel(
+                headerBuilder: (context, isExpanded) {
+                  return ListTile(
+                    title: Text(
+                      widget.game.gameName,
+                    ),
+                  );
+                },
+                body: ListTile(title: Text(widget.game.groupName)),
+                isExpanded: _expanded,
+                canTapOnHeader: true,
+              ),
+            ],
+            dividerColor: Colors.grey,
+            expansionCallback: (panelIndex, isExpanded) {
+              _expanded = !_expanded;
+              setState(() {});
+            },
+          ),
+        ),
+      ),
+    ]);
   }
 }

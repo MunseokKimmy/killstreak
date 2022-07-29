@@ -1,0 +1,3 @@
+class LifeTimeStats {}
+
+class StatsService {}
