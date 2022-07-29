@@ -189,41 +189,56 @@ class GameCardScores extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text(teamOneName),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Expanded(
-              child: Visibility(
-                visible: teamOneServing,
-                child: const Icon(
-                  Icons.sports_volleyball,
-                  color: Colors.yellow,
-                  size: 18,
-                ),
-              ),
-            ),
-            Container(
-              padding: const EdgeInsets.all(3.0),
-              margin: const EdgeInsets.all(5),
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.white),
-                borderRadius: BorderRadius.circular(5),
-              ),
-              child: Text(
-                teamOneScore.toString(),
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: "Courier New",
-                ),
-              ),
-            ),
-            const Spacer(),
-          ],
+        Text(
+          teamOneName,
+          style: const TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+          ),
         ),
-        Text(teamTwoName),
+        Container(
+          margin: const EdgeInsets.only(bottom: 10.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Expanded(
+                child: Visibility(
+                  visible: teamOneServing,
+                  child: const Icon(
+                    Icons.sports_volleyball,
+                    color: Colors.yellow,
+                    size: 18,
+                  ),
+                ),
+              ),
+              Container(
+                padding: const EdgeInsets.all(3.0),
+                margin: const EdgeInsets.all(5),
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.white),
+                  borderRadius: BorderRadius.circular(5),
+                ),
+                child: Text(
+                  teamOneScore.toString(),
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 32,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: "Courier New",
+                  ),
+                ),
+              ),
+              const Spacer(),
+            ],
+          ),
+        ),
+        Text(
+          teamTwoName,
+          style: const TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -248,7 +263,7 @@ class GameCardScores extends StatelessWidget {
                 teamTwoScore.toString(),
                 style: const TextStyle(
                   color: Colors.white,
-                  fontSize: 24,
+                  fontSize: 32,
                   fontWeight: FontWeight.bold,
                   fontFamily: "Courier New",
                 ),

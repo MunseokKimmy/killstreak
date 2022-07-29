@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:killstreak/model/game_service.dart';
+import 'package:killstreak/widgets/bottom_navigation.dart';
 
 class MyStatsPage extends StatelessWidget {
   const MyStatsPage({Key? key}) : super(key: key);
@@ -7,41 +8,46 @@ class MyStatsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('My Stats'),
-          automaticallyImplyLeading: false,
-          actions: [
-            IconButton(
-              onPressed: () {
-                debugPrint('stats');
-              },
-              icon: const Icon(Icons.info_outline),
-            ),
-          ],
-          leading: IconButton(
+      appBar: AppBar(
+        title: const Text('My Stats'),
+        automaticallyImplyLeading: false,
+        actions: [
+          IconButton(
             onPressed: () {
-              Navigator.of(context).pop();
+              debugPrint('stats');
             },
-            icon: const Icon(Icons.arrow_back_ios),
+            icon: const Icon(Icons.info_outline),
           ),
+        ],
+        leading: IconButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          icon: const Icon(Icons.arrow_back_ios),
         ),
-        body: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const SizedBox(
-                width: double.infinity,
-              ),
-              const LifeTimeTotals(),
-              Container(
-                margin: const EdgeInsets.only(top: 20.0),
-                child: const Text("Recent Games"),
-              ),
-              const RecentGames(),
-            ],
-          ),
-        ));
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const SizedBox(
+              width: double.infinity,
+            ),
+            const LifeTimeTotals(),
+            Container(
+              margin: const EdgeInsets.only(top: 20.0),
+              child: const Text("Recent Games"),
+            ),
+            const RecentGames(),
+          ],
+        ),
+      ),
+      bottomNavigationBar: BottomNavigation(
+        currentPage: 0,
+        shortcut: false,
+      ),
+    );
   }
 }
 

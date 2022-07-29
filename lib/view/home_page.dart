@@ -43,6 +43,10 @@ class HomePage extends StatelessWidget {
           ],
         ),
       ),
+      bottomNavigationBar: BottomNavigation(
+        currentPage: 0,
+        shortcut: true,
+      ),
     );
   }
 }
