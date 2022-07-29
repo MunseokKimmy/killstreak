@@ -38,32 +38,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-class RootPage extends StatefulWidget {
-  const RootPage({Key? key}) : super(key: key);
-
-  @override
-  State<RootPage> createState() => _RootPageState();
-}
-
-class _RootPageState extends State<RootPage> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          debugPrint('Floating action button');
-        },
-        child: const Icon(Icons.add),
-      ),
-      appBar: AppBar(
-        title: const Text('Killstreak'),
-      ),
-      body: const HomePage(),
-      bottomNavigationBar: BottomNavigation(
-        currentPage: 0,
-        shortcut: true,
-      ),
-    );
-  }
-}
