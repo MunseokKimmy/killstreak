@@ -167,14 +167,22 @@ class _RecentGamesState extends State<RecentGames> {
   @override
   Widget build(BuildContext context) {
     GameService gameService = GameService();
-    var games = gameService.getGameShorts();
+    var games = gameService.getGameShorts() + gameService.getGameShorts();
     return SizedBox(
       height: MediaQuery.of(context).size.height / 2,
-      child: ListView.builder(
-        itemCount: 5,
-        itemBuilder: (context, index) {
-          return GameSummaryExpansionPanel(game: games[index]);
-        },
+      child: Container(
+        margin: const EdgeInsets.only(left: 20.0, right: 20.0),
+        child: ListView.separated(
+          itemCount: 10,
+          itemBuilder: (context, index) {
+            return GameSummaryExpansionPanel(game: games[index]);
+          },
+          separatorBuilder: (context, index) {
+            return const Divider(
+              color: Colors.white,
+            );
+          },
+        ),
       ),
     );
   }
@@ -196,31 +204,28 @@ class _GameSummaryExpansionPanelState extends State<GameSummaryExpansionPanel> {
   Widget build(BuildContext context) {
     return Column(children: [
       Center(
-        child: Container(
-          margin: const EdgeInsets.all(10),
-          color: Colors.white,
-          child: ExpansionPanelList(
-            animationDuration: const Duration(milliseconds: 500),
-            children: [
-              ExpansionPanel(
-                  headerBuilder: (context, isExpanded) {
-                    return ListTile(
-                      title: Text(
-                        widget.game.gameName,
-                      ),
-                    );
-                  },
-                  body: ListTile(title: Text(widget.game.groupName)),
-                  isExpanded: _expanded,
-                  canTapOnHeader: true,
-                  backgroundColor: Color.fromRGBO(8, 51, 88, 1)),
-            ],
-            dividerColor: Colors.white,
-            expansionCallback: (panelIndex, isExpanded) {
-              _expanded = !_expanded;
-              setState(() {});
-            },
-          ),
+        child: ExpansionPanelList(
+          animationDuration: const Duration(milliseconds: 500),
+          children: [
+            ExpansionPanel(
+              hasIcon: false,
+              headerBuilder: (context, isExpanded) {
+                return ListTile(
+                  title: Text(
+                    widget.game.gameName,
+                  ),
+                );
+              },
+              body: ListTile(title: Text(widget.game.groupName)),
+              isExpanded: _expanded,
+              canTapOnHeader: true,
+            )
+          ],
+          dividerColor: Colors.white,
+          expansionCallback: (panelIndex, isExpanded) {
+            _expanded = !_expanded;
+            setState(() {});
+          },
         ),
       ),
     ]);
