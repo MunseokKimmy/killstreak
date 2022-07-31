@@ -25,7 +25,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
     return BottomNavigationBar(
       unselectedItemColor: Colors.white,
       selectedItemColor: widget.shortcut ? Colors.yellow : Colors.white,
-      backgroundColor: const Color(0xff001f3f),
+      backgroundColor: const Color.fromRGBO(8, 51, 88, 1),
       items: const <BottomNavigationBarItem>[
         BottomNavigationBarItem(
             icon: Icon(
