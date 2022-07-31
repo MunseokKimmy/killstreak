@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:killstreak/model/game_service.dart';
+import 'package:killstreak/model/stats_service.dart';
 import 'package:killstreak/widgets/bottom_navigation.dart';
 
 class MyStatsPage extends StatelessWidget {
@@ -68,10 +69,18 @@ class _RecentGamesState extends State<RecentGames> {
         gameService.getGameShorts() +
         gameService.getGameShorts() +
         gameService.getGameShorts();
+    StatsService statsService = StatsService();
+    var playerGameStats = statsService.getPlayerGameStats() +
+        statsService.getPlayerGameStats() +
+        statsService.getPlayerGameStats() +
+        statsService.getPlayerGameStats();
     return ListView.separated(
       itemCount: 20,
       itemBuilder: (context, index) {
-        return GameSummaryExpansionPanel(game: games[index]);
+        return GameSummaryExpansionPanel(
+          game: games[index],
+          playerStats: playerGameStats[index],
+        );
       },
       separatorBuilder: (context, index) {
         return const Divider(
@@ -84,7 +93,9 @@ class _RecentGamesState extends State<RecentGames> {
 
 class GameSummaryExpansionPanel extends StatefulWidget {
   final GameShort game;
-  const GameSummaryExpansionPanel({Key? key, required this.game})
+  final PlayerGameStats playerStats;
+  const GameSummaryExpansionPanel(
+      {Key? key, required this.game, required this.playerStats})
       : super(key: key);
 
   @override
@@ -106,7 +117,9 @@ class _GameSummaryExpansionPanelState extends State<GameSummaryExpansionPanel> {
               headerBuilder: (context, isExpanded) {
                 return RecentGameTileHeader(game: widget.game);
               },
-              body: ListTile(title: Text(widget.game.groupName)),
+              body: PlayerStatsTileFooter(
+                playerGameStats: widget.playerStats,
+              ),
               isExpanded: _expanded,
               canTapOnHeader: true,
             )
@@ -119,6 +132,89 @@ class _GameSummaryExpansionPanelState extends State<GameSummaryExpansionPanel> {
         ),
       ),
     ]);
+  }
+}
+
+class PlayerStatsTileFooter extends StatefulWidget {
+  PlayerGameStats playerGameStats;
+  PlayerStatsTileFooter({Key? key, required this.playerGameStats})
+      : super(key: key);
+
+  @override
+  State<PlayerStatsTileFooter> createState() => _PlayerStatsTileFooterState();
+}
+
+class _PlayerStatsTileFooterState extends State<PlayerStatsTileFooter> {
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Expanded(
+          flex: 1,
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: const [
+                      Text("Ace"),
+                      Text("Kills"),
+                      Text("Assists"),
+                      Text("Blocks"),
+                      Text("Digs"),
+                    ],
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(widget.playerGameStats.aces.toString()),
+                      Text(widget.playerGameStats.kills.toString()),
+                      Text(widget.playerGameStats.assists.toString()),
+                      Text(widget.playerGameStats.blocks.toString()),
+                      Text(widget.playerGameStats.digs.toString()),
+                    ],
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+        Expanded(
+          flex: 1,
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: const [
+                      Text("Service Errors"),
+                      Text("Reception Errors"),
+                      Text("Block Errors"),
+                      Text("Ball Handling Errors"),
+                    ],
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(widget.playerGameStats.serviceErrors.toString()),
+                      Text(widget.playerGameStats.receptionErrors.toString()),
+                      Text(widget.playerGameStats.blockErrors.toString()),
+                      Text(
+                          widget.playerGameStats.ballHandlingErrors.toString()),
+                    ],
+                  )
+                ],
+              )
+            ],
+          ),
+        ),
+      ],
+    );
   }
 }
 
