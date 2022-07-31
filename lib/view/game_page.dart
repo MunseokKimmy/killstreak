@@ -31,8 +31,8 @@ class GamePage extends StatelessWidget {
         ),
       ),
       bottomNavigationBar: BottomNavigation(
-        currentPage: 0,
-        shortcut: false,
+        currentPage: 1,
+        shortcut: true,
       ),
     );
   }

@@ -80,8 +80,8 @@ class MyStatsButton extends StatelessWidget {
                   width: 40,
                 ),
                 const Text(
-                  "My Stats",
-                  style: TextStyle(fontSize: 18),
+                  "My Games",
+                  style: TextStyle(fontSize: 17),
                 ),
               ],
             ),
@@ -119,7 +119,7 @@ class MyGroupsButton extends StatelessWidget {
               ),
               Text(
                 "My Groups",
-                style: TextStyle(fontSize: 18),
+                style: TextStyle(fontSize: 17),
               ),
             ],
           ),

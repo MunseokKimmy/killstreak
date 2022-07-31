@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../widgets/bottom_navigation.dart';
+
 const Color color = Color(0xff001f3f);
 
 class ProfilePage extends StatelessWidget {
@@ -7,31 +9,36 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('My Profile'),
-          automaticallyImplyLeading: false,
-          actions: [
-            IconButton(
-              onPressed: () {
-                debugPrint('stats');
-              },
-              icon: const Icon(Icons.info_outline),
-            ),
-          ],
-          leading: IconButton(
+      appBar: AppBar(
+        title: const Text('My Profile'),
+        automaticallyImplyLeading: false,
+        actions: [
+          IconButton(
             onPressed: () {
-              Navigator.of(context).pop();
+              debugPrint('stats');
             },
-            icon: const Icon(Icons.arrow_back_ios),
+            icon: const Icon(Icons.info_outline),
           ),
+        ],
+        leading: IconButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          icon: const Icon(Icons.arrow_back_ios),
         ),
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              const LifeTimeTotals(),
-            ],
-          ),
-        ));
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            const LifeTimeTotals(),
+          ],
+        ),
+      ),
+      bottomNavigationBar: BottomNavigation(
+        currentPage: 2,
+        shortcut: true,
+      ),
+    );
   }
 }
 
