@@ -66,6 +66,7 @@ class RecentGames extends StatefulWidget {
 }
 
 class _RecentGamesState extends State<RecentGames> {
+  final ScrollController _firstController = ScrollController();
   @override
   Widget build(BuildContext context) {
     GameService gameService = GameService();
@@ -78,19 +79,23 @@ class _RecentGamesState extends State<RecentGames> {
         statsService.getPlayerGameStats() +
         statsService.getPlayerGameStats() +
         statsService.getPlayerGameStats();
-    return ListView.separated(
-      itemCount: 20,
-      itemBuilder: (context, index) {
-        return GameSummaryExpansionPanel(
-          game: games[index],
-          playerStats: playerGameStats[index],
-        );
-      },
-      separatorBuilder: (context, index) {
-        return const Divider(
-          color: Colors.white,
-        );
-      },
+    return Scrollbar(
+      thumbVisibility: true,
+      controller: _firstController,
+      child: ListView.separated(
+        itemCount: 20,
+        itemBuilder: (context, index) {
+          return GameSummaryExpansionPanel(
+            game: games[index],
+            playerStats: playerGameStats[index],
+          );
+        },
+        separatorBuilder: (context, index) {
+          return const Divider(
+            color: Colors.white,
+          );
+        },
+      ),
     );
   }
 }
