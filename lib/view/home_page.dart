@@ -100,7 +100,7 @@ class MyGroupsButton extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => const GroupPage(),
+            builder: (context) => const GroupsPage(),
           ),
         );
       },

@@ -83,6 +83,7 @@ class _RecentGamesState extends State<RecentGames> {
       thumbVisibility: true,
       controller: _firstController,
       child: ListView.separated(
+        controller: _firstController,
         itemCount: 20,
         itemBuilder: (context, index) {
           return GameSummaryExpansionPanel(
