@@ -329,6 +329,5 @@ class _RecentGameTileHeaderState extends State<RecentGameTileHeader> {
         )
       ],
     );
-    ;
   }
 }

@@ -183,8 +183,12 @@ class _GroupSummaryPanelState extends State<GroupSummaryPanel> {
         color: Colors.white,
       ),
       onTap: () {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => const GroupPage()));
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => GroupPage(
+                      group: widget.group,
+                    )));
       },
     );
   }

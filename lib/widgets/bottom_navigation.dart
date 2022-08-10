@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:killstreak/main.dart';
 import 'package:killstreak/view/game_page.dart';
 import 'package:killstreak/view/home_page.dart';
 import 'package:killstreak/view/profile_page.dart';
@@ -25,7 +26,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
     return BottomNavigationBar(
       unselectedItemColor: Colors.white,
       selectedItemColor: widget.shortcut ? Colors.yellow : Colors.white,
-      backgroundColor: const Color.fromRGBO(8, 51, 88, 1),
+      backgroundColor: baseColor,
       items: const <BottomNavigationBarItem>[
         BottomNavigationBarItem(
             icon: Icon(
