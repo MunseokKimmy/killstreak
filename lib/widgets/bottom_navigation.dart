@@ -26,7 +26,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
     return BottomNavigationBar(
       unselectedItemColor: Colors.white,
       selectedItemColor: widget.shortcut ? Colors.yellow : Colors.white,
-      backgroundColor: baseColor,
+      backgroundColor: accentColor,
       items: const <BottomNavigationBarItem>[
         BottomNavigationBarItem(
             icon: Icon(
@@ -37,7 +37,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
             icon: Icon(
               Icons.sports_volleyball,
             ),
-            label: 'Current Game'),
+            label: 'Game'),
         BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
       ],
       onTap: (int index) {

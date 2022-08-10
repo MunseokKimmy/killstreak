@@ -176,8 +176,8 @@ class _GroupSummaryPanelState extends State<GroupSummaryPanel> {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      title: Text(widget.group.groupName),
-      subtitle: Text(widget.group.groupId),
+      title: Text(widget.group.groupName, style: TextStyle(fontSize: 20)),
+      subtitle: Text(widget.group.groupId, style: TextStyle(fontSize: 18)),
       leading: const Icon(
         Icons.group_outlined,
         color: Colors.white,

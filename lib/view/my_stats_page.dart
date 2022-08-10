@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:killstreak/main.dart';
 import 'package:killstreak/model/game_service.dart';
 import 'package:killstreak/model/stats_service.dart';
 import 'package:killstreak/widgets/bottom_navigation.dart';
@@ -267,9 +268,7 @@ class _RecentGameTileHeaderState extends State<RecentGameTileHeader> {
         Expanded(
           flex: 1,
           child: Container(
-            color: widget.game.onTeamOne
-                ? const Color.fromRGBO(8, 51, 88, 1)
-                : null,
+            color: widget.game.onTeamOne ? accentColor : null,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
