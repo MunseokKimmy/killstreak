@@ -45,11 +45,15 @@ class GroupPage extends StatelessWidget {
             ),
             SizedBox(
               child: Card(
-                child: Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.white),
-                    //borderRadius: BorderRadius.circular(15.0),
-                  ),
+                child: OutlinedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => GroupsStatsPage(group: group),
+                      ),
+                    );
+                  },
                   child: Column(
                     children: [
                       Container(
@@ -205,29 +209,21 @@ class GroupPage extends StatelessWidget {
                       ),
                       Container(
                         margin: const EdgeInsets.only(top: 0.0),
-                        child: OutlinedButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    GroupsStatsPage(group: group),
+                        child: Container(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: const [
+                              Icon(
+                                Icons.bar_chart,
+                                color: Colors.white,
                               ),
-                            );
-                          },
-                          child: Container(
-                            padding: const EdgeInsets.all(10.0),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: const [
-                                Icon(Icons.bar_chart),
-                                Text(
-                                  "View All Group Stats",
-                                  style: TextStyle(fontSize: 17),
-                                ),
-                              ],
-                            ),
+                              Text(
+                                "View All Group Stats",
+                                style: TextStyle(fontSize: 17),
+                              ),
+                            ],
                           ),
                         ),
                       ),
