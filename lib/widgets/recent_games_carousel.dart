@@ -106,7 +106,7 @@ class GameCard extends StatelessWidget {
       },
       child: Container(
         decoration: BoxDecoration(
-          color: accentColor,
+          color: lightColor,
           borderRadius: BorderRadius.circular(10.0),
           boxShadow: const [
             BoxShadow(

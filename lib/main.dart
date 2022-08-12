@@ -8,6 +8,7 @@ void main() {
 
 const Color baseColor = Color(0xff001f3f);
 const Color accentColor = Color.fromRGBO(8, 51, 88, 1);
+const Color lightColor = Color.fromRGBO(5, 63, 94, 1);
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
