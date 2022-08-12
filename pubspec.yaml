@@ -63,6 +63,10 @@ flutter:
   assets:
     - resources/images/poses.jpg
     - resources/images/net.png
+    - resources/images/AssistIcon.png
+    - resources/images/DigIcon.png
+    - resources/images/KillIcon.png
+    - resources/images/ServiceIcon.png
   #   - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

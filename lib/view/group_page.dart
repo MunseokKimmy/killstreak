@@ -40,8 +40,9 @@ class GroupPage extends StatelessWidget {
               style: TextStyle(fontSize: 24),
             ),
             Container(
-                margin: EdgeInsets.only(bottom: 10.0),
-                child: Text(DateFormat("MMMM dd yyyy").format(DateTime.now()))),
+              margin: EdgeInsets.only(bottom: 10.0),
+              child: Text(DateFormat("MMMM dd yyyy").format(DateTime.now())),
+            ),
             SizedBox(
               child: Card(
                 child: Container(
@@ -203,13 +204,14 @@ class GroupPage extends StatelessWidget {
                         ],
                       ),
                       Container(
-                        margin: const EdgeInsets.only(top: 10.0),
+                        margin: const EdgeInsets.only(top: 0.0),
                         child: OutlinedButton(
                           onPressed: () {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => const GroupsStatsPage(),
+                                builder: (context) =>
+                                    GroupsStatsPage(group: group),
                               ),
                             );
                           },

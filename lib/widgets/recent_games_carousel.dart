@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_options.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:killstreak/main.dart';
 
 import '../model/game_service.dart';
 import '../view/game_page.dart';
@@ -39,7 +40,7 @@ class _RecentGamesCarouselState extends State<RecentGamesCarousel> {
       children: [
         CarouselSlider(
           options: CarouselOptions(
-            viewportFraction: .95,
+            viewportFraction: .90,
             height: 200.0,
             autoPlay: false,
             autoPlayInterval: const Duration(seconds: 3),
@@ -57,7 +58,7 @@ class _RecentGamesCarouselState extends State<RecentGamesCarousel> {
             return Builder(builder: (BuildContext context) {
               return SizedBox(
                 height: MediaQuery.of(context).size.height * 0.30,
-                width: MediaQuery.of(context).size.width,
+                width: MediaQuery.of(context).size.width * .9,
                 child: Card(
                   child: card,
                 ),
@@ -105,15 +106,23 @@ class GameCard extends StatelessWidget {
       },
       child: Container(
         decoration: BoxDecoration(
-          border: Border.all(color: Colors.white),
-          borderRadius: BorderRadius.circular(15.0),
+          color: accentColor,
+          borderRadius: BorderRadius.circular(10.0),
+          boxShadow: const [
+            BoxShadow(
+              color: Colors.black,
+              blurRadius: 2.0,
+              spreadRadius: 0.0,
+              offset: Offset(2.0, 2.0), // shadow direction: bottom right
+            )
+          ],
         ),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Expanded(
               flex: 2,
-              child: Center(
+              child: Padding(
+                padding: const EdgeInsets.only(left: 30),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -127,7 +136,7 @@ class GameCard extends StatelessWidget {
                             game.groupName,
                             style: const TextStyle(
                                 color: Colors.grey,
-                                fontSize: 14,
+                                fontSize: 16,
                                 fontWeight: FontWeight.bold),
                           ),
                           Text(
@@ -136,7 +145,7 @@ class GameCard extends StatelessWidget {
                                 : "${game.gameName} \n(Ongoing)",
                             style: const TextStyle(
                                 color: Colors.white,
-                                fontSize: 18,
+                                fontSize: 20,
                                 fontWeight: FontWeight.bold),
                           ),
                         ],
@@ -145,7 +154,12 @@ class GameCard extends StatelessWidget {
                     Expanded(
                       flex: 1,
                       child: Column(
-                        children: [Text(game.gameDate)],
+                        children: [
+                          Text(
+                            game.gameDate,
+                            style: TextStyle(fontSize: 16),
+                          )
+                        ],
                       ),
                     )
                   ],
