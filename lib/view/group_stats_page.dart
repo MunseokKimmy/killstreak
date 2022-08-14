@@ -55,7 +55,6 @@ class GroupsStatsPage extends StatelessWidget {
               // GroupStatSummary(
               //   groupStatsSummary: groupService.getSummary(),
               // ),
-              Text("asdfasdf"),
             ]),
       ),
       bottomNavigationBar: BottomNavigation(currentPage: 0, shortcut: false),
@@ -165,6 +164,7 @@ class _StatLeaderCarouselState extends State<StatLeaderCarousel> {
             });
           }).toList(),
         ),
+        Text(cardList[_currentIndex].getStatName),
       ],
     );
   }
@@ -176,6 +176,27 @@ class StatLeaderCard extends StatefulWidget {
   String statName;
   int statLeaderCount;
   Image statImage;
+  get getStatLeaderName => statLeaderName;
+
+  set setStatLeaderName(statLeaderName) => this.statLeaderName = statLeaderName;
+
+  get getStatLeaderUsername => statLeaderUsername;
+
+  set setStatLeaderUsername(statLeaderUsername) =>
+      this.statLeaderUsername = statLeaderUsername;
+
+  get getStatName => statName;
+
+  set setStatName(statName) => this.statName = statName;
+
+  get getStatLeaderCount => statLeaderCount;
+
+  set setStatLeaderCount(statLeaderCount) =>
+      this.statLeaderCount = statLeaderCount;
+
+  get getStatImage => statImage;
+
+  set setStatImage(statImage) => this.statImage = statImage;
   StatLeaderCard(
       {Key? key,
       required this.statLeaderName,
@@ -215,30 +236,34 @@ class _StatLeaderCardState extends State<StatLeaderCard> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Expanded(child: widget.statImage, flex: 3),
+              Expanded(child: widget.statImage, flex: 1),
               Expanded(
                 flex: 1,
-                child: Text(
-                  widget.statName,
-                  style: TextStyle(color: Colors.white, fontSize: 24),
-                ),
-              ),
-              Expanded(
-                flex: 1,
-                child: Text(
-                  widget.statLeaderName,
-                  style: TextStyle(
-                      fontSize: 20, color: Color.fromARGB(255, 208, 208, 208)),
-                ),
-              ),
-              Expanded(
-                flex: 1,
-                child: Text(
-                  widget.statLeaderCount.toString(),
-                  style: TextStyle(
-                      color: Colors.yellow,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 24),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      child: Text(
+                        widget.statName,
+                        style: TextStyle(color: Colors.white, fontSize: 24),
+                      ),
+                    ),
+                    Text(
+                      widget.statLeaderName,
+                      style: TextStyle(
+                          fontSize: 20,
+                          color: Color.fromARGB(255, 208, 208, 208)),
+                    ),
+                    Expanded(
+                      child: Text(
+                        widget.statLeaderCount.toString(),
+                        style: TextStyle(
+                            color: Colors.yellow,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 24),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ],

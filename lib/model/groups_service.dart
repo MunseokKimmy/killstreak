@@ -1,7 +1,19 @@
+import 'package:killstreak/enums/stat_enum.dart';
+
 class Group {
   String groupName;
   String groupId;
   Group(this.groupName, this.groupId);
+}
+
+class GroupStatLeaders {
+  String groupName;
+  String groupId;
+  StatType statType;
+  List<String> topTenNames;
+  List<int> topTenCounts;
+  GroupStatLeaders(this.groupName, this.groupId, this.statType,
+      this.topTenNames, this.topTenCounts);
 }
 
 class GroupStatsSummary {
@@ -47,30 +59,10 @@ class GroupStatsSummary {
 class GroupService {
   List<Group> testGroups = [];
   late GroupStatsSummary groupStatsSummary;
+  List<GroupStatLeaders> statLeaders = [];
   GroupService() {
-    testGroups.add(Group("Aldair's Volleyball Group", "#6424"));
-    testGroups.add(Group("RB", "#4211"));
-    testGroups.add(Group("BYU Intermurals", "#9412"));
-    testGroups.add(Group("47th Ward", "#8080"));
-    groupStatsSummary = GroupStatsSummary(
-        "Aldair's Volleyball Group",
-        "#6424",
-        725,
-        "Lydia",
-        "@lydia123",
-        162,
-        "Sara",
-        "@saradavis321",
-        80,
-        "Mariah",
-        "@mariahhh",
-        67,
-        "Jason",
-        "@therealjason",
-        40,
-        "Alma",
-        "@almaseo",
-        100);
+    testGroups = getFakeGroups();
+    groupStatsSummary = getFakeSummary();
   }
 
   List<Group> getGroups() {
@@ -80,4 +72,66 @@ class GroupService {
   GroupStatsSummary getSummary() {
     return groupStatsSummary;
   }
+}
+
+List<Group> getFakeGroups() {
+  List<Group> testGroups = [];
+  testGroups.add(Group("Aldair's Volleyball Group", "#6424"));
+  testGroups.add(Group("RB", "#4211"));
+  testGroups.add(Group("BYU Intermurals", "#9412"));
+  testGroups.add(Group("47th Ward", "#8080"));
+  return testGroups;
+}
+
+GroupStatsSummary getFakeSummary() {
+  return GroupStatsSummary(
+      "Aldair's Volleyball Group",
+      "#6424",
+      725,
+      "Lydia",
+      "@lydia123",
+      162,
+      "Sara",
+      "@saradavis321",
+      80,
+      "Mariah",
+      "@mariahhh",
+      67,
+      "Jason",
+      "@therealjason",
+      40,
+      "Alma",
+      "@almaseo",
+      100);
+}
+
+List<GroupStatLeaders> getAllFakeStatLeaders() {
+  List<GroupStatLeaders> testAllStats = [];
+  testAllStats.add(getFakeStatLeaders(StatType.Ace));
+  testAllStats.add(getFakeStatLeaders(StatType.Kills));
+  testAllStats.add(getFakeStatLeaders(StatType.Assists));
+  testAllStats.add(getFakeStatLeaders(StatType.Blocks));
+  testAllStats.add(getFakeStatLeaders(StatType.Digs));
+  return testAllStats;
+}
+
+GroupStatLeaders getFakeStatLeaders(StatType statType) {
+  List<String> names = [
+    "Aldair",
+    "Allie",
+    "Alma",
+    "Jaxon",
+    "Jason",
+    "Mariah",
+    "Lauren",
+    "Sara",
+    "Cierra",
+    "Lydia",
+    "Jessie"
+  ];
+  names.shuffle();
+  List<int> counts = [180, 176, 160, 155, 144, 139, 137, 130, 122, 119];
+  GroupStatLeaders testStatLeaders = GroupStatLeaders(
+      "Aldair's Volleyball Group", "#6424", statType, names, counts);
+  return testStatLeaders;
 }
