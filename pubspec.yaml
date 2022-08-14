@@ -67,6 +67,12 @@ flutter:
     - resources/images/DigIcon.png
     - resources/images/KillIcon.png
     - resources/images/ServiceIcon.png
+    - resources/images/Service.png
+    - resources/images/ServiceColor.png
+    - resources/images/AssistColor.png
+    - resources/images/AttackColor.png
+    - resources/images/DigColor.png
+    - resources/images/BlockColor.png
   #   - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
