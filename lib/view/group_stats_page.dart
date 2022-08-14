@@ -19,7 +19,6 @@ class GroupsStatsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    GroupService groupService = GroupService();
     return Scaffold(
       appBar: AppBar(
         title: const Text('Group Stats'),
@@ -37,40 +36,127 @@ class GroupsStatsPage extends StatelessWidget {
           icon: const Icon(Icons.arrow_back_ios),
         ),
       ),
-      body: Container(
-        margin: const EdgeInsets.all(25),
-        child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                group.groupName,
-                style: const TextStyle(fontSize: 20),
-              ),
-              Container(
-                margin: const EdgeInsets.only(bottom: 20.0),
-                child: Text(DateFormat("MMMM dd yyyy").format(DateTime.now())),
-              ),
-              StatLeaderCarousel(),
-              // GroupStatSummary(
-              //   groupStatsSummary: groupService.getSummary(),
-              // ),
-            ]),
+      body: GroupStatsContent(
+        group: group,
       ),
       bottomNavigationBar: BottomNavigation(currentPage: 0, shortcut: false),
     );
   }
 }
 
+class GroupStatsContent extends StatefulWidget {
+  Group group;
+  GroupStatsContent({Key? key, required this.group}) : super(key: key);
+
+  @override
+  State<GroupStatsContent> createState() => _GroupStatsContentState();
+}
+
+class _GroupStatsContentState extends State<GroupStatsContent> {
+  int _currentIndex = 0;
+  final ScrollController _firstController = ScrollController();
+
+  @override
+  Widget build(BuildContext context) {
+    GroupService groupService = GroupService();
+    List<GroupStatLeaders> leaders = groupService.getStatLeaders;
+    List cardList = buildStatLeaderCards(groupService);
+
+    return Container(
+      margin: const EdgeInsets.all(25),
+      child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              widget.group.groupName,
+              style: const TextStyle(fontSize: 20),
+            ),
+            Container(
+              margin: const EdgeInsets.only(bottom: 20.0),
+              child: Text(DateFormat("MMMM dd yyyy").format(DateTime.now())),
+            ),
+            StatLeaderCarousel(
+              groupStatLeaders: groupService.statLeaders,
+              cardList: cardList,
+              onIndexChanged: (int index) {
+                setState(() {
+                  _currentIndex = index;
+                });
+              },
+            ),
+            Text(
+              cardList[_currentIndex].getStatName,
+              style: TextStyle(fontSize: 24),
+            ),
+            Expanded(
+              child: SizedBox(
+                  height: MediaQuery.of(context).size.height / 2,
+                  child: Scrollbar(
+                    thumbVisibility: true,
+                    controller: _firstController,
+                    child: ListView.separated(
+                      controller: _firstController,
+                      itemCount: 10,
+                      itemBuilder: (context, index) {
+                        return ListTile(
+                          leading: CircleAvatar(
+                            backgroundColor: Color.fromARGB(255, 228, 137, 1),
+                            child: Text(
+                              getInitials(
+                                  leaders[_currentIndex].topNames[index]),
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.white),
+                            ),
+                          ),
+                          title: Text(
+                            leaders.isNotEmpty
+                                ? leaders[_currentIndex].topNames[index]
+                                : '',
+                            style: TextStyle(fontSize: 20),
+                          ),
+                          trailing: Text(
+                              leaders[_currentIndex]
+                                  .topCounts[index]
+                                  .toString(),
+                              style: const TextStyle(
+                                  color: Colors.green,
+                                  fontSize: 28,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: "Courier New")),
+                        );
+                      },
+                      separatorBuilder: (context, index) {
+                        return const Divider(
+                          color: Colors.white,
+                        );
+                      },
+                    ),
+                  )),
+            ),
+          ]),
+    );
+  }
+}
+
 class StatLeaderCarousel extends StatefulWidget {
-  StatLeaderCarousel({Key? key}) : super(key: key);
+  List<GroupStatLeaders> groupStatLeaders;
+  List cardList;
+  final Function(int) onIndexChanged;
+  StatLeaderCarousel(
+      {Key? key,
+      required this.groupStatLeaders,
+      required this.cardList,
+      required this.onIndexChanged})
+      : super(key: key);
   @override
   State<StatLeaderCarousel> createState() => _StatLeaderCarouselState();
 }
 
 class _StatLeaderCarouselState extends State<StatLeaderCarousel> {
   int _currentIndex = 0;
-  List cardList = [];
+
   List<T> map<T>(List list, Function handler) {
     List<T> result = [];
     for (var i = 0; i < list.length; i++) {
@@ -81,60 +167,6 @@ class _StatLeaderCarouselState extends State<StatLeaderCarousel> {
 
   @override
   Widget build(BuildContext context) {
-    GroupService groupService = GroupService();
-    GroupStatsSummary statSummary = groupService.getSummary();
-    cardList = [
-      StatLeaderCard(
-        statLeaderName: statSummary.topAceName,
-        statLeaderUsername: statSummary.topAceUserName,
-        statName: "Ace",
-        statLeaderCount: statSummary.topAceAmount,
-        statImage: Image.asset(
-          'resources/images/ServiceColor.png',
-          height: 45,
-        ),
-      ),
-      StatLeaderCard(
-        statLeaderName: statSummary.topKillName,
-        statLeaderUsername: statSummary.topKillUserName,
-        statName: "Kills",
-        statLeaderCount: statSummary.topKillAmount,
-        statImage: Image.asset(
-          'resources/images/AttackColor.png',
-          height: 45,
-        ),
-      ),
-      StatLeaderCard(
-        statLeaderName: statSummary.topAssistName,
-        statLeaderUsername: statSummary.topAssistUserName,
-        statName: "Assists",
-        statLeaderCount: statSummary.topAssistAmount,
-        statImage: Image.asset(
-          'resources/images/AssistColor.png',
-          height: 45,
-        ),
-      ),
-      StatLeaderCard(
-        statLeaderName: statSummary.topBlockName,
-        statLeaderUsername: statSummary.topBlockUserName,
-        statName: "Blocks",
-        statLeaderCount: statSummary.topBlockAmount,
-        statImage: Image.asset(
-          'resources/images/BlockColor.png',
-          height: 45,
-        ),
-      ),
-      StatLeaderCard(
-        statLeaderName: statSummary.topDigName,
-        statLeaderUsername: statSummary.topDigUserName,
-        statName: "Digs",
-        statLeaderCount: statSummary.topDigAmount,
-        statImage: Image.asset(
-          'resources/images/DigColor.png',
-          height: 45,
-        ),
-      ),
-    ];
     return Column(
       children: [
         CarouselSlider(
@@ -152,10 +184,11 @@ class _StatLeaderCarouselState extends State<StatLeaderCarousel> {
             onPageChanged: (index, reason) {
               setState(() {
                 _currentIndex = index;
+                widget.onIndexChanged(index);
               });
             },
           ),
-          items: cardList.map((card) {
+          items: widget.cardList.map((card) {
             return Builder(builder: (BuildContext context) {
               return SizedBox(
                 width: MediaQuery.of(context).size.width,
@@ -164,7 +197,6 @@ class _StatLeaderCarouselState extends State<StatLeaderCarousel> {
             });
           }).toList(),
         ),
-        Text(cardList[_currentIndex].getStatName),
       ],
     );
   }
@@ -250,17 +282,18 @@ class _StatLeaderCardState extends State<StatLeaderCard> {
                     ),
                     Text(
                       widget.statLeaderName,
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontSize: 20,
                           color: Color.fromARGB(255, 208, 208, 208)),
                     ),
                     Expanded(
                       child: Text(
                         widget.statLeaderCount.toString(),
-                        style: TextStyle(
+                        style: const TextStyle(
                             color: Colors.yellow,
+                            fontFamily: "Courier New",
                             fontWeight: FontWeight.bold,
-                            fontSize: 24),
+                            fontSize: 26),
                       ),
                     ),
                   ],
@@ -272,94 +305,59 @@ class _StatLeaderCardState extends State<StatLeaderCard> {
   }
 }
 
-class GroupStatSummary extends StatefulWidget {
-  GroupStatsSummary groupStatsSummary;
-  GroupStatSummary({Key? key, required this.groupStatsSummary})
-      : super(key: key);
-
-  @override
-  State<GroupStatSummary> createState() => _GroupStatSummaryState();
-}
-
-class _GroupStatSummaryState extends State<GroupStatSummary> {
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        ListTile(
-          title: const Text(
-            "Games Played",
-            style: TextStyle(fontSize: 20),
-          ),
-          trailing: Text(widget.groupStatsSummary.gamesPlayed.toString(),
-              style: const TextStyle(fontSize: 20)),
-        ),
-        Divider(
-          color: Colors.white,
-          thickness: 1,
-        ),
-        ListTile(
-          leading: Image.asset(
-            'resources/images/ServiceIcon.png',
-            height: 40,
-            width: 40,
-          ),
-          title: const Text("Ace", style: TextStyle(fontSize: 20)),
-          trailing: Text(
-              widget.groupStatsSummary.topAceName +
-                  " - " +
-                  widget.groupStatsSummary.topAceAmount.toString(),
-              style: const TextStyle(fontSize: 20)),
-        ),
-        Divider(
-          color: Colors.white,
-          thickness: 1,
-        ),
-        ListTile(
-          title: Text(
-            widget.groupStatsSummary.topKillName,
-            style: TextStyle(fontSize: 20),
-          ),
-          subtitle: const Text("Kill", style: TextStyle(fontSize: 20)),
-          trailing: Text(widget.groupStatsSummary.topKillAmount.toString(),
-              style: const TextStyle(fontSize: 20)),
-        ),
-        Divider(
-          color: Colors.white,
-          thickness: 1,
-        ),
-        ListTile(
-          title: const Text("Assist", style: TextStyle(fontSize: 20)),
-          trailing: Text(
-              widget.groupStatsSummary.topAssistName +
-                  " - " +
-                  widget.groupStatsSummary.topAssistAmount.toString(),
-              style: const TextStyle(fontSize: 20)),
-        ),
-        Divider(
-          color: Colors.white,
-          thickness: 1,
-        ),
-        ListTile(
-          title: const Text("Digs", style: TextStyle(fontSize: 20)),
-          subtitle: Text(
-            widget.groupStatsSummary.topDigName,
-            style: TextStyle(fontSize: 20),
-          ),
-          trailing: Text(widget.groupStatsSummary.topDigAmount.toString(),
-              style: const TextStyle(fontSize: 20)),
-        ),
-        Divider(
-          color: Colors.white,
-          thickness: 1,
-        ),
-        ListTile(
-          title: Text("Blocks - " + widget.groupStatsSummary.topBlockName,
-              style: TextStyle(fontSize: 20)),
-          trailing: Text(widget.groupStatsSummary.topBlockAmount.toString(),
-              style: const TextStyle(fontSize: 20)),
-        ),
-      ],
-    );
-  }
+List<StatLeaderCard> buildStatLeaderCards(GroupService groupService) {
+  GroupStatsSummary statSummary = groupService.getSummary();
+  List<StatLeaderCard> cards = [
+    StatLeaderCard(
+      statLeaderName: statSummary.topAceName,
+      statLeaderUsername: statSummary.topAceUserName,
+      statName: "Ace",
+      statLeaderCount: statSummary.topAceAmount,
+      statImage: Image.asset(
+        'resources/images/ServiceColor.png',
+        height: 45,
+      ),
+    ),
+    StatLeaderCard(
+      statLeaderName: statSummary.topKillName,
+      statLeaderUsername: statSummary.topKillUserName,
+      statName: "Kills",
+      statLeaderCount: statSummary.topKillAmount,
+      statImage: Image.asset(
+        'resources/images/AttackColor.png',
+        height: 45,
+      ),
+    ),
+    StatLeaderCard(
+      statLeaderName: statSummary.topAssistName,
+      statLeaderUsername: statSummary.topAssistUserName,
+      statName: "Assists",
+      statLeaderCount: statSummary.topAssistAmount,
+      statImage: Image.asset(
+        'resources/images/AssistColor.png',
+        height: 45,
+      ),
+    ),
+    StatLeaderCard(
+      statLeaderName: statSummary.topBlockName,
+      statLeaderUsername: statSummary.topBlockUserName,
+      statName: "Blocks",
+      statLeaderCount: statSummary.topBlockAmount,
+      statImage: Image.asset(
+        'resources/images/BlockColor.png',
+        height: 45,
+      ),
+    ),
+    StatLeaderCard(
+      statLeaderName: statSummary.topDigName,
+      statLeaderUsername: statSummary.topDigUserName,
+      statName: "Digs",
+      statLeaderCount: statSummary.topDigAmount,
+      statImage: Image.asset(
+        'resources/images/DigColor.png',
+        height: 45,
+      ),
+    ),
+  ];
+  return cards;
 }

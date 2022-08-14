@@ -10,10 +10,10 @@ class GroupStatLeaders {
   String groupName;
   String groupId;
   StatType statType;
-  List<String> topTenNames;
-  List<int> topTenCounts;
-  GroupStatLeaders(this.groupName, this.groupId, this.statType,
-      this.topTenNames, this.topTenCounts);
+  List<String> topNames;
+  List<int> topCounts;
+  GroupStatLeaders(this.groupName, this.groupId, this.statType, this.topNames,
+      this.topCounts);
 }
 
 class GroupStatsSummary {
@@ -63,8 +63,12 @@ class GroupService {
   GroupService() {
     testGroups = getFakeGroups();
     groupStatsSummary = getFakeSummary();
+    statLeaders = getAllFakeStatLeaders();
   }
 
+  get getStatLeaders => this.statLeaders;
+
+  set setStatLeaders(statLeaders) => this.statLeaders = statLeaders;
   List<Group> getGroups() {
     return testGroups;
   }
