@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:killstreak/view/create_a_new_game_page.dart';
 import 'package:killstreak/view/game_page.dart';
 import 'package:killstreak/view/my_stats_page.dart';
+import '../main.dart';
 import '../model/game_service.dart';
 import '../model/groups_service.dart';
 import '../widgets/bottom_navigation.dart';
@@ -242,6 +244,15 @@ class GroupPage extends StatelessWidget {
             Expanded(child: RecentGroupGames())
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        label: Text("Start a New Game"),
+        onPressed: () {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => CreateNewGamePage()));
+        },
+        backgroundColor: lightColor,
+        icon: Icon(Icons.add),
       ),
       bottomNavigationBar: BottomNavigation(
         currentPage: 0,

@@ -55,11 +55,11 @@ class GroupStatsContent extends StatefulWidget {
 class _GroupStatsContentState extends State<GroupStatsContent> {
   int _currentIndex = 0;
   final ScrollController _firstController = ScrollController();
+  GroupService groupService = GroupService();
+  List<GroupStatLeaders> leaders = getAllFakeStatLeaders();
 
   @override
   Widget build(BuildContext context) {
-    GroupService groupService = GroupService();
-    List<GroupStatLeaders> leaders = groupService.getStatLeaders;
     List cardList = buildStatLeaderCards(groupService);
 
     return Container(

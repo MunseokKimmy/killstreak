@@ -5,6 +5,9 @@ import 'package:killstreak/view/my_stats_page.dart';
 import 'package:killstreak/widgets/bottom_navigation.dart';
 import 'package:killstreak/widgets/recent_games_carousel.dart';
 
+import '../main.dart';
+import 'create_a_new_game_page.dart';
+
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -42,6 +45,15 @@ class HomePage extends StatelessWidget {
             ),
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        label: Text("Start a New Game"),
+        onPressed: () {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => CreateNewGamePage()));
+        },
+        backgroundColor: lightColor,
+        icon: Icon(Icons.add),
       ),
       bottomNavigationBar: BottomNavigation(
         currentPage: 0,
