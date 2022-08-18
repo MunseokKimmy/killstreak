@@ -8,7 +8,7 @@ import 'package:killstreak/view/profile_page.dart';
 class BottomNavigation extends StatefulWidget {
   int currentPage;
   bool shortcut;
-  List<Widget> pages = const [
+  List<Widget> pages = [
     HomePage(),
     CreateNewGamePage(),
     ProfilePage(),

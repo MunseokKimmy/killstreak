@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:killstreak/model/stats_service.dart';
 
 import '../widgets/bottom_navigation.dart';
 
 const Color color = Color(0xff001f3f);
 
 class ProfilePage extends StatelessWidget {
-  const ProfilePage({Key? key}) : super(key: key);
+  ProfilePage({Key? key, this.playerId}) : super(key: key);
+  final int? playerId;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
