@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-
 import '../main.dart';
+import '../model/groups_service.dart';
 import '../widgets/bottom_navigation.dart';
 
 class CreateNewGamePage extends StatelessWidget {
@@ -25,16 +25,84 @@ class CreateNewGamePage extends StatelessWidget {
           icon: const Icon(Icons.arrow_back_ios),
         ),
       ),
-      body: Container(),
-      floatingActionButton: FloatingActionButton.extended(
-        label: Text("Start a New Game"),
-        onPressed: () {},
-        backgroundColor: lightColor,
-        icon: Icon(Icons.add),
+      body: Container(
+        child: CreateANewGameForm(),
       ),
       bottomNavigationBar: BottomNavigation(
         currentPage: 0,
         shortcut: false,
+      ),
+    );
+  }
+}
+
+class CreateANewGameForm extends StatelessWidget {
+  CreateANewGameForm({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Container(
+        padding: EdgeInsets.all(20),
+        width: MediaQuery.of(context).size.width * .75,
+        height: double.infinity,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [GroupDropdown()],
+        ),
+      ),
+    );
+  }
+}
+
+class GroupDropdown extends StatefulWidget {
+  GroupDropdown({Key? key}) : super(key: key);
+
+  @override
+  State<GroupDropdown> createState() => _GroupDropdownState();
+}
+
+class _GroupDropdownState extends State<GroupDropdown> {
+  GroupService groupService = GroupService();
+  List<Group> groups = [];
+  String dropdownValue = "";
+  @override
+  void initState() {
+    groups.addAll(groupService.getGroups());
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(color: accentColor),
+      padding: EdgeInsets.only(left: 10.0, right: 10.0),
+      child: DropdownButtonFormField<String>(
+        isExpanded: true,
+        value: null,
+        icon: const Icon(Icons.keyboard_arrow_down),
+        elevation: 16,
+        style: const TextStyle(color: Colors.white),
+        dropdownColor: accentColor,
+        iconEnabledColor: Colors.white,
+        iconDisabledColor: Colors.white,
+        focusColor: accentColor,
+        hint: const Text(
+          "Select a Group",
+          style: TextStyle(color: Colors.white),
+        ),
+        items: groups.map<DropdownMenuItem<String>>((Group group) {
+          return DropdownMenuItem<String>(
+            value: group.groupId,
+            child: Text("${group.groupName} - ${group.groupId}"),
+          );
+        }).toList(),
+        onChanged: (value) {
+          setState(() {
+            dropdownValue = value!;
+          });
+        },
       ),
     );
   }
