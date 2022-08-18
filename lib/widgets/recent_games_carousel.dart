@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_options.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:killstreak/main.dart';
+import 'package:killstreak/view/create_a_new_game_page.dart';
 
 import '../model/game_service.dart';
 import '../view/game_page.dart';
@@ -100,7 +101,7 @@ class GameCard extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => const GamePage(),
+            builder: (context) => const CreateNewGamePage(),
           ),
         );
       },

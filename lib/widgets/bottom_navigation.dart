@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:killstreak/main.dart';
+import 'package:killstreak/view/create_a_new_game_page.dart';
 import 'package:killstreak/view/game_page.dart';
 import 'package:killstreak/view/home_page.dart';
 import 'package:killstreak/view/profile_page.dart';
@@ -9,7 +10,7 @@ class BottomNavigation extends StatefulWidget {
   bool shortcut;
   List<Widget> pages = const [
     HomePage(),
-    GamePage(),
+    CreateNewGamePage(),
     ProfilePage(),
   ];
   BottomNavigation(
