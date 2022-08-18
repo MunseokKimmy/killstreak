@@ -311,7 +311,11 @@ class _GroupGameState extends State<GroupGame> {
     return GestureDetector(
       onTap: () {
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => GamePage()));
+            context,
+            MaterialPageRoute(
+                builder: (context) => GamePage(
+                      game: widget.game,
+                    )));
       },
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -324,14 +328,20 @@ class _GroupGameState extends State<GroupGame> {
               children: [
                 Text(
                   widget.game.gameName,
-                  style: const TextStyle(
-                    fontSize: 16,
-                  ),
+                  style: TextStyle(
+                      fontSize: 16,
+                      color: widget.game.gameCompleted
+                          ? Colors.white
+                          : Colors.yellow),
                 ),
                 Text(
-                  widget.game.groupName,
-                  style: const TextStyle(
-                      color: Color.fromARGB(255, 210, 210, 210),
+                  widget.game.gameCompleted
+                      ? "(Completed ${widget.game.gameDate})"
+                      : "(Ongoing)",
+                  style: TextStyle(
+                      color: widget.game.gameCompleted
+                          ? Color.fromARGB(255, 210, 210, 210)
+                          : Colors.yellow,
                       fontWeight: FontWeight.w300),
                 ),
               ],
@@ -340,24 +350,32 @@ class _GroupGameState extends State<GroupGame> {
           Expanded(
             flex: 1,
             child: Container(
-              color: widget.game.onTeamOne
-                  ? const Color.fromRGBO(8, 51, 88, 1)
-                  : null,
+              color: widget.game.onTeamOne ? lightColor : null,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
                     widget.game.teamOneScore.toString(),
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 26,
                       fontWeight: FontWeight.bold,
                       fontFamily: "Courier New",
+                      color: (widget.game.gameCompleted &&
+                              (widget.game.teamOneScore >
+                                  widget.game.teamTwoScore))
+                          ? Colors.yellow
+                          : null,
                     ),
                   ),
                   Text(
                     widget.game.teamOneName,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 16,
+                      color: (widget.game.gameCompleted &&
+                              (widget.game.teamOneScore >
+                                  widget.game.teamTwoScore))
+                          ? Colors.yellow
+                          : null,
                     ),
                   ),
                 ],
@@ -376,24 +394,32 @@ class _GroupGameState extends State<GroupGame> {
           Expanded(
             flex: 1,
             child: Container(
-              color: !widget.game.onTeamOne
-                  ? const Color.fromRGBO(8, 51, 88, 1)
-                  : null,
+              color: !widget.game.onTeamOne ? lightColor : null,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
                     widget.game.teamTwoScore.toString(),
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 26,
                       fontWeight: FontWeight.bold,
                       fontFamily: "Courier New",
+                      color: (widget.game.gameCompleted &&
+                              (widget.game.teamOneScore <
+                                  widget.game.teamTwoScore))
+                          ? Colors.yellow
+                          : null,
                     ),
                   ),
                   Text(
                     widget.game.teamTwoName,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 16,
+                      color: (widget.game.gameCompleted &&
+                              (widget.game.teamOneScore <
+                                  widget.game.teamTwoScore))
+                          ? Colors.yellow
+                          : null,
                     ),
                   ),
                 ],
