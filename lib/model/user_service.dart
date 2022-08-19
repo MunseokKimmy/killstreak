@@ -1,10 +1,10 @@
-class User {
+class AppUser {
   String username;
-  User(this.username);
+  AppUser(this.username);
 }
 
 class UserService {
-  User getUser() {
-    return User("Munseok");
+  AppUser getUser() {
+    return AppUser("Munseok");
   }
 }

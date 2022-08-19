@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:killstreak/model/user_service.dart';
 import 'package:killstreak/view/groups_page.dart';
@@ -13,8 +14,10 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final user = FirebaseAuth.instance.currentUser!;
+
     UserService userService = UserService();
-    User testUser = userService.getUser();
+    AppUser testUser = userService.getUser();
     return Scaffold(
       appBar: AppBar(
         title: const Text('Killstreak'),
@@ -26,7 +29,7 @@ class HomePage extends StatelessWidget {
             Container(
               margin: const EdgeInsets.all(20.0),
               child: Text(
-                'Hello ${testUser.username}!',
+                "Signed in as ${user.email!}",
                 textAlign: TextAlign.center,
                 style: const TextStyle(fontSize: 20),
               ),
@@ -43,6 +46,14 @@ class HomePage extends StatelessWidget {
                 ],
               ),
             ),
+            ElevatedButton.icon(
+              style: ElevatedButton.styleFrom(minimumSize: Size.fromHeight(50)),
+              icon: Icon(Icons.arrow_back, size: 32),
+              label: Text("Sign Out", style: TextStyle(fontSize: 24)),
+              onPressed: () => {
+                FirebaseAuth.instance.signOut(),
+              },
+            )
           ],
         ),
       ),
