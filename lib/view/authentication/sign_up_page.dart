@@ -1,5 +1,6 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:killstreak/main.dart';
@@ -7,7 +8,8 @@ import 'package:killstreak/utils/utils.dart';
 
 class SignUpWidget extends StatefulWidget {
   final Function() onClickedSignIn;
-  SignUpWidget({Key? key, required this.onClickedSignIn}) : super(key: key);
+  const SignUpWidget({Key? key, required this.onClickedSignIn})
+      : super(key: key);
 
   @override
   State<SignUpWidget> createState() => _SignUpWidgetState();
@@ -23,7 +25,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
     showDialog(
       context: context,
       barrierDismissible: false,
-      builder: (context) => Center(child: CircularProgressIndicator()),
+      builder: (context) => const Center(child: CircularProgressIndicator()),
     );
     try {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
@@ -31,7 +33,9 @@ class _SignUpWidgetState extends State<SignUpWidget> {
         password: passwordController.text.trim(),
       );
     } on FirebaseAuthException catch (e) {
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
       Utils.showSnackBar(e.message);
     }
     navigatorKey.currentState!.popUntil((route) => route.isFirst);
@@ -48,20 +52,21 @@ class _SignUpWidgetState extends State<SignUpWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         child: Form(
           key: formKey,
           child: Column(
             children: [
-              SizedBox(height: 60),
-              Icon(Icons.sports_volleyball, size: 120, color: Colors.yellow),
-              SizedBox(height: 20),
-              Text(
+              const SizedBox(height: 60),
+              const Icon(Icons.sports_volleyball,
+                  size: 120, color: Colors.yellow),
+              const SizedBox(height: 20),
+              const Text(
                 "Hey There, \n Welcome!",
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 40,
               ),
               TextFormField(
@@ -84,7 +89,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                         ? 'Enter a valid email'
                         : null,
               ),
-              SizedBox(height: 4),
+              const SizedBox(height: 4),
               TextFormField(
                 controller: passwordController,
                 textInputAction: TextInputAction.done,
@@ -103,22 +108,22 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                     ? 'Enter min. 6 characters'
                     : null,
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               ElevatedButton.icon(
                 style: ElevatedButton.styleFrom(
-                  minimumSize: Size.fromHeight(50),
+                  minimumSize: const Size.fromHeight(50),
                 ),
                 onPressed: signUp,
-                icon: Icon(Icons.lock_open, size: 32),
-                label: Text(
+                icon: const Icon(Icons.lock_open, size: 32),
+                label: const Text(
                   "Sign Up",
                   style: TextStyle(fontSize: 24),
                 ),
               ),
-              SizedBox(height: 24),
+              const SizedBox(height: 24),
               RichText(
                 text: TextSpan(
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.white,
                     ),
                     text: 'Already have an account? ',
@@ -127,7 +132,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                           recognizer: TapGestureRecognizer()
                             ..onTap = widget.onClickedSignIn,
                           text: "Log In",
-                          style: TextStyle(
+                          style: const TextStyle(
                               decoration: TextDecoration.underline,
                               color: Colors.white))
                     ]),
