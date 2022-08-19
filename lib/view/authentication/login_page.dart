@@ -1,9 +1,10 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:killstreak/view/authentication/forgot_password_page.dart';
 
-import '../main.dart';
-import '../utils/utils.dart';
+import '../../main.dart';
+import '../../utils/utils.dart';
 
 class LoginWidget extends StatefulWidget {
   final VoidCallback onClickedSignUp;
@@ -90,22 +91,34 @@ class _LoginWidgetState extends State<LoginWidget> {
               ),
               obscureText: true,
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ElevatedButton.icon(
               style: ElevatedButton.styleFrom(
-                minimumSize: Size.fromHeight(50),
+                minimumSize: const Size.fromHeight(50),
               ),
               onPressed: signIn,
-              icon: Icon(Icons.lock_open, size: 32),
-              label: Text(
+              icon: const Icon(Icons.lock_open, size: 32),
+              label: const Text(
                 "Sign In",
                 style: TextStyle(fontSize: 24),
               ),
             ),
-            SizedBox(height: 24),
+            const SizedBox(
+              height: 24,
+            ),
+            GestureDetector(
+                child: const Text(
+                  "Forgot Password?",
+                  style: TextStyle(
+                      decoration: TextDecoration.underline,
+                      color: Colors.white),
+                ),
+                onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => ForgotPasswordPage()))),
+            const SizedBox(height: 24),
             RichText(
               text: TextSpan(
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.white,
                   ),
                   text: 'No account? ',
@@ -114,7 +127,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                         recognizer: TapGestureRecognizer()
                           ..onTap = widget.onClickedSignUp,
                         text: "Sign Up",
-                        style: TextStyle(
+                        style: const TextStyle(
                             decoration: TextDecoration.underline,
                             color: Colors.white))
                   ]),

@@ -2,10 +2,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:killstreak/utils/palette.dart';
 import 'package:killstreak/utils/utils.dart';
-import 'package:killstreak/view/auth_page.dart';
+import 'package:killstreak/view/authentication/auth_page.dart';
 import 'package:killstreak/view/home_page.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:killstreak/view/login_page.dart';
+import 'package:killstreak/view/authentication/login_page.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
