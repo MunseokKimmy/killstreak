@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:killstreak/main.dart';
 import 'package:killstreak/view/home_page.dart';
 
 import '../../utils/utils.dart';
@@ -77,16 +78,21 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Text(
-                      "A verification email has been sent to your email.",
+                      "A verification email has been sent to your email. (Check spam!)",
                       style: TextStyle(fontSize: 20),
                       textAlign: TextAlign.center),
                   const SizedBox(height: 24),
                   ElevatedButton.icon(
                     style: ElevatedButton.styleFrom(
-                        minimumSize: const Size.fromHeight(50)),
-                    icon: const Icon(Icons.email, size: 32),
+                        minimumSize: const Size.fromHeight(50),
+                        primary: Colors.grey),
+                    icon: const Icon(
+                      Icons.email,
+                      size: 32,
+                      color: Colors.white,
+                    ),
                     label: const Text("Resend Email",
-                        style: TextStyle(fontSize: 24)),
+                        style: TextStyle(fontSize: 24, color: Colors.white)),
                     onPressed: canResendEmail ? sendVerificationEmail : null,
                   ),
                   const SizedBox(height: 8),

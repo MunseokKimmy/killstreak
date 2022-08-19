@@ -51,6 +51,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(title: const Text("Register")),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(10),
         child: Form(

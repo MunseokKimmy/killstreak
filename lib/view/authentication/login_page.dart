@@ -50,6 +50,7 @@ class _LoginWidgetState extends State<LoginWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(title: const Text("Log In")),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(10),
         child: Column(
