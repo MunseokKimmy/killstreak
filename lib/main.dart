@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:killstreak/utils/palette.dart';
 import 'package:killstreak/utils/utils.dart';
 import 'package:killstreak/view/authentication/auth_page.dart';
+import 'package:killstreak/view/authentication/verify_email_page.dart';
 import 'package:killstreak/view/home_page.dart';
 // ignore: depend_on_referenced_packages
 import 'package:firebase_core/firebase_core.dart';
@@ -50,7 +51,7 @@ class MyApp extends StatelessWidget {
             } else if (snapshot.hasError) {
               return const Center(child: Text("Login failed"));
             } else if (snapshot.hasData) {
-              return const HomePage();
+              return VerifyEmailPage();
             } else {
               return const AuthPage();
             }

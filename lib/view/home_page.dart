@@ -16,8 +16,6 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser!;
 
-    UserService userService = UserService();
-    AppUser testUser = userService.getUser();
     return Scaffold(
       appBar: AppBar(
         title: const Text('Killstreak'),
@@ -47,9 +45,10 @@ class HomePage extends StatelessWidget {
               ),
             ),
             ElevatedButton.icon(
-              style: ElevatedButton.styleFrom(minimumSize: Size.fromHeight(50)),
-              icon: Icon(Icons.arrow_back, size: 32),
-              label: Text("Sign Out", style: TextStyle(fontSize: 24)),
+              style: ElevatedButton.styleFrom(
+                  minimumSize: const Size.fromHeight(50)),
+              icon: const Icon(Icons.arrow_back, size: 32),
+              label: const Text("Sign Out", style: TextStyle(fontSize: 24)),
               onPressed: () => {
                 FirebaseAuth.instance.signOut(),
               },
@@ -58,13 +57,15 @@ class HomePage extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(
-        label: Text("Start a New Game"),
+        label: const Text("Start a New Game"),
         onPressed: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => CreateNewGamePage()));
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const CreateNewGamePage()));
         },
         backgroundColor: lightColor,
-        icon: Icon(Icons.add),
+        icon: const Icon(Icons.add),
       ),
       bottomNavigationBar: BottomNavigation(
         currentPage: 0,
