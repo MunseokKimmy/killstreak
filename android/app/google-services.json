@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "713480601621",
+    "project_id": "killstreak-7038f",
+    "storage_bucket": "killstreak-7038f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:713480601621:android:3d989f58e414d06d330e1c",
+        "android_client_info": {
+          "package_name": "com.example.killstreak"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "713480601621-7n8l7bfpj96uqd9e8nph0lkd0boo3oac.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC9jnCPF7cF7GLTM3iEDUZS-9htJPWI-gw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "713480601621-7n8l7bfpj96uqd9e8nph0lkd0boo3oac.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
