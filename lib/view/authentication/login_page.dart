@@ -1,3 +1,5 @@
+import 'package:email_validator/email_validator.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -8,7 +10,8 @@ import '../../utils/utils.dart';
 
 class LoginWidget extends StatefulWidget {
   final VoidCallback onClickedSignUp;
-  LoginWidget({Key? key, required this.onClickedSignUp}) : super(key: key);
+  const LoginWidget({Key? key, required this.onClickedSignUp})
+      : super(key: key);
 
   @override
   State<LoginWidget> createState() => _LoginWidgetState();
@@ -21,7 +24,7 @@ class _LoginWidgetState extends State<LoginWidget> {
     showDialog(
       context: context,
       barrierDismissible: false,
-      builder: (context) => Center(child: CircularProgressIndicator()),
+      builder: (context) => const Center(child: CircularProgressIndicator()),
     );
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
@@ -29,7 +32,9 @@ class _LoginWidgetState extends State<LoginWidget> {
         password: passwordController.text.trim(),
       );
     } on FirebaseAuthException catch (e) {
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
       Utils.showSnackBar(e.message);
     }
     navigatorKey.currentState!.popUntil((route) => route.isFirst);
@@ -46,21 +51,22 @@ class _LoginWidgetState extends State<LoginWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         child: Column(
           children: [
-            SizedBox(height: 60),
-            Icon(Icons.sports_volleyball, size: 120, color: Colors.yellow),
-            SizedBox(height: 20),
-            Text(
+            const SizedBox(height: 60),
+            const Icon(Icons.sports_volleyball,
+                size: 120, color: Colors.yellow),
+            const SizedBox(height: 20),
+            const Text(
               "Hey There, \n Welcome back!",
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
             ),
-            SizedBox(
+            const SizedBox(
               height: 40,
             ),
-            TextField(
+            TextFormField(
               controller: emailController,
               cursorColor: Colors.white,
               textInputAction: TextInputAction.next,
@@ -74,9 +80,14 @@ class _LoginWidgetState extends State<LoginWidget> {
                   borderSide: BorderSide(color: Colors.white),
                 ),
               ),
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              validator: (email) =>
+                  email != null && !EmailValidator.validate(email)
+                      ? 'Enter a valid email'
+                      : null,
             ),
-            SizedBox(height: 4),
-            TextField(
+            const SizedBox(height: 4),
+            TextFormField(
               controller: passwordController,
               textInputAction: TextInputAction.done,
               decoration: const InputDecoration(
@@ -90,6 +101,9 @@ class _LoginWidgetState extends State<LoginWidget> {
                 ),
               ),
               obscureText: true,
+              validator: (value) => value != null && value.length < 6
+                  ? 'Enter min. 6 characters'
+                  : null,
             ),
             const SizedBox(height: 20),
             ElevatedButton.icon(
@@ -114,7 +128,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                       color: Colors.white),
                 ),
                 onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => ForgotPasswordPage()))),
+                    builder: (context) => const ForgotPasswordPage()))),
             const SizedBox(height: 24),
             RichText(
               text: TextSpan(

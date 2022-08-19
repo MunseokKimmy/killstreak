@@ -5,7 +5,6 @@ import 'package:killstreak/utils/utils.dart';
 import 'package:killstreak/view/authentication/auth_page.dart';
 import 'package:killstreak/view/home_page.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:killstreak/view/authentication/login_page.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -46,11 +45,11 @@ class MyApp extends StatelessWidget {
           stream: FirebaseAuth.instance.authStateChanges(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(child: CircularProgressIndicator());
+              return const Center(child: CircularProgressIndicator());
             } else if (snapshot.hasError) {
-              return Center(child: Text("Login failed"));
+              return const Center(child: const Text("Login failed"));
             } else if (snapshot.hasData) {
-              return HomePage();
+              return const HomePage();
             } else {
               return AuthPage();
             }
