@@ -66,7 +66,7 @@ class GroupService {
     statLeaders = getAllFakeStatLeaders();
   }
 
-  get getStatLeaders => this.statLeaders;
+  get getStatLeaders => statLeaders;
 
   set setStatLeaders(statLeaders) => this.statLeaders = statLeaders;
   List<Group> getGroups() {

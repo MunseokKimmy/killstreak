@@ -4,6 +4,7 @@ import 'package:killstreak/utils/palette.dart';
 import 'package:killstreak/utils/utils.dart';
 import 'package:killstreak/view/authentication/auth_page.dart';
 import 'package:killstreak/view/home_page.dart';
+// ignore: depend_on_referenced_packages
 import 'package:firebase_core/firebase_core.dart';
 
 Future main() async {
@@ -47,11 +48,11 @@ class MyApp extends StatelessWidget {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(child: CircularProgressIndicator());
             } else if (snapshot.hasError) {
-              return const Center(child: const Text("Login failed"));
+              return const Center(child: Text("Login failed"));
             } else if (snapshot.hasData) {
               return const HomePage();
             } else {
-              return AuthPage();
+              return const AuthPage();
             }
           }),
     );

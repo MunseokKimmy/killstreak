@@ -26,7 +26,8 @@ class CreateNewGamePage extends StatelessWidget {
         ),
       ),
       body: Container(
-        child: CreateANewGameForm(),
+        padding: const EdgeInsets.all(10),
+        child: const CreateANewGameForm(),
       ),
       bottomNavigationBar: BottomNavigation(
         currentPage: 0,
@@ -37,19 +38,19 @@ class CreateNewGamePage extends StatelessWidget {
 }
 
 class CreateANewGameForm extends StatelessWidget {
-  CreateANewGameForm({Key? key}) : super(key: key);
+  const CreateANewGameForm({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Center(
       child: Container(
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
         width: MediaQuery.of(context).size.width * .75,
         height: double.infinity,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
-          children: [GroupDropdown()],
+          children: const [GroupDropdown()],
         ),
       ),
     );
@@ -57,7 +58,7 @@ class CreateANewGameForm extends StatelessWidget {
 }
 
 class GroupDropdown extends StatefulWidget {
-  GroupDropdown({Key? key}) : super(key: key);
+  const GroupDropdown({Key? key}) : super(key: key);
 
   @override
   State<GroupDropdown> createState() => _GroupDropdownState();
@@ -76,8 +77,8 @@ class _GroupDropdownState extends State<GroupDropdown> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(color: accentColor),
-      padding: EdgeInsets.only(left: 10.0, right: 10.0),
+      decoration: const BoxDecoration(color: accentColor),
+      padding: const EdgeInsets.only(left: 10.0, right: 10.0),
       child: DropdownButtonFormField<String>(
         isExpanded: true,
         value: null,

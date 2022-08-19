@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:killstreak/view/create_a_new_game_page.dart';
 import 'package:killstreak/view/game_page.dart';
-import 'package:killstreak/view/my_stats_page.dart';
 import '../main.dart';
 import '../model/game_service.dart';
 import '../model/groups_service.dart';
@@ -33,16 +32,16 @@ class GroupPage extends StatelessWidget {
         ),
       ),
       body: Container(
-        margin: EdgeInsets.all(20.0),
+        margin: const EdgeInsets.all(20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
               group.groupName,
-              style: TextStyle(fontSize: 24),
+              style: const TextStyle(fontSize: 24),
             ),
             Container(
-              margin: EdgeInsets.only(bottom: 10.0),
+              margin: const EdgeInsets.only(bottom: 10.0),
               child: Text(DateFormat("MMMM dd yyyy").format(DateTime.now())),
             ),
             SizedBox(
@@ -106,9 +105,9 @@ class GroupPage extends StatelessWidget {
                                             MainAxisAlignment.center,
                                         children: [
                                           Container(
-                                            padding:
-                                                EdgeInsets.only(bottom: 5.0),
-                                            child: Text("Connor",
+                                            padding: const EdgeInsets.only(
+                                                bottom: 5.0),
+                                            child: const Text("Connor",
                                                 style: TextStyle(fontSize: 20)),
                                           )
                                         ]),
@@ -143,8 +142,9 @@ class GroupPage extends StatelessWidget {
                                           MainAxisAlignment.center,
                                       children: [
                                         Container(
-                                          padding: EdgeInsets.only(bottom: 5.0),
-                                          child: Text("Cierra",
+                                          padding: const EdgeInsets.only(
+                                              bottom: 5.0),
+                                          child: const Text("Cierra",
                                               style: TextStyle(fontSize: 20)),
                                         ),
                                       ],
@@ -152,7 +152,7 @@ class GroupPage extends StatelessWidget {
                                     Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
-                                      children: [
+                                      children: const [
                                         Text("As",
                                             style: TextStyle(fontSize: 20)),
                                       ],
@@ -160,7 +160,7 @@ class GroupPage extends StatelessWidget {
                                     Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
-                                      children: [
+                                      children: const [
                                         Text("8",
                                             style: TextStyle(fontSize: 20))
                                       ],
@@ -176,9 +176,9 @@ class GroupPage extends StatelessWidget {
                                             MainAxisAlignment.center,
                                         children: [
                                           Container(
-                                            padding:
-                                                EdgeInsets.only(bottom: 5.0),
-                                            child: Text("Alma",
+                                            padding: const EdgeInsets.only(
+                                                bottom: 5.0),
+                                            child: const Text("Alma",
                                                 style: TextStyle(fontSize: 20)),
                                           )
                                         ]),
@@ -241,18 +241,20 @@ class GroupPage extends StatelessWidget {
                 style: TextStyle(fontSize: 24),
               ),
             ),
-            Expanded(child: RecentGroupGames())
+            const Expanded(child: RecentGroupGames())
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(
-        label: Text("Start a New Game"),
+        label: const Text("Start a New Game"),
         onPressed: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => CreateNewGamePage()));
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const CreateNewGamePage()));
         },
         backgroundColor: lightColor,
-        icon: Icon(Icons.add),
+        icon: const Icon(Icons.add),
       ),
       bottomNavigationBar: BottomNavigation(
         currentPage: 0,
@@ -340,7 +342,7 @@ class _GroupGameState extends State<GroupGame> {
                       : "(Ongoing)",
                   style: TextStyle(
                       color: widget.game.gameCompleted
-                          ? Color.fromARGB(255, 210, 210, 210)
+                          ? const Color.fromARGB(255, 210, 210, 210)
                           : Colors.yellow,
                       fontWeight: FontWeight.w300),
                 ),
