@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:killstreak/utils/palette.dart';
+import 'package:killstreak/utils/utils.dart';
+import 'package:killstreak/view/auth_page.dart';
 import 'package:killstreak/view/home_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:killstreak/view/login_page.dart';
@@ -23,6 +25,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      scaffoldMessengerKey: Utils.messengerKey,
       navigatorKey: navigatorKey,
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
@@ -49,7 +52,7 @@ class MyApp extends StatelessWidget {
             } else if (snapshot.hasData) {
               return HomePage();
             } else {
-              return LoginWidget();
+              return AuthPage();
             }
           }),
     );

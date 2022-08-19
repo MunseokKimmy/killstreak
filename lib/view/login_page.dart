@@ -1,10 +1,13 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import '../main.dart';
+import '../utils/utils.dart';
 
 class LoginWidget extends StatefulWidget {
-  LoginWidget({Key? key}) : super(key: key);
+  final VoidCallback onClickedSignUp;
+  LoginWidget({Key? key, required this.onClickedSignUp}) : super(key: key);
 
   @override
   State<LoginWidget> createState() => _LoginWidgetState();
@@ -26,6 +29,7 @@ class _LoginWidgetState extends State<LoginWidget> {
       );
     } on FirebaseAuthException catch (e) {
       print(e);
+      Utils.showSnackBar(e.message);
     }
     navigatorKey.currentState!.popUntil((route) => route.isFirst);
   }
@@ -44,6 +48,14 @@ class _LoginWidgetState extends State<LoginWidget> {
         padding: EdgeInsets.all(10),
         child: Column(
           children: [
+            SizedBox(height: 60),
+            Icon(Icons.sports_volleyball, size: 120, color: Colors.yellow),
+            SizedBox(height: 20),
+            Text(
+              "Hey There, \n Welcome back!",
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+            ),
             SizedBox(
               height: 40,
             ),
@@ -80,12 +92,33 @@ class _LoginWidgetState extends State<LoginWidget> {
             ),
             SizedBox(height: 20),
             ElevatedButton.icon(
-                style: ElevatedButton.styleFrom(
-                  minimumSize: Size.fromHeight(50),
-                ),
-                onPressed: signIn,
-                icon: Icon(Icons.lock_open, size: 32),
-                label: Text("Sign In", style: TextStyle(fontSize: 24)))
+              style: ElevatedButton.styleFrom(
+                minimumSize: Size.fromHeight(50),
+              ),
+              onPressed: signIn,
+              icon: Icon(Icons.lock_open, size: 32),
+              label: Text(
+                "Sign In",
+                style: TextStyle(fontSize: 24),
+              ),
+            ),
+            SizedBox(height: 24),
+            RichText(
+              text: TextSpan(
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                  text: 'No account? ',
+                  children: [
+                    TextSpan(
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = widget.onClickedSignUp,
+                        text: "Sign Up",
+                        style: TextStyle(
+                            decoration: TextDecoration.underline,
+                            color: Colors.white))
+                  ]),
+            ),
           ],
         ),
       ),
