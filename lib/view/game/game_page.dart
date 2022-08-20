@@ -13,7 +13,7 @@ class GamePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Game'),
+        title: Text(game.gameName),
         automaticallyImplyLeading: false,
         actions: [
           IconButton(
@@ -30,9 +30,9 @@ class GamePage extends StatelessWidget {
           icon: const Icon(Icons.arrow_back_ios),
         ),
       ),
-      body: SingleChildScrollView(
-        child: game.gameCompleted ? CompletedGameWidget() : OngoingGameWidget(),
-      ),
+      body: game.gameCompleted
+          ? CompletedGameWidget()
+          : OngoingGameWidget(game: game),
       bottomNavigationBar: BottomNavigation(
         currentPage: 1,
         shortcut: true,

@@ -3,6 +3,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:killstreak/main.dart';
 import 'package:killstreak/view/game/create_a_new_game_page.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../model/game_service.dart';
 import '../view/game/game_page.dart';
@@ -72,12 +73,13 @@ class _RecentGamesCarouselState extends State<RecentGamesCarousel> {
           children: map<Widget>(cardList, (index, url) {
             return Container(
               width: 10.0,
-              height: 10.0,
+              height: 5.0,
               margin:
                   const EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
               decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: _currentIndex == index ? Colors.blueAccent : Colors.grey,
+                shape: BoxShape.rectangle,
+                borderRadius: BorderRadius.all(Radius.circular(15)),
+                color: _currentIndex == index ? Colors.yellow : Colors.grey,
               ),
             );
           }),
