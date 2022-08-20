@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:killstreak/view/game/completed_game_page.dart';
+import 'package:killstreak/view/game/ongoing_game_page.dart';
 import 'package:killstreak/widgets/bottom_navigation.dart';
 
 import '../../model/game_service.dart';
@@ -29,9 +31,7 @@ class GamePage extends StatelessWidget {
         ),
       ),
       body: SingleChildScrollView(
-        child: Column(
-          children: [],
-        ),
+        child: game.gameCompleted ? CompletedGameWidget() : OngoingGameWidget(),
       ),
       bottomNavigationBar: BottomNavigation(
         currentPage: 1,
