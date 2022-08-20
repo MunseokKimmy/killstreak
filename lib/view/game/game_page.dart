@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:killstreak/widgets/bottom_navigation.dart';
 
-import '../model/game_service.dart';
+import '../../model/game_service.dart';
 
 class GamePage extends StatelessWidget {
   GameShort game;

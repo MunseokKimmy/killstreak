@@ -7,7 +7,7 @@ import 'package:killstreak/widgets/bottom_navigation.dart';
 import 'package:killstreak/widgets/recent_games_carousel.dart';
 
 import '../main.dart';
-import 'create_a_new_game_page.dart';
+import 'game/create_a_new_game_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);

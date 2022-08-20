@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:killstreak/view/create_a_new_game_page.dart';
-import 'package:killstreak/view/game_page.dart';
+import 'package:killstreak/view/game/create_a_new_game_page.dart';
+import 'package:killstreak/view/game/game_page.dart';
 import '../main.dart';
 import '../model/game_service.dart';
 import '../model/groups_service.dart';

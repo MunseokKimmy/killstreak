@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../main.dart';
-import '../model/groups_service.dart';
-import '../widgets/bottom_navigation.dart';
+import '../../main.dart';
+import '../../model/groups_service.dart';
+import '../../widgets/bottom_navigation.dart';
 
 class CreateNewGamePage extends StatelessWidget {
   const CreateNewGamePage({Key? key}) : super(key: key);
