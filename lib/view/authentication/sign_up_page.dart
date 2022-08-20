@@ -53,17 +53,17 @@ class _SignUpWidgetState extends State<SignUpWidget> {
     return Scaffold(
       appBar: AppBar(title: const Text("Register")),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(10),
+        padding: const EdgeInsets.only(left: 30, right: 30),
         child: Form(
           key: formKey,
           child: Column(
             children: [
-              const SizedBox(height: 60),
+              const SizedBox(height: 50),
               const Icon(Icons.sports_volleyball,
                   size: 120, color: Colors.yellow),
               const SizedBox(height: 20),
               const Text(
-                "Hey There, \n Welcome!",
+                "Welcome to\n Killstreak!",
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
               ),
@@ -113,20 +113,19 @@ class _SignUpWidgetState extends State<SignUpWidget> {
               ElevatedButton.icon(
                 style: ElevatedButton.styleFrom(
                   minimumSize: const Size.fromHeight(50),
+                  primary: lightColor,
                 ),
                 onPressed: signUp,
                 icon: const Icon(Icons.lock_open, size: 32),
                 label: const Text(
-                  "Sign Up",
+                  "Register",
                   style: TextStyle(fontSize: 24),
                 ),
               ),
               const SizedBox(height: 24),
               RichText(
                 text: TextSpan(
-                    style: const TextStyle(
-                      color: Colors.white,
-                    ),
+                    style: const TextStyle(color: Colors.white, fontSize: 18),
                     text: 'Already have an account? ',
                     children: [
                       TextSpan(
@@ -135,7 +134,8 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                           text: "Log In",
                           style: const TextStyle(
                               decoration: TextDecoration.underline,
-                              color: Colors.white))
+                              color: Colors.white,
+                              fontSize: 18))
                     ]),
               ),
             ],

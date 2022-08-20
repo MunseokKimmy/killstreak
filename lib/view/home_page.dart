@@ -38,19 +38,10 @@ class HomePage extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
+                children: const [
                   MyGroupsButton(),
                   MyStatsButton(),
-                  ElevatedButton.icon(
-                    style: ElevatedButton.styleFrom(
-                        minimumSize: const Size.fromHeight(50)),
-                    icon: const Icon(Icons.arrow_back, size: 32),
-                    label:
-                        const Text("Sign Out", style: TextStyle(fontSize: 24)),
-                    onPressed: () => {
-                      FirebaseAuth.instance.signOut(),
-                    },
-                  )
+                  LogoutButton(),
                 ],
               ),
             ),
@@ -71,6 +62,28 @@ class HomePage extends StatelessWidget {
       bottomNavigationBar: BottomNavigation(
         currentPage: 0,
         shortcut: true,
+      ),
+    );
+  }
+}
+
+class LogoutButton extends StatelessWidget {
+  const LogoutButton({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: ElevatedButton.icon(
+        icon: const Icon(Icons.arrow_back),
+        label: const Text("Sign Out", style: TextStyle(fontSize: 17)),
+        style: ElevatedButton.styleFrom(
+          primary: lightColor,
+          fixedSize: Size(MediaQuery.of(context).size.width * .8, 50),
+        ),
+        onPressed: () => {
+          FirebaseAuth.instance.signOut(),
+        },
       ),
     );
   }
@@ -103,37 +116,6 @@ class MyStatsButton extends StatelessWidget {
         },
       ),
     );
-    // return OutlinedButton(
-    //     onPressed: () {
-    //       Navigator.push(
-    //         context,
-    //         MaterialPageRoute(
-    //           builder: (context) => const MyStatsPage(),
-    //         ),
-    //       );
-    //     },
-    //     child: SizedBox(
-    //       width: MediaQuery.of(context).size.width / 4,
-    //       height: MediaQuery.of(context).size.width / 3,
-    //       child: Container(
-    //         padding: const EdgeInsets.all(10.0),
-    //         child: Column(
-    //           crossAxisAlignment: CrossAxisAlignment.center,
-    //           mainAxisAlignment: MainAxisAlignment.center,
-    //           children: [
-    //             Image.asset(
-    //               'resources/images/net.png',
-    //               height: 40,
-    //               width: 40,
-    //             ),
-    //             const Text(
-    //               "My Games",
-    //               style: TextStyle(fontSize: 17),
-    //             ),
-    //           ],
-    //         ),
-    //       ),
-    //     ));
   }
 }
 
@@ -167,36 +149,5 @@ class MyGroupsButton extends StatelessWidget {
         },
       ),
     );
-    // return OutlinedButton(
-    //   onPressed: () {
-    //     Navigator.push(
-    //       context,
-    //       MaterialPageRoute(
-    //         builder: (context) => const GroupsPage(),
-    //       ),
-    //     );
-    //   },
-    //   child: SizedBox(
-    //     width: MediaQuery.of(context).size.width / 4,
-    //     height: MediaQuery.of(context).size.width / 3,
-    //     child: Container(
-    //       padding: const EdgeInsets.all(5.0),
-    //       child: Column(
-    //         crossAxisAlignment: CrossAxisAlignment.center,
-    //         mainAxisAlignment: MainAxisAlignment.center,
-    //         children: const [
-    //           Icon(
-    //             Icons.groups,
-    //             size: 40,
-    //           ),
-    //           Text(
-    //             "My Groups",
-    //             style: TextStyle(fontSize: 17),
-    //           ),
-    //         ],
-    //       ),
-    //     ),
-    //   ),
-    // );
   }
 }

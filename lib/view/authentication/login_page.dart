@@ -52,15 +52,15 @@ class _LoginWidgetState extends State<LoginWidget> {
     return Scaffold(
       appBar: AppBar(title: const Text("Log In")),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(10),
+        padding: const EdgeInsets.only(left: 30, right: 30),
         child: Column(
           children: [
-            const SizedBox(height: 60),
+            const SizedBox(height: 50),
             const Icon(Icons.sports_volleyball,
                 size: 120, color: Colors.yellow),
             const SizedBox(height: 20),
             const Text(
-              "Hey There, \n Welcome back!",
+              "Hey There, \n Welcome Back!",
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
             ),
@@ -110,11 +110,12 @@ class _LoginWidgetState extends State<LoginWidget> {
             ElevatedButton.icon(
               style: ElevatedButton.styleFrom(
                 minimumSize: const Size.fromHeight(50),
+                primary: lightColor,
               ),
               onPressed: signIn,
               icon: const Icon(Icons.lock_open, size: 32),
               label: const Text(
-                "Sign In",
+                "Log In",
                 style: TextStyle(fontSize: 24),
               ),
             ),
@@ -126,7 +127,8 @@ class _LoginWidgetState extends State<LoginWidget> {
                   "Forgot Password?",
                   style: TextStyle(
                       decoration: TextDecoration.underline,
-                      color: Colors.white),
+                      color: Colors.white,
+                      fontSize: 18),
                 ),
                 onTap: () => Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => const ForgotPasswordPage()))),
@@ -135,6 +137,7 @@ class _LoginWidgetState extends State<LoginWidget> {
               text: TextSpan(
                   style: const TextStyle(
                     color: Colors.white,
+                    fontSize: 18,
                   ),
                   text: 'No account? ',
                   children: [
