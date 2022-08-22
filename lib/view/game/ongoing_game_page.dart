@@ -23,12 +23,13 @@ class _OngoingGameWidgetState extends State<OngoingGameWidget> {
             child: PageView(
               controller: widget._controller,
               scrollDirection: Axis.horizontal,
+              onPageChanged: ((value) {
+                print(value);
+              }),
               children: [
-                //GameScoreCard(game: widget.game),
-                //GameScoreCard(game: widget.game),
                 OngoingGamePage1(game: widget.game),
-                OngoingGamePage1(game: widget.game),
-                OngoingGamePage1(game: widget.game),
+                OngoingGamePage2(game: widget.game),
+                OngoingGamePage3(game: widget.game),
               ],
             ),
           ),
@@ -59,12 +60,18 @@ class OngoingGamePage1 extends StatefulWidget {
 class _OngoingGamePage1State extends State<OngoingGamePage1> {
   @override
   Widget build(BuildContext context) {
-    return GameScoreCard(game: widget.game);
+    return GameScoreCard(
+      game: widget.game,
+      teamOneStats: true,
+      teamTwoStats: false,
+    );
   }
 }
 
 class OngoingGamePage2 extends StatefulWidget {
-  OngoingGamePage2({Key? key}) : super(key: key);
+  GameShort game;
+
+  OngoingGamePage2({Key? key, required this.game}) : super(key: key);
 
   @override
   State<OngoingGamePage2> createState() => _OngoingGamePage2State();
@@ -73,13 +80,43 @@ class OngoingGamePage2 extends StatefulWidget {
 class _OngoingGamePage2State extends State<OngoingGamePage2> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return GameScoreCard(
+      game: widget.game,
+      teamOneStats: false,
+      teamTwoStats: true,
+    );
+  }
+}
+
+class OngoingGamePage3 extends StatefulWidget {
+  GameShort game;
+  OngoingGamePage3({Key? key, required this.game}) : super(key: key);
+
+  @override
+  State<OngoingGamePage3> createState() => _OngoingGamePage3State();
+}
+
+class _OngoingGamePage3State extends State<OngoingGamePage3> {
+  @override
+  Widget build(BuildContext context) {
+    return GameScoreCard(
+      game: widget.game,
+      teamOneStats: true,
+      teamTwoStats: true,
+    );
   }
 }
 
 class GameScoreCard extends StatefulWidget {
   GameShort game;
-  GameScoreCard({Key? key, required this.game}) : super(key: key);
+  bool teamOneStats;
+  bool teamTwoStats;
+  GameScoreCard(
+      {Key? key,
+      required this.game,
+      required this.teamOneStats,
+      required this.teamTwoStats})
+      : super(key: key);
 
   @override
   State<GameScoreCard> createState() => _GameScoreCardState();
@@ -100,22 +137,27 @@ class _GameScoreCardState extends State<GameScoreCard> {
             children: [
               Text(
                 widget.game.teamOneName,
-                style: const TextStyle(
-                  color: Colors.white,
+                style: TextStyle(
+                  color: widget.teamOneStats ? Colors.white : Colors.grey,
                   fontSize: 20,
                 ),
               ),
               Container(
                 padding: const EdgeInsets.all(10.0),
-                margin: const EdgeInsets.all(5),
+                margin: const EdgeInsets.only(
+                    left: 5, right: 5, top: 10, bottom: 10),
                 decoration: BoxDecoration(
-                  border: Border.all(color: Colors.white),
+                  color: (widget.teamOneStats && !widget.teamTwoStats)
+                      ? lightColor
+                      : null,
+                  border: Border.all(
+                      color: widget.teamOneStats ? Colors.white : Colors.grey),
                   borderRadius: BorderRadius.circular(5),
                 ),
                 child: Text(
                   widget.game.teamOneScore.toString(),
-                  style: const TextStyle(
-                    color: Colors.white,
+                  style: TextStyle(
+                    color: widget.teamOneStats ? Colors.white : Colors.grey,
                     fontSize: 40,
                     fontWeight: FontWeight.bold,
                     fontFamily: "Courier New",
@@ -137,13 +179,14 @@ class _GameScoreCardState extends State<GameScoreCard> {
               const Text(
                 "",
                 style: TextStyle(
-                  color: Colors.white,
+                  color: Colors.grey,
                   fontSize: 18,
                 ),
               ),
               Container(
-                padding: const EdgeInsets.all(10.0),
-                margin: const EdgeInsets.all(5),
+                padding: const EdgeInsets.all(10),
+                margin: const EdgeInsets.only(
+                    left: 5, right: 5, top: 10, bottom: 10),
                 decoration: BoxDecoration(
                   border: Border.all(color: baseColor),
                   borderRadius: BorderRadius.circular(5),
@@ -151,7 +194,7 @@ class _GameScoreCardState extends State<GameScoreCard> {
                 child: const Text(
                   "-",
                   style: TextStyle(
-                    color: Colors.white,
+                    color: Colors.grey,
                     fontSize: 40,
                     fontWeight: FontWeight.bold,
                     fontFamily: "Courier New",
@@ -165,22 +208,27 @@ class _GameScoreCardState extends State<GameScoreCard> {
             children: [
               Text(
                 widget.game.teamTwoName,
-                style: const TextStyle(
-                  color: Colors.white,
+                style: TextStyle(
+                  color: widget.teamTwoStats ? Colors.white : Colors.grey,
                   fontSize: 20,
                 ),
               ),
               Container(
-                padding: const EdgeInsets.all(10.0),
-                margin: const EdgeInsets.all(5),
+                padding: const EdgeInsets.all(10),
+                margin: const EdgeInsets.only(
+                    left: 5, right: 5, top: 10, bottom: 10),
                 decoration: BoxDecoration(
-                  border: Border.all(color: Colors.white),
+                  color: (!widget.teamOneStats && widget.teamTwoStats)
+                      ? lightColor
+                      : null,
+                  border: Border.all(
+                      color: widget.teamTwoStats ? Colors.white : Colors.grey),
                   borderRadius: BorderRadius.circular(5),
                 ),
                 child: Text(
                   widget.game.teamTwoScore.toString(),
-                  style: const TextStyle(
-                    color: Colors.white,
+                  style: TextStyle(
+                    color: widget.teamTwoStats ? Colors.white : Colors.grey,
                     fontSize: 40,
                     fontWeight: FontWeight.bold,
                     fontFamily: "Courier New",

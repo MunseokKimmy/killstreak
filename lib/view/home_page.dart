@@ -99,7 +99,7 @@ class MyStatsButton extends StatelessWidget {
       child: ElevatedButton.icon(
         icon: Icon(Icons.play_arrow_outlined),
         label: const Text(
-          "My Games",
+          "View My Games",
           style: TextStyle(fontSize: 17),
         ),
         style: ElevatedButton.styleFrom(
