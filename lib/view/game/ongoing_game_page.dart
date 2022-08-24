@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:killstreak/main.dart';
 import 'package:killstreak/model/game_service.dart';
+import 'package:killstreak/model/stats_service.dart';
+import 'package:killstreak/view/game/game_player_stats_widget.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class OngoingGameWidget extends StatefulWidget {
@@ -58,12 +60,36 @@ class OngoingGamePage1 extends StatefulWidget {
 }
 
 class _OngoingGamePage1State extends State<OngoingGamePage1> {
+  final ScrollController _firstController = ScrollController();
+  StatsService statsService = StatsService();
   @override
   Widget build(BuildContext context) {
-    return GameScoreCard(
-      game: widget.game,
-      teamOneStats: true,
-      teamTwoStats: false,
+    var stats = statsService.getSingleGameStats();
+    return Column(
+      children: [
+        GameScoreCard(
+          game: widget.game,
+          teamOneStats: true,
+          teamTwoStats: false,
+        ),
+        Expanded(
+          child: Scrollbar(
+            controller: _firstController,
+            child: ListView.separated(
+              controller: _firstController,
+              itemCount: 10,
+              itemBuilder: (context, index) {
+                return GamePlayerStatExpansionPanel(
+                  playerGameStats: stats[index],
+                );
+              },
+              separatorBuilder: (context, index) {
+                return const Divider(color: Colors.white);
+              },
+            ),
+          ),
+        )
+      ],
     );
   }
 }

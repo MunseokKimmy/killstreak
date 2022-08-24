@@ -81,7 +81,6 @@ class _RecentGamesState extends State<RecentGames> {
         statsService.getPlayerGameStats() +
         statsService.getPlayerGameStats();
     return Scrollbar(
-      thumbVisibility: true,
       controller: _firstController,
       child: ListView.separated(
         controller: _firstController,
