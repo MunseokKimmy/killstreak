@@ -110,4 +110,12 @@ class StatsService {
   List<PlayerGameStats> getSingleGameStats() {
     return singleGameStats;
   }
+
+  List<PlayerGameStats> getTeamOneSingleGameStats() {
+    return singleGameStats.where((stat) => stat.onTeamOne).toList();
+  }
+
+  List<PlayerGameStats> getTeamTwoSingleGameStats() {
+    return singleGameStats.where((stat) => !stat.onTeamOne).toList();
+  }
 }

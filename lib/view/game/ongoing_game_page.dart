@@ -17,6 +17,9 @@ class OngoingGameWidget extends StatefulWidget {
 class _OngoingGameWidgetState extends State<OngoingGameWidget> {
   @override
   Widget build(BuildContext context) {
+    StatsService statsService = StatsService();
+    var teamOneStats = statsService.getTeamOneSingleGameStats();
+    var teamTwoStats = statsService.getTeamTwoSingleGameStats();
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: Column(
@@ -25,12 +28,16 @@ class _OngoingGameWidgetState extends State<OngoingGameWidget> {
             child: PageView(
               controller: widget._controller,
               scrollDirection: Axis.horizontal,
-              onPageChanged: ((value) {
-                print(value);
-              }),
+              onPageChanged: ((value) {}),
               children: [
-                OngoingGamePage1(game: widget.game),
-                OngoingGamePage2(game: widget.game),
+                OngoingGamePage1(
+                  game: widget.game,
+                  teamOneStats: teamOneStats,
+                ),
+                OngoingGamePage2(
+                  game: widget.game,
+                  teamTwoStats: teamTwoStats,
+                ),
                 OngoingGamePage3(game: widget.game),
               ],
             ),
@@ -53,7 +60,9 @@ class _OngoingGameWidgetState extends State<OngoingGameWidget> {
 
 class OngoingGamePage1 extends StatefulWidget {
   GameShort game;
-  OngoingGamePage1({Key? key, required this.game}) : super(key: key);
+  List<PlayerGameStats> teamOneStats;
+  OngoingGamePage1({Key? key, required this.game, required this.teamOneStats})
+      : super(key: key);
 
   @override
   State<OngoingGamePage1> createState() => _OngoingGamePage1State();
@@ -61,10 +70,8 @@ class OngoingGamePage1 extends StatefulWidget {
 
 class _OngoingGamePage1State extends State<OngoingGamePage1> {
   final ScrollController _firstController = ScrollController();
-  StatsService statsService = StatsService();
   @override
   Widget build(BuildContext context) {
-    var stats = statsService.getSingleGameStats();
     return Column(
       children: [
         GameScoreCard(
@@ -77,10 +84,10 @@ class _OngoingGamePage1State extends State<OngoingGamePage1> {
             controller: _firstController,
             child: ListView.separated(
               controller: _firstController,
-              itemCount: 10,
+              itemCount: widget.teamOneStats.length,
               itemBuilder: (context, index) {
                 return GamePlayerStatExpansionPanel(
-                  playerGameStats: stats[index],
+                  playerGameStats: widget.teamOneStats[index],
                 );
               },
               separatorBuilder: (context, index) {
@@ -96,20 +103,44 @@ class _OngoingGamePage1State extends State<OngoingGamePage1> {
 
 class OngoingGamePage2 extends StatefulWidget {
   GameShort game;
-
-  OngoingGamePage2({Key? key, required this.game}) : super(key: key);
+  List<PlayerGameStats> teamTwoStats;
+  OngoingGamePage2({Key? key, required this.game, required this.teamTwoStats})
+      : super(key: key);
 
   @override
   State<OngoingGamePage2> createState() => _OngoingGamePage2State();
 }
 
 class _OngoingGamePage2State extends State<OngoingGamePage2> {
+  final ScrollController _firstController = ScrollController();
+
   @override
   Widget build(BuildContext context) {
-    return GameScoreCard(
-      game: widget.game,
-      teamOneStats: false,
-      teamTwoStats: true,
+    return Column(
+      children: [
+        GameScoreCard(
+          game: widget.game,
+          teamOneStats: false,
+          teamTwoStats: true,
+        ),
+        Expanded(
+          child: Scrollbar(
+            controller: _firstController,
+            child: ListView.separated(
+              controller: _firstController,
+              itemCount: widget.teamTwoStats.length,
+              itemBuilder: (context, index) {
+                return GamePlayerStatExpansionPanel(
+                  playerGameStats: widget.teamTwoStats[index],
+                );
+              },
+              separatorBuilder: (context, index) {
+                return const Divider(color: Colors.white);
+              },
+            ),
+          ),
+        )
+      ],
     );
   }
 }
@@ -153,7 +184,7 @@ class _GameScoreCardState extends State<GameScoreCard> {
   Widget build(BuildContext context) {
     return ConstrainedBox(
       constraints:
-          BoxConstraints(maxHeight: MediaQuery.of(context).size.height * .3),
+          BoxConstraints(maxHeight: MediaQuery.of(context).size.height * .2),
       child: Row(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.center,
