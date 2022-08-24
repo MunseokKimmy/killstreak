@@ -78,17 +78,17 @@ class StatsService {
         "Aldair's Volleyball Group", 6424, true, 5, 4, 4, 1, 7, 2, 3, 1, 4));
 
     singleGameStats.add(PlayerGameStats("Munseok", 1, "Playoffs Game 1", 1,
-        "Aldair's Volleyball Group", 6424, true, 5, 4, 4, 1, 7, 2, 3, 1, 4));
+        "Aldair's Volleyball Group", 6424, true, 5, 1, 3, 5, 1, 0, 0, 0, 0));
     singleGameStats.add(PlayerGameStats("Kerrigan", 1, "Playoffs Game 1", 1,
-        "Aldair's Volleyball Group", 6424, true, 5, 4, 4, 1, 7, 2, 3, 1, 4));
+        "Aldair's Volleyball Group", 6424, true, 2, 4, 4, 1, 7, 2, 3, 0, 0));
     singleGameStats.add(PlayerGameStats("Jessie", 1, "Playoffs Game 1", 1,
-        "Aldair's Volleyball Group", 6424, true, 5, 4, 4, 1, 7, 2, 3, 1, 4));
+        "Aldair's Volleyball Group", 6424, true, 7, 8, 2, 4, 3, 0, 0, 0, 0));
     singleGameStats.add(PlayerGameStats("Jason", 1, "Playoffs Game 1", 1,
-        "Aldair's Volleyball Group", 6424, true, 5, 4, 4, 1, 7, 2, 3, 1, 4));
+        "Aldair's Volleyball Group", 6424, true, 1, 3, 4, 9, 2, 1, 1, 2, 3));
     singleGameStats.add(PlayerGameStats("Mariah", 1, "Playoffs Game 1", 1,
-        "Aldair's Volleyball Group", 6424, true, 5, 4, 4, 1, 7, 2, 3, 1, 4));
+        "Aldair's Volleyball Group", 6424, true, 2, 2, 3, 1, 4, 1, 3, 1, 3));
     singleGameStats.add(PlayerGameStats("Kaden", 1, "Playoffs Game 1", 1,
-        "Aldair's Volleyball Group", 6424, true, 5, 4, 4, 1, 7, 2, 3, 1, 4));
+        "Aldair's Volleyball Group", 6424, true, 3, 1, 5, 1, 5, 2, 1, 1, 2));
 
     singleGameStats.add(PlayerGameStats("Everett", 1, "Playoffs Game 1", 1,
         "Aldair's Volleyball Group", 6424, false, 5, 4, 4, 1, 7, 2, 3, 1, 4));
