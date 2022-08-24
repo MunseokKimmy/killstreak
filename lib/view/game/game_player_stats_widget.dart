@@ -79,56 +79,153 @@ class _GamePlayerStatTileHeaderState extends State<GamePlayerStatTileHeader> {
                 IntrinsicHeight(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: const [
-                      Text("A",
-                          style: TextStyle(
+                    children: [
+                      Column(
+                        children: [
+                          const Text(
+                            "A",
+                            style: TextStyle(
                               fontFamily: "Courier New",
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600)),
-                      VerticalDivider(
+                              fontSize: 20,
+                            ),
+                          ),
+                          Text(widget.playerGameStats.aces.toString(),
+                              style: const TextStyle(
+                                fontFamily: "Courier New",
+                                fontSize: 20,
+                              )),
+                        ],
+                      ),
+                      const VerticalDivider(
                         color: Colors.white,
                         width: 2,
                         thickness: 1,
                       ),
-                      Text("K",
-                          style: TextStyle(
-                              fontFamily: "Courier New",
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600)),
-                      VerticalDivider(
+                      Column(
+                        children: [
+                          const Text("K",
+                              style: TextStyle(
+                                fontFamily: "Courier New",
+                                fontSize: 20,
+                              )),
+                          Text(widget.playerGameStats.kills.toString(),
+                              style: const TextStyle(
+                                fontFamily: "Courier New",
+                                fontSize: 20,
+                              )),
+                        ],
+                      ),
+                      const VerticalDivider(
                         color: Colors.white,
                         width: 2,
                         thickness: 1,
                       ),
-                      Text("As",
-                          style: TextStyle(
-                              fontFamily: "Courier New",
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600)),
-                      VerticalDivider(
+                      Column(
+                        children: [
+                          const Text("As",
+                              style: TextStyle(
+                                fontFamily: "Courier New",
+                                fontSize: 20,
+                              )),
+                          Text(widget.playerGameStats.assists.toString(),
+                              style: const TextStyle(
+                                fontFamily: "Courier New",
+                                fontSize: 20,
+                              )),
+                        ],
+                      ),
+                      const VerticalDivider(
                         color: Colors.white,
                         width: 2,
                         thickness: 1,
                       ),
-                      Text("B",
-                          style: TextStyle(
-                              fontFamily: "Courier New",
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600)),
-                      VerticalDivider(
+                      Column(
+                        children: [
+                          const Text("B",
+                              style: TextStyle(
+                                fontFamily: "Courier New",
+                                fontSize: 20,
+                              )),
+                          Text(widget.playerGameStats.blocks.toString(),
+                              style: const TextStyle(
+                                fontFamily: "Courier New",
+                                fontSize: 20,
+                              )),
+                        ],
+                      ),
+                      const VerticalDivider(
                         color: Colors.white,
                         width: 2,
                         thickness: 1,
                       ),
-                      Text("D",
-                          style: TextStyle(
-                              fontFamily: "Courier New",
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600)),
+                      Column(
+                        children: [
+                          const Text("D",
+                              style: TextStyle(
+                                fontFamily: "Courier New",
+                                fontSize: 20,
+                              )),
+                          Text(widget.playerGameStats.digs.toString(),
+                              style: const TextStyle(
+                                fontFamily: "Courier New",
+                                fontSize: 20,
+                              )),
+                        ],
+                      ),
                     ],
                   ),
                 ),
-                Row(),
+                // IntrinsicHeight(
+                //     child: Row(
+                //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                //   children: [
+                //     Text(widget.playerGameStats.aces.toString(),
+                //         style: const TextStyle(
+                //             fontFamily: "Courier New",
+                //             fontSize: 20,
+                //             )),
+                //     const VerticalDivider(
+                //       color: Colors.white,
+                //       width: 2,
+                //       thickness: 1,
+                //     ),
+                //     Text(widget.playerGameStats.kills.toString(),
+                //         style: const TextStyle(
+                //             fontFamily: "Courier New",
+                //             fontSize: 20,
+                //             )),
+                //     const VerticalDivider(
+                //       color: Colors.white,
+                //       width: 2,
+                //       thickness: 1,
+                //     ),
+                //     Text(widget.playerGameStats.assists.toString(),
+                //         style: const TextStyle(
+                //             fontFamily: "Courier New",
+                //             fontSize: 20,
+                //             )),
+                //     const VerticalDivider(
+                //       color: Colors.white,
+                //       width: 2,
+                //       thickness: 1,
+                //     ),
+                //     Text(widget.playerGameStats.blocks.toString(),
+                //         style: const TextStyle(
+                //             fontFamily: "Courier New",
+                //             fontSize: 20,
+                //             )),
+                //     const VerticalDivider(
+                //       color: Colors.white,
+                //       width: 2,
+                //       thickness: 1,
+                //     ),
+                //     Text(widget.playerGameStats.digs.toString(),
+                //         style: const TextStyle(
+                //             fontFamily: "Courier New",
+                //             fontSize: 20,
+                //             )),
+                //   ],
+                // )),
               ],
             ))
       ],
