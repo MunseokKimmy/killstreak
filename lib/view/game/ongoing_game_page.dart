@@ -214,7 +214,7 @@ class _GameScoreCardState extends State<GameScoreCard> {
                 child: Text(
                   widget.game.teamOneScore.toString(),
                   style: TextStyle(
-                    color: widget.teamOneStats ? Colors.white : Colors.grey,
+                    color: widget.teamOneStats ? lightGrey : Colors.grey,
                     fontSize: 40,
                     fontWeight: FontWeight.bold,
                     fontFamily: "Courier New",
@@ -266,7 +266,7 @@ class _GameScoreCardState extends State<GameScoreCard> {
               Text(
                 widget.game.teamTwoName,
                 style: TextStyle(
-                  color: widget.teamTwoStats ? Colors.white : Colors.grey,
+                  color: widget.teamTwoStats ? lightGrey : Colors.grey,
                   fontSize: 20,
                 ),
               ),
@@ -285,7 +285,7 @@ class _GameScoreCardState extends State<GameScoreCard> {
                 child: Text(
                   widget.game.teamTwoScore.toString(),
                   style: TextStyle(
-                    color: widget.teamTwoStats ? Colors.white : Colors.grey,
+                    color: widget.teamTwoStats ? lightGrey : Colors.grey,
                     fontSize: 40,
                     fontWeight: FontWeight.bold,
                     fontFamily: "Courier New",

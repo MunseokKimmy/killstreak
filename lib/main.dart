@@ -17,6 +17,8 @@ Future main() async {
 const Color baseColor = Color(0xff001f3f);
 const Color accentColor = Color.fromRGBO(8, 51, 88, 1);
 const Color lightColor = Color.fromRGBO(5, 63, 94, 1);
+const Color lightGrey = Color.fromARGB(255, 234, 232, 232);
+const Color white = Colors.white;
 
 final navigatorKey = GlobalKey<NavigatorState>();
 

@@ -89,6 +89,12 @@ class StatsService {
         "Aldair's Volleyball Group", 6424, true, 2, 2, 3, 1, 4, 1, 3, 1, 3));
     singleGameStats.add(PlayerGameStats("Kaden", 1, "Playoffs Game 1", 1,
         "Aldair's Volleyball Group", 6424, true, 3, 1, 5, 1, 5, 2, 1, 1, 2));
+    singleGameStats.add(PlayerGameStats("Jaxon", 1, "Playoffs Game 1", 1,
+        "Aldair's Volleyball Group", 6424, true, 1, 3, 4, 9, 2, 1, 1, 2, 3));
+    singleGameStats.add(PlayerGameStats("Lydia", 1, "Playoffs Game 1", 1,
+        "Aldair's Volleyball Group", 6424, true, 2, 2, 3, 1, 4, 1, 3, 1, 3));
+    singleGameStats.add(PlayerGameStats("Spencer", 1, "Playoffs Game 1", 1,
+        "Aldair's Volleyball Group", 6424, true, 3, 1, 5, 1, 5, 2, 1, 1, 2));
 
     singleGameStats.add(PlayerGameStats("Everett", 1, "Playoffs Game 1", 1,
         "Aldair's Volleyball Group", 6424, false, 5, 4, 4, 1, 7, 2, 3, 1, 4));
@@ -101,6 +107,12 @@ class StatsService {
     singleGameStats.add(PlayerGameStats("Aubin", 1, "Playoffs Game 1", 1,
         "Aldair's Volleyball Group", 6424, false, 5, 4, 4, 1, 7, 2, 3, 1, 4));
     singleGameStats.add(PlayerGameStats("Cierra", 1, "Playoffs Game 1", 1,
+        "Aldair's Volleyball Group", 6424, false, 5, 4, 4, 1, 7, 2, 3, 1, 4));
+    singleGameStats.add(PlayerGameStats("Ana", 1, "Playoffs Game 1", 1,
+        "Aldair's Volleyball Group", 6424, false, 5, 4, 4, 1, 7, 2, 3, 1, 4));
+    singleGameStats.add(PlayerGameStats("Eve", 1, "Playoffs Game 1", 1,
+        "Aldair's Volleyball Group", 6424, false, 5, 4, 4, 1, 7, 2, 3, 1, 4));
+    singleGameStats.add(PlayerGameStats("Zabdi", 1, "Playoffs Game 1", 1,
         "Aldair's Volleyball Group", 6424, false, 5, 4, 4, 1, 7, 2, 3, 1, 4));
   }
   List<PlayerGameStats> getPlayerGameStats() {

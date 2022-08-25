@@ -42,7 +42,7 @@ class GameService {
   List<GameShort> gameShorts = [];
   GameService() {
     gameShorts.add(GameShort("Playoffs Game 1", "Aldair's Volleyball Group",
-        "Jul 29, 2022", "Red", "Blue", 22, 17, true, false, false));
+        "Jul 29, 2022", "Red", "Blue", 0, 0, true, false, false));
     gameShorts.add(GameShort("Playoffs Game 2", "Aldair's Volleyball Group",
         "Jul 29, 2022", "Yellow", "Green", 12, 25, true, true, true));
     gameShorts.add(GameShort("Playoffs Game 3", "RB", "Jul 29, 2022", "Grey",
