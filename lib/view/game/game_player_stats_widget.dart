@@ -94,11 +94,6 @@ class _GamePlayerStatTileHeaderState extends State<GamePlayerStatTileHeader> {
                             color: lightGrey,
                             fontWeight: FontWeight.w600,
                             fontSize: 18)),
-                    // Icon(
-                    //   Icons.mode_comment,
-                    //   color: Colors.white,
-                    //   size: 20,
-                    // ),
                   ),
                   label: const Text('Ace'),
                   onPressed: () {},
@@ -197,7 +192,7 @@ class _AtkAstRowState extends State<AtkAstRow> {
             elevation: 8.0,
             padding: const EdgeInsets.all(2.0),
             avatar: CircleAvatar(
-              backgroundColor: Colors.blueAccent,
+              backgroundColor: Colors.lightBlueAccent,
               child: Text(widget.playerGameStats.kills.toString(),
                   style: const TextStyle(
                       color: Color.fromARGB(255, 56, 56, 56),
@@ -210,7 +205,7 @@ class _AtkAstRowState extends State<AtkAstRow> {
             shape: const StadiumBorder(
                 side: BorderSide(
               width: 1,
-              color: Colors.blueAccent,
+              color: Colors.lightBlueAccent,
             )),
           ),
         ),
@@ -220,7 +215,7 @@ class _AtkAstRowState extends State<AtkAstRow> {
             elevation: 8.0,
             padding: const EdgeInsets.all(2.0),
             avatar: CircleAvatar(
-              backgroundColor: Colors.blueAccent,
+              backgroundColor: Colors.lightBlueAccent,
               child: Text(widget.playerGameStats.atkErrors.toString(),
                   style: const TextStyle(
                       color: Color.fromARGB(255, 56, 56, 56),
@@ -233,7 +228,7 @@ class _AtkAstRowState extends State<AtkAstRow> {
             shape: const StadiumBorder(
                 side: BorderSide(
               width: 1,
-              color: Colors.blueAccent,
+              color: Colors.lightBlueAccent,
             )),
           ),
         ),

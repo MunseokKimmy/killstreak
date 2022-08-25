@@ -18,8 +18,8 @@ class _OngoingGameWidgetState extends State<OngoingGameWidget> {
   @override
   Widget build(BuildContext context) {
     StatsService statsService = StatsService();
-    var teamOneStats = statsService.getTeamOneSingleGameStats();
-    var teamTwoStats = statsService.getTeamTwoSingleGameStats();
+    var teamOneStats = statsService.getEmptyTeamOneSingleGameStats();
+    var teamTwoStats = statsService.getEmptyTeamTwoSingleGameStats();
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: Column(
