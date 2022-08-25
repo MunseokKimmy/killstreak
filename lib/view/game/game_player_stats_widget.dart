@@ -95,8 +95,16 @@ class _GamePlayerStatTileHeaderState extends State<GamePlayerStatTileHeader> {
                             fontWeight: FontWeight.w600,
                             fontSize: 18)),
                   ),
-                  label: const Text('Ace'),
-                  onPressed: () {},
+                  label: const Text('Ace',
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 15)),
+                  onPressed: () {
+                    setState(() {
+                      widget.playerGameStats.aces++;
+                    });
+                  },
                   backgroundColor: Colors.grey[200],
                   shape: const StadiumBorder(
                       side: BorderSide(
@@ -106,7 +114,7 @@ class _GamePlayerStatTileHeaderState extends State<GamePlayerStatTileHeader> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 3.0, right: 3.0),
+                padding: const EdgeInsets.only(left: 0, right: 3.0),
                 child: ActionChip(
                   elevation: 8.0,
                   padding: const EdgeInsets.all(2.0),
@@ -118,7 +126,11 @@ class _GamePlayerStatTileHeaderState extends State<GamePlayerStatTileHeader> {
                             fontWeight: FontWeight.w600,
                             fontSize: 18)),
                   ),
-                  label: const Text('Service Err'),
+                  label: const Text('Service Err',
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 15)),
                   onPressed: () {},
                   backgroundColor: Colors.grey[200],
                   shape: const StadiumBorder(
