@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:killstreak/model/user_service.dart';
+import 'package:killstreak/presenter/ongoing_game_presenter.dart';
 import 'package:killstreak/view/groups_page.dart';
 import 'package:killstreak/view/my_stats_page.dart';
 import 'package:killstreak/widgets/bottom_navigation.dart';
@@ -42,6 +43,7 @@ class HomePage extends StatelessWidget {
                   MyGroupsButton(),
                   MyStatsButton(),
                   LogoutButton(),
+                  CheckButton()
                 ],
               ),
             ),
@@ -144,6 +146,39 @@ class MyGroupsButton extends StatelessWidget {
             context,
             MaterialPageRoute(
               builder: (context) => const GroupsPage(),
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
+
+class CheckButton extends StatelessWidget {
+  const CheckButton({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: ElevatedButton.icon(
+        icon: const Icon(
+          Icons.groups,
+          size: 40,
+        ),
+        label: const Text(
+          "Check Database",
+          style: TextStyle(fontSize: 17),
+        ),
+        style: ElevatedButton.styleFrom(
+          primary: lightColor,
+          fixedSize: Size(MediaQuery.of(context).size.width * .8, 50),
+        ),
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => CheckDatabase(),
             ),
           );
         },
