@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:killstreak/main.dart';
 import 'package:killstreak/model/groups_service.dart';
 
 import '../widgets/bottom_navigation.dart';
@@ -84,35 +85,34 @@ class _GroupsPageState extends State<GroupsPage> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Container(
-              margin: const EdgeInsets.all(10.0),
-              child: const Text(
-                "My Groups",
-                style: TextStyle(fontSize: 20),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 20.0),
+              child: TextField(
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: accentColor,
+                  iconColor: Colors.white,
+                  labelText: "Search Groups",
+                  labelStyle: const TextStyle(color: Colors.white),
+                  prefixIcon: const Icon(
+                    Icons.search,
+                    color: Colors.white,
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(30),
+                    borderSide:
+                        const BorderSide(color: Colors.grey, width: 1.5),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    gapPadding: 0.0,
+                    borderRadius: BorderRadius.circular(30),
+                    borderSide: const BorderSide(color: Colors.white, width: 2),
+                  ),
+                ),
+                onChanged: (value) {
+                  filterSearchResults(value);
+                },
               ),
-            ),
-            TextField(
-              decoration: InputDecoration(
-                iconColor: Colors.white,
-                labelText: "Search Groups",
-                labelStyle: const TextStyle(color: Colors.white),
-                prefixIcon: const Icon(
-                  Icons.search,
-                  color: Colors.white,
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(30),
-                  borderSide: const BorderSide(color: Colors.grey, width: 1.5),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  gapPadding: 0.0,
-                  borderRadius: BorderRadius.circular(30),
-                  borderSide: const BorderSide(color: Colors.white, width: 2),
-                ),
-              ),
-              onChanged: (value) {
-                filterSearchResults(value);
-              },
             ),
             Expanded(
               child: MyGroups(
@@ -144,7 +144,6 @@ class _MyGroupsState extends State<MyGroups> {
   @override
   Widget build(BuildContext context) {
     return Scrollbar(
-      thumbVisibility: true,
       controller: _firstController,
       child: ListView.separated(
         controller: _firstController,
@@ -176,6 +175,8 @@ class _GroupSummaryPanelState extends State<GroupSummaryPanel> {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      visualDensity: VisualDensity(vertical: -2),
+      contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 8),
       title: Text(widget.group.groupName, style: TextStyle(fontSize: 20)),
       subtitle: Text(widget.group.groupId, style: TextStyle(fontSize: 18)),
       leading: const Icon(
