@@ -4,13 +4,15 @@ import 'package:killstreak/utils/palette.dart';
 import 'package:killstreak/utils/utils.dart';
 import 'package:killstreak/view/authentication/auth_page.dart';
 import 'package:killstreak/view/authentication/verify_email_page.dart';
-import 'package:killstreak/view/home_page.dart';
 // ignore: depend_on_referenced_packages
 import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 
