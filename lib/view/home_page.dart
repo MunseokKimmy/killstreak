@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:killstreak/model/user_service.dart';
 import 'package:killstreak/presenter/ongoing_game_presenter.dart';
@@ -39,7 +40,7 @@ class HomePage extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.center,
-                children: const [
+                children: [
                   MyGroupsButton(),
                   MyStatsButton(),
                   LogoutButton(),
@@ -155,7 +156,18 @@ class MyGroupsButton extends StatelessWidget {
 }
 
 class CheckButton extends StatelessWidget {
-  const CheckButton({Key? key}) : super(key: key);
+  Future readData() async {
+    DatabaseReference ref =
+        FirebaseDatabase.instance.ref("games/game-1/game_name");
+    // Get the data once
+    //DatabaseEvent event = await ref.once();
+    // print(ref.key);
+    // print(ref.parent!.key);
+    // print(event.snapshot.value);
+    ref.update({"game_name": "Game 1"});
+  }
+
+  CheckButton({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -175,12 +187,7 @@ class CheckButton extends StatelessWidget {
           fixedSize: Size(MediaQuery.of(context).size.width * .8, 50),
         ),
         onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => CheckDatabase(),
-            ),
-          );
+          readData();
         },
       ),
     );

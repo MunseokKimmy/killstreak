@@ -1,3 +1,4 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:killstreak/main.dart';
 import 'package:killstreak/model/game_service.dart';
