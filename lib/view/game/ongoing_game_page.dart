@@ -4,6 +4,7 @@ import 'package:killstreak/main.dart';
 import 'package:killstreak/model/game_service.dart';
 import 'package:killstreak/model/stats_service.dart';
 import 'package:killstreak/view/game/game_player_stats_widget.dart';
+import 'package:killstreak/view/game/stat_compare_bar_chart.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class OngoingGameWidget extends StatefulWidget {
@@ -157,10 +158,39 @@ class OngoingGamePage3 extends StatefulWidget {
 class _OngoingGamePage3State extends State<OngoingGamePage3> {
   @override
   Widget build(BuildContext context) {
-    return GameScoreCard(
-      game: widget.game,
-      teamOneStats: true,
-      teamTwoStats: true,
+    return Column(
+      children: [
+        GameScoreCard(
+          game: widget.game,
+          teamOneStats: true,
+          teamTwoStats: true,
+        ),
+        StatHeadToHeadCompareChart(
+          statName: "Service Ace",
+          teamOneStatCount: 8,
+          teamTwoStatCount: 5,
+        ),
+        StatHeadToHeadCompareChart(
+          statName: "Kills",
+          teamOneStatCount: 6,
+          teamTwoStatCount: 8,
+        ),
+        StatHeadToHeadCompareChart(
+          statName: "Assists",
+          teamOneStatCount: 3,
+          teamTwoStatCount: 2,
+        ),
+        StatHeadToHeadCompareChart(
+          statName: "Blocks",
+          teamOneStatCount: 1,
+          teamTwoStatCount: 1,
+        ),
+        StatHeadToHeadCompareChart(
+          statName: "Digs",
+          teamOneStatCount: 6,
+          teamTwoStatCount: 4,
+        ),
+      ],
     );
   }
 }
