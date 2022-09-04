@@ -131,7 +131,11 @@ class _GamePlayerStatTileHeaderState extends State<GamePlayerStatTileHeader> {
                           color: Colors.black,
                           fontWeight: FontWeight.w500,
                           fontSize: 15)),
-                  onPressed: () {},
+                  onPressed: () {
+                    setState(() {
+                      widget.playerGameStats.serviceErrors++;
+                    });
+                  },
                   backgroundColor: Colors.grey[200],
                   shape: const StadiumBorder(
                       side: BorderSide(
@@ -212,7 +216,11 @@ class _AtkAstRowState extends State<AtkAstRow> {
                       fontSize: 18)),
             ),
             label: const Text('Kill'),
-            onPressed: () {},
+            onPressed: () {
+              setState(() {
+                widget.playerGameStats.kills++;
+              });
+            },
             backgroundColor: Colors.grey[200],
             shape: const StadiumBorder(
                 side: BorderSide(
@@ -235,7 +243,11 @@ class _AtkAstRowState extends State<AtkAstRow> {
                       fontSize: 18)),
             ),
             label: const Text('Atk Err'),
-            onPressed: () {},
+            onPressed: () {
+              setState(() {
+                widget.playerGameStats.atkErrors++;
+              });
+            },
             backgroundColor: Colors.grey[200],
             shape: const StadiumBorder(
                 side: BorderSide(
@@ -258,7 +270,11 @@ class _AtkAstRowState extends State<AtkAstRow> {
                       fontSize: 18)),
             ),
             label: const Text('Ast'),
-            onPressed: () {},
+            onPressed: () {
+              setState(() {
+                widget.playerGameStats.assists++;
+              });
+            },
             backgroundColor: Colors.grey[200],
             shape: const StadiumBorder(
                 side: BorderSide(
@@ -281,7 +297,11 @@ class _AtkAstRowState extends State<AtkAstRow> {
                       fontSize: 18)),
             ),
             label: const Text('BH Err'),
-            onPressed: () {},
+            onPressed: () {
+              setState(() {
+                widget.playerGameStats.ballHandlingErrors++;
+              });
+            },
             backgroundColor: Colors.grey[200],
             shape: const StadiumBorder(
                 side: BorderSide(
@@ -323,7 +343,11 @@ class _BlkDigRowState extends State<BlkDigRow> {
                       fontSize: 18)),
             ),
             label: const Text('Dig'),
-            onPressed: () {},
+            onPressed: () {
+              setState(() {
+                widget.playerGameStats.digs++;
+              });
+            },
             backgroundColor: Colors.grey[200],
             shape: const StadiumBorder(
                 side: BorderSide(
@@ -346,7 +370,11 @@ class _BlkDigRowState extends State<BlkDigRow> {
                       fontSize: 18)),
             ),
             label: const Text('Rec Err'),
-            onPressed: () {},
+            onPressed: () {
+              setState(() {
+                widget.playerGameStats.receptionErrors++;
+              });
+            },
             backgroundColor: Colors.grey[200],
             shape: const StadiumBorder(
                 side: BorderSide(
@@ -369,7 +397,11 @@ class _BlkDigRowState extends State<BlkDigRow> {
                       fontSize: 18)),
             ),
             label: const Text('Blk'),
-            onPressed: () {},
+            onPressed: () {
+              setState(() {
+                widget.playerGameStats.blocks++;
+              });
+            },
             backgroundColor: Colors.grey[200],
             shape: const StadiumBorder(
                 side: BorderSide(
@@ -392,7 +424,11 @@ class _BlkDigRowState extends State<BlkDigRow> {
                       fontSize: 18)),
             ),
             label: const Text('Blk Err'),
-            onPressed: () {},
+            onPressed: () {
+              setState(() {
+                widget.playerGameStats.blockErrors++;
+              });
+            },
             backgroundColor: Colors.grey[200],
             shape: const StadiumBorder(
                 side: BorderSide(

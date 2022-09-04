@@ -5,10 +5,14 @@ import 'package:killstreak/model/game_service.dart';
 import 'package:killstreak/model/stats_service.dart';
 import 'package:killstreak/view/game/game_player_stats_widget.dart';
 import 'package:killstreak/view/game/stat_compare_bar_chart.dart';
+import 'package:killstreak/view/home_page.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+
+DatabaseReference ref = FirebaseDatabase.instance.ref("games/game-1/teams");
 
 class OngoingGameWidget extends StatefulWidget {
   GameShort game;
+  var gameData;
   final _controller = PageController();
   OngoingGameWidget({Key? key, required this.game}) : super(key: key);
 
@@ -62,7 +66,9 @@ class _OngoingGameWidgetState extends State<OngoingGameWidget> {
 
 class OngoingGamePage1 extends StatefulWidget {
   GameShort game;
+  var gameData;
   List<PlayerGameStats> teamOneStats;
+
   OngoingGamePage1({Key? key, required this.game, required this.teamOneStats})
       : super(key: key);
 
@@ -149,6 +155,7 @@ class _OngoingGamePage2State extends State<OngoingGamePage2> {
 
 class OngoingGamePage3 extends StatefulWidget {
   GameShort game;
+
   OngoingGamePage3({Key? key, required this.game}) : super(key: key);
 
   @override
@@ -160,6 +167,7 @@ class _OngoingGamePage3State extends State<OngoingGamePage3> {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        CheckButton(),
         GameScoreCard(
           game: widget.game,
           teamOneStats: true,
@@ -167,8 +175,8 @@ class _OngoingGamePage3State extends State<OngoingGamePage3> {
         ),
         StatHeadToHeadCompareChart(
           statName: "Service Ace",
-          teamOneStatCount: 8,
-          teamTwoStatCount: 5,
+          teamOneStatCount: 9,
+          teamTwoStatCount: 1,
         ),
         StatHeadToHeadCompareChart(
           statName: "Kills",
@@ -199,6 +207,8 @@ class GameScoreCard extends StatefulWidget {
   GameShort game;
   bool teamOneStats;
   bool teamTwoStats;
+  String teamOneName = "";
+  var gameData;
   GameScoreCard(
       {Key? key,
       required this.game,
@@ -211,8 +221,18 @@ class GameScoreCard extends StatefulWidget {
 }
 
 class _GameScoreCardState extends State<GameScoreCard> {
+  Future<void> updateCount(data) async {
+    widget.gameData = data;
+    widget.teamOneName = widget.gameData['team_one_name'];
+    print(widget.teamOneName);
+  }
+
   @override
   Widget build(BuildContext context) {
+    ref.onValue.listen((event) {
+      final data = event.snapshot.value;
+      updateCount(data);
+    });
     return ConstrainedBox(
       constraints:
           BoxConstraints(maxHeight: MediaQuery.of(context).size.height * .2),
@@ -224,7 +244,8 @@ class _GameScoreCardState extends State<GameScoreCard> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Text(
-                widget.game.teamOneName,
+                //"",
+                widget.teamOneName,
                 style: TextStyle(
                   color: widget.teamOneStats ? Colors.white : Colors.grey,
                   fontSize: 20,

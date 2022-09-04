@@ -12,7 +12,7 @@ import '../main.dart';
 import 'game/create_a_new_game_page.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+  HomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +34,7 @@ class HomePage extends StatelessWidget {
                 style: const TextStyle(fontSize: 20),
               ),
             ),
-            const RecentGamesCarousel(),
+            RecentGamesCarousel(),
             Padding(
               padding: const EdgeInsets.only(top: 10.0),
               child: Column(
@@ -157,14 +157,16 @@ class MyGroupsButton extends StatelessWidget {
 
 class CheckButton extends StatelessWidget {
   Future readData() async {
-    DatabaseReference ref =
-        FirebaseDatabase.instance.ref("games/game-1/game_name");
-    // Get the data once
-    //DatabaseEvent event = await ref.once();
-    // print(ref.key);
-    // print(ref.parent!.key);
-    // print(event.snapshot.value);
-    ref.update({"game_name": "Game 1"});
+    DatabaseReference ref = FirebaseDatabase.instance.ref("games/game-1/teams");
+    // final snapshot = await ref.get();
+    // ref.onValue.listen((event) {
+    //   final data = event.snapshot.value;
+    // });
+    // if (snapshot.exists) {
+    //   print(snapshot.value);
+    // } else {
+    //   print('No data available.');
+    // }
   }
 
   CheckButton({Key? key}) : super(key: key);

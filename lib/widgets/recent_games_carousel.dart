@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_options.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:killstreak/main.dart';
 import 'package:killstreak/view/game/create_a_new_game_page.dart';
@@ -9,7 +10,7 @@ import '../model/game_service.dart';
 import '../view/game/game_page.dart';
 
 class RecentGamesCarousel extends StatefulWidget {
-  const RecentGamesCarousel({Key? key}) : super(key: key);
+  RecentGamesCarousel({Key? key}) : super(key: key);
 
   @override
   State<RecentGamesCarousel> createState() => _RecentGamesCarouselState();
