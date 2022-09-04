@@ -1,3 +1,5 @@
+import 'package:firebase_database/firebase_database.dart';
+
 class LifeTimeStats {
   String playerName;
   String playerId;
@@ -65,10 +67,16 @@ class PlayerGameStats {
 }
 
 class StatsService {
+  DatabaseReference ref = FirebaseDatabase.instance.ref("games/game-1/teams");
   List<PlayerGameStats> groupGameStats = [];
   List<PlayerGameStats> singleGameStats = [];
   List<PlayerGameStats> emptySingleGameStats = [];
+  var gameData;
   StatsService() {
+    ref.onValue.listen((event) {
+      final data = event.snapshot.value;
+      updateCount(data);
+    });
     groupGameStats.add(PlayerGameStats("Munseok Kim", 1, "Playoffs Game 1", 1,
         "Aldair's Group", 6424, true, 0, 0, 0, 0, 0, 2, 2, 3, 1, 4));
     groupGameStats.add(PlayerGameStats("Munseok Kim", 1, "Playoffs Game 2", 2,
@@ -156,6 +164,12 @@ class StatsService {
     emptySingleGameStats.add(PlayerGameStats("Zabdi", 1, "Playoffs Game 1", 1,
         "Aldair's Group", 6424, false, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
   }
+
+  Future<void> updateCount(data) async {
+    gameData = data;
+    print(gameData);
+  }
+
   List<PlayerGameStats> getPlayerGameStats() {
     return groupGameStats;
   }

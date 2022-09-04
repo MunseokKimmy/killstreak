@@ -8,8 +8,6 @@ import 'package:killstreak/view/game/stat_compare_bar_chart.dart';
 import 'package:killstreak/view/home_page.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-DatabaseReference ref = FirebaseDatabase.instance.ref("games/game-1/teams");
-
 class OngoingGameWidget extends StatefulWidget {
   GameShort game;
   var gameData;
@@ -221,18 +219,8 @@ class GameScoreCard extends StatefulWidget {
 }
 
 class _GameScoreCardState extends State<GameScoreCard> {
-  Future<void> updateCount(data) async {
-    widget.gameData = data;
-    widget.teamOneName = widget.gameData['team_one_name'];
-    print(widget.teamOneName);
-  }
-
   @override
   Widget build(BuildContext context) {
-    ref.onValue.listen((event) {
-      final data = event.snapshot.value;
-      updateCount(data);
-    });
     return ConstrainedBox(
       constraints:
           BoxConstraints(maxHeight: MediaQuery.of(context).size.height * .2),
