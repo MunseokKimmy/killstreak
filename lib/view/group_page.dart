@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:killstreak/model/dtos/game.dto.dart';
 import 'package:killstreak/view/game/create_a_new_game_page.dart';
 import 'package:killstreak/view/game/game_page.dart';
 import '../main.dart';

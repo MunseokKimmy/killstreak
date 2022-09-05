@@ -3,6 +3,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:killstreak/main.dart';
+import 'package:killstreak/model/dtos/game.dto.dart';
 import 'package:killstreak/view/game/create_a_new_game_page.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
