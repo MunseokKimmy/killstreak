@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
@@ -250,146 +251,161 @@ class _GameScoreCardState extends State<GameScoreCard> {
   @override
   Widget build(BuildContext context) {
     final gameRef = database.child('/games/game-1/teams');
-    return ConstrainedBox(
-      constraints:
-          BoxConstraints(maxHeight: MediaQuery.of(context).size.height * .2),
-      child: Row(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Text(
-                //"",
-                teamOneName,
-                style: TextStyle(
-                  color: widget.teamOneStats ? Colors.white : Colors.grey,
-                  fontSize: 20,
-                ),
-              ),
-              GestureDetector(
-                onTap: () async {
-                  try {
-                    await gameRef.set({
-                      'team_one_name': 'Pink',
-                      'team_one_score': 1,
-                      'team_one_serving': false,
-                      'team_two_name': 'Green',
-                      'team_two_score': 3
-                    });
-                    print("Teams data has been written.");
-                  } catch (e) {
-                    print('Error. $e');
-                  }
-                },
-                child: Container(
-                  padding: const EdgeInsets.all(10.0),
-                  margin: const EdgeInsets.only(
-                      left: 5, right: 5, top: 10, bottom: 10),
-                  decoration: BoxDecoration(
-                    color: (widget.teamOneStats && !widget.teamTwoStats)
-                        ? lightColor
-                        : null,
-                    border: Border.all(
-                        color:
-                            widget.teamOneStats ? Colors.white : Colors.grey),
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  child: Text(
-                    widget.game.teamOneScore.toString(),
-                    style: TextStyle(
-                      color: widget.teamOneStats ? lightGrey : Colors.grey,
-                      fontSize: 40,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: "Courier New",
+    return StreamBuilder(
+      stream: database.child('/games/game-1').onValue,
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          final response = (snapshot.data! as DatabaseEvent).snapshot.value;
+          final String parsed = json.encode(response);
+          Game gameData = Game.fromRTDB(jsonDecode(parsed));
+          return ConstrainedBox(
+            constraints: BoxConstraints(
+                maxHeight: MediaQuery.of(context).size.height * .2),
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(
+                      gameData.teaminfo.teamOneName,
+                      style: TextStyle(
+                        color: widget.teamOneStats ? Colors.white : Colors.grey,
+                        fontSize: 20,
+                      ),
                     ),
-                  ),
+                    GestureDetector(
+                      onTap: () async {
+                        try {
+                          await gameRef.set({
+                            'team_one_name': 'Pink',
+                            'team_one_score': 1,
+                            'team_one_serving': false,
+                            'team_two_name': 'Green',
+                            'team_two_score': 3
+                          });
+                          print("Teams data has been written.");
+                        } catch (e) {
+                          print('Error. $e');
+                        }
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.all(10.0),
+                        margin: const EdgeInsets.only(
+                            left: 5, right: 5, top: 10, bottom: 10),
+                        decoration: BoxDecoration(
+                          color: (widget.teamOneStats && !widget.teamTwoStats)
+                              ? lightColor
+                              : null,
+                          border: Border.all(
+                              color: widget.teamOneStats
+                                  ? Colors.white
+                                  : Colors.grey),
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        child: Text(
+                          gameData.teaminfo.teamOneScore.toString(),
+                          style: TextStyle(
+                            color:
+                                widget.teamOneStats ? lightGrey : Colors.grey,
+                            fontSize: 40,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: "Courier New",
+                          ),
+                        ),
+                      ),
+                    ),
+                    Visibility(
+                      visible: gameData.teaminfo.teamOneServing,
+                      child: const Icon(
+                        Icons.sports_volleyball,
+                        color: Colors.yellow,
+                        size: 24,
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-              Visibility(
-                visible: widget.game.teamOneServing,
-                child: const Icon(
-                  Icons.sports_volleyball,
-                  color: Colors.yellow,
-                  size: 24,
+                Column(
+                  children: [
+                    const Text(
+                      "",
+                      style: TextStyle(
+                        color: Colors.grey,
+                        fontSize: 18,
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.all(10),
+                      margin: const EdgeInsets.only(
+                          left: 5, right: 5, top: 10, bottom: 10),
+                      decoration: BoxDecoration(
+                        border: Border.all(color: baseColor),
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      child: const Text(
+                        "-",
+                        style: TextStyle(
+                          color: Colors.grey,
+                          fontSize: 40,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: "Courier New",
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-            ],
-          ),
-          Column(
-            children: [
-              const Text(
-                "",
-                style: TextStyle(
-                  color: Colors.grey,
-                  fontSize: 18,
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(
+                      gameData.teaminfo.teamTwoName,
+                      style: TextStyle(
+                        color: widget.teamTwoStats ? lightGrey : Colors.grey,
+                        fontSize: 20,
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.all(10),
+                      margin: const EdgeInsets.only(
+                          left: 5, right: 5, top: 10, bottom: 10),
+                      decoration: BoxDecoration(
+                        color: (!widget.teamOneStats && widget.teamTwoStats)
+                            ? lightColor
+                            : null,
+                        border: Border.all(
+                            color: widget.teamTwoStats
+                                ? Colors.white
+                                : Colors.grey),
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      child: Text(
+                        gameData.teaminfo.teamTwoScore.toString(),
+                        style: TextStyle(
+                          color: widget.teamTwoStats ? lightGrey : Colors.grey,
+                          fontSize: 40,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: "Courier New",
+                        ),
+                      ),
+                    ),
+                    Visibility(
+                      visible: !gameData.teaminfo.teamOneServing,
+                      child: const Icon(
+                        Icons.sports_volleyball,
+                        color: Colors.yellow,
+                        size: 24,
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-              Container(
-                padding: const EdgeInsets.all(10),
-                margin: const EdgeInsets.only(
-                    left: 5, right: 5, top: 10, bottom: 10),
-                decoration: BoxDecoration(
-                  border: Border.all(color: baseColor),
-                  borderRadius: BorderRadius.circular(5),
-                ),
-                child: const Text(
-                  "-",
-                  style: TextStyle(
-                    color: Colors.grey,
-                    fontSize: 40,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: "Courier New",
-                  ),
-                ),
-              ),
-            ],
-          ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Text(
-                widget.game.teamTwoName,
-                style: TextStyle(
-                  color: widget.teamTwoStats ? lightGrey : Colors.grey,
-                  fontSize: 20,
-                ),
-              ),
-              Container(
-                padding: const EdgeInsets.all(10),
-                margin: const EdgeInsets.only(
-                    left: 5, right: 5, top: 10, bottom: 10),
-                decoration: BoxDecoration(
-                  color: (!widget.teamOneStats && widget.teamTwoStats)
-                      ? lightColor
-                      : null,
-                  border: Border.all(
-                      color: widget.teamTwoStats ? Colors.white : Colors.grey),
-                  borderRadius: BorderRadius.circular(5),
-                ),
-                child: Text(
-                  widget.game.teamTwoScore.toString(),
-                  style: TextStyle(
-                    color: widget.teamTwoStats ? lightGrey : Colors.grey,
-                    fontSize: 40,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: "Courier New",
-                  ),
-                ),
-              ),
-              Visibility(
-                visible: !widget.game.teamOneServing,
-                child: const Icon(
-                  Icons.sports_volleyball,
-                  color: Colors.yellow,
-                  size: 24,
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
+              ],
+            ),
+          );
+        } else {
+          return CircularProgressIndicator();
+        }
+      },
     );
   }
 }

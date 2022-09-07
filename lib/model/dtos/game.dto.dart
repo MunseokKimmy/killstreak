@@ -29,24 +29,37 @@ class Game {
   int gameId;
   String groupName;
   int groupId;
-  DateTime date;
+  String date;
   String location;
-  List<String> players;
+  List players;
   TeamInfo teaminfo;
   Game(this.gameName, this.gameId, this.groupName, this.groupId, this.date,
       this.location, this.players, this.teaminfo);
 
-  factory Game.fromMap(Map<String, dynamic> json) {
+  factory Game.fromRTDB(Map<String, dynamic> json) {
     TeamInfo teamInfo = TeamInfo.fromMap(json['teams']);
-    return Game(
-        json['game_name'] ?? "",
-        json['game_id'] ?? 0,
-        json['group_name'] ?? "",
-        json['group_id'] ?? 0,
-        json['date'] ?? "",
-        json['location'] ?? "",
-        json['players'] ?? [],
-        teamInfo);
+    if (json['players'] != null) {
+      List playersJson = json['players'];
+      return Game(
+          json['game_name'] ?? "",
+          json['game_id'] ?? 0,
+          json['group_name'] ?? "",
+          json['group_id'] ?? 0,
+          json['date'] ?? "",
+          json['location'] ?? "",
+          playersJson,
+          teamInfo);
+    } else {
+      return Game(
+          json['game_name'] ?? "",
+          json['game_id'] ?? 0,
+          json['group_name'] ?? "",
+          json['group_id'] ?? 0,
+          json['date'] ?? "",
+          json['location'] ?? "",
+          [],
+          teamInfo);
+    }
   }
 }
 
