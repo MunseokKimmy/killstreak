@@ -169,7 +169,7 @@ class _OngoingGamePage3State extends State<OngoingGamePage3> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        CheckButton(),
+        // CheckButton(),
         GameScoreCard(
           game: widget.game,
           teamOneStats: true,
