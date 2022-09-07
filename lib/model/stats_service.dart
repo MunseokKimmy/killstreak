@@ -167,7 +167,6 @@ class StatsService {
 
   Future<void> updateCount(data) async {
     gameData = data;
-    print(gameData);
   }
 
   List<PlayerGameStats> getPlayerGameStats() {
