@@ -250,7 +250,6 @@ class _GameScoreCardState extends State<GameScoreCard> {
 
   @override
   Widget build(BuildContext context) {
-    final gameRef = database.child('/games/game-1/teams');
     return StreamBuilder(
       stream: database.child('/games/game-1').onValue,
       builder: (context, snapshot) {
@@ -275,44 +274,27 @@ class _GameScoreCardState extends State<GameScoreCard> {
                         fontSize: 20,
                       ),
                     ),
-                    GestureDetector(
-                      onTap: () async {
-                        try {
-                          await gameRef.set({
-                            'team_one_name': 'Pink',
-                            'team_one_score': 1,
-                            'team_one_serving': false,
-                            'team_two_name': 'Green',
-                            'team_two_score': 3
-                          });
-                          print("Teams data has been written.");
-                        } catch (e) {
-                          print('Error. $e');
-                        }
-                      },
-                      child: Container(
-                        padding: const EdgeInsets.all(10.0),
-                        margin: const EdgeInsets.only(
-                            left: 5, right: 5, top: 10, bottom: 10),
-                        decoration: BoxDecoration(
-                          color: (widget.teamOneStats && !widget.teamTwoStats)
-                              ? lightColor
-                              : null,
-                          border: Border.all(
-                              color: widget.teamOneStats
-                                  ? Colors.white
-                                  : Colors.grey),
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        child: Text(
-                          gameData.teaminfo.teamOneScore.toString(),
-                          style: TextStyle(
-                            color:
-                                widget.teamOneStats ? lightGrey : Colors.grey,
-                            fontSize: 40,
-                            fontWeight: FontWeight.bold,
-                            fontFamily: "Courier New",
-                          ),
+                    Container(
+                      padding: const EdgeInsets.all(10.0),
+                      margin: const EdgeInsets.only(
+                          left: 5, right: 5, top: 10, bottom: 10),
+                      decoration: BoxDecoration(
+                        color: (widget.teamOneStats && !widget.teamTwoStats)
+                            ? lightColor
+                            : null,
+                        border: Border.all(
+                            color: widget.teamOneStats
+                                ? Colors.white
+                                : Colors.grey),
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      child: Text(
+                        gameData.teaminfo.teamOneScore.toString(),
+                        style: TextStyle(
+                          color: widget.teamOneStats ? lightGrey : Colors.grey,
+                          fontSize: 40,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: "Courier New",
                         ),
                       ),
                     ),
