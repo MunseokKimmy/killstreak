@@ -29,73 +29,56 @@ class _OngoingGameWidgetState extends State<OngoingGameWidget> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(20.0),
-      child: StreamBuilder(
-        stream: OngoingGameService().getPlayerStatsStream(widget.game.gameId),
-        builder: ((context, snapshot) {
-          if (snapshot.hasData) {
-            final playerStats = snapshot.data as List<PlayerGameStats>;
-            List<PlayerGameStats> teamOne = [];
-            List<PlayerGameStats> teamTwo = [];
-            for (var playerStat in playerStats) {
-              if (playerStat.onTeamOne) {
-                teamOne.add(playerStat);
-              } else {
-                teamTwo.add(playerStat);
-              }
-            }
-            teamOneStats = teamOne;
-            teamTwoStats = teamTwo;
-            return Column(
+      child: Column(
+        children: [
+          Expanded(
+            child: PageView(
+              controller: widget._controller,
+              scrollDirection: Axis.horizontal,
+              onPageChanged: ((value) {}),
               children: [
-                Expanded(
-                  child: PageView(
-                    controller: widget._controller,
-                    scrollDirection: Axis.horizontal,
-                    onPageChanged: ((value) {}),
-                    children: [
-                      OngoingGamePage1(
-                        game: widget.game,
-                        teamOneStats: teamOneStats,
-                      ),
-                      OngoingGamePage2(
-                        game: widget.game,
-                        teamTwoStats: teamTwoStats,
-                      ),
-                      OngoingGamePage3(
-                        game: widget.game,
-                      ),
-                    ],
-                  ),
+                OngoingGamePage1(
+                  game: widget.game,
+                  // teamOneStats: teamOneStats,
                 ),
-                SmoothPageIndicator(
-                  controller: widget._controller,
-                  count: 3,
-                  effect: const SwapEffect(
-                    activeDotColor: Colors.yellow,
-                    spacing: 14,
-                    dotHeight: 7,
-                    dotWidth: 14,
-                  ),
-                )
+                OngoingGamePage2(
+                  game: widget.game,
+                  // teamTwoStats: teamTwoStats,
+                ),
+                OngoingGamePage3(
+                  game: widget.game,
+                ),
               ],
-            );
-          } else {
-            return const CircularProgressIndicator();
-          }
-        }),
+            ),
+          ),
+          SmoothPageIndicator(
+            controller: widget._controller,
+            count: 3,
+            effect: const SwapEffect(
+              activeDotColor: Colors.yellow,
+              spacing: 14,
+              dotHeight: 7,
+              dotWidth: 14,
+            ),
+          )
+        ],
+        //   );
+        // } else {
+        //   return const CircularProgressIndicator();
+        // }
+        // }
       ),
     );
+    // );
   }
 }
 
 class OngoingGamePage1 extends StatefulWidget {
   GameShort game;
-  List<PlayerGameStats> teamOneStats;
 
   OngoingGamePage1({
     Key? key,
     required this.game,
-    required this.teamOneStats,
   }) : super(key: key);
 
   @override
@@ -113,22 +96,44 @@ class _OngoingGamePage1State extends State<OngoingGamePage1> {
           teamOneStats: true,
           teamTwoStats: false,
         ),
-        Expanded(
-          child: Scrollbar(
-            controller: _firstController,
-            child: ListView.separated(
-              controller: _firstController,
-              itemCount: widget.teamOneStats.length,
-              itemBuilder: (context, index) {
-                return GamePlayerStatExpansionPanel(
-                  playerGameStats: widget.teamOneStats[index],
-                );
-              },
-              separatorBuilder: (context, index) {
-                return const Divider(color: Colors.white);
-              },
-            ),
-          ),
+        StreamBuilder(
+          stream: OngoingGameService()
+              .getPlayerListStream(widget.game.gameId, true),
+          builder: ((context, snapshot) {
+            if (snapshot.hasData) {
+              final List<String> playerList = snapshot.data as List<String>;
+              return Expanded(
+                child: Scrollbar(
+                  controller: _firstController,
+                  child: ListView.separated(
+                    controller: _firstController,
+                    itemCount: playerList.length,
+                    itemBuilder: (context, index) {
+                      return StreamBuilder(
+                          stream: OngoingGameService()
+                              .getSinglePlayerStatStream(playerList[index]),
+                          builder: ((context, snapshot2) {
+                            if (snapshot2.hasData) {
+                              final PlayerGameStats playerStat =
+                                  snapshot2.data as PlayerGameStats;
+                              return GamePlayerStatExpansionPanel(
+                                playerGameStats: playerStat,
+                              );
+                            } else {
+                              return Center(child: CircularProgressIndicator());
+                            }
+                          }));
+                    },
+                    separatorBuilder: (context, index) {
+                      return const Divider(color: Colors.white);
+                    },
+                  ),
+                ),
+              );
+            } else {
+              return Center(child: CircularProgressIndicator());
+            }
+          }),
         )
       ],
     );
@@ -137,9 +142,7 @@ class _OngoingGamePage1State extends State<OngoingGamePage1> {
 
 class OngoingGamePage2 extends StatefulWidget {
   GameShort game;
-  List<PlayerGameStats> teamTwoStats;
-  OngoingGamePage2({Key? key, required this.game, required this.teamTwoStats})
-      : super(key: key);
+  OngoingGamePage2({Key? key, required this.game}) : super(key: key);
 
   @override
   State<OngoingGamePage2> createState() => _OngoingGamePage2State();
@@ -157,22 +160,45 @@ class _OngoingGamePage2State extends State<OngoingGamePage2> {
           teamOneStats: false,
           teamTwoStats: true,
         ),
-        Expanded(
-          child: Scrollbar(
-            controller: _firstController,
-            child: ListView.separated(
-              controller: _firstController,
-              itemCount: widget.teamTwoStats.length,
-              itemBuilder: (context, index) {
-                return GamePlayerStatExpansionPanel(
-                  playerGameStats: widget.teamTwoStats[index],
-                );
-              },
-              separatorBuilder: (context, index) {
-                return const Divider(color: Colors.white);
-              },
-            ),
-          ),
+        StreamBuilder(
+          stream: OngoingGameService()
+              .getPlayerListStream(widget.game.gameId, false),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              final List<String> playerList = snapshot.data as List<String>;
+              return Expanded(
+                child: Scrollbar(
+                  controller: _firstController,
+                  child: ListView.separated(
+                    controller: _firstController,
+                    itemCount: playerList.length,
+                    itemBuilder: (context, index) {
+                      return StreamBuilder(
+                        stream: OngoingGameService()
+                            .getSinglePlayerStatStream(playerList[index]),
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                            final PlayerGameStats playerStat =
+                                snapshot.data as PlayerGameStats;
+                            return GamePlayerStatExpansionPanel(
+                              playerGameStats: playerStat,
+                            );
+                          } else {
+                            return CircularProgressIndicator();
+                          }
+                        },
+                      );
+                    },
+                    separatorBuilder: (context, index) {
+                      return const Divider(color: Colors.white);
+                    },
+                  ),
+                ),
+              );
+            } else {
+              return CircularProgressIndicator();
+            }
+          },
         ),
       ],
     );
