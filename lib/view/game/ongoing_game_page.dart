@@ -1,16 +1,10 @@
-import 'dart:async';
-import 'dart:convert';
-
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:killstreak/main.dart';
 import 'package:killstreak/model/dtos/game.dto.dart';
-import 'package:killstreak/model/game_service.dart';
 import 'package:killstreak/model/ongoing_game_service.dart';
 import 'package:killstreak/model/stats_service.dart';
 import 'package:killstreak/view/game/game_player_stats_widget.dart';
 import 'package:killstreak/view/game/stat_compare_bar_chart.dart';
-import 'package:killstreak/view/home_page.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class OngoingGameWidget extends StatefulWidget {
@@ -23,7 +17,6 @@ class OngoingGameWidget extends StatefulWidget {
 }
 
 class _OngoingGameWidgetState extends State<OngoingGameWidget> {
-  final database = FirebaseDatabase.instance.ref();
   List<PlayerGameStats> teamOneStats = [];
   List<PlayerGameStats> teamTwoStats = [];
 
@@ -37,28 +30,19 @@ class _OngoingGameWidgetState extends State<OngoingGameWidget> {
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: StreamBuilder(
-        stream: database
-            .child('/players')
-            .orderByChild("game_id")
-            .equalTo(widget.game.gameId)
-            .onValue,
+        stream: OngoingGameService().getPlayerStatsStream(widget.game.gameId),
         builder: ((context, snapshot) {
-          // final panelList = <GamePlayerStatExpansionPanel>[];
           if (snapshot.hasData) {
-            final response = (snapshot.data! as DatabaseEvent).snapshot.value;
-            final String parsed = json.encode(response);
-            Map<String, dynamic> map = jsonDecode(parsed);
+            final playerStats = snapshot.data as List<PlayerGameStats>;
             List<PlayerGameStats> teamOne = [];
             List<PlayerGameStats> teamTwo = [];
-            map.forEach((key, value) {
-              final PlayerGameStats playerStat =
-                  PlayerGameStats.fromRTDB(value);
+            for (var playerStat in playerStats) {
               if (playerStat.onTeamOne) {
                 teamOne.add(playerStat);
               } else {
                 teamTwo.add(playerStat);
               }
-            });
+            }
             teamOneStats = teamOne;
             teamTwoStats = teamTwo;
             return Column(
@@ -72,16 +56,13 @@ class _OngoingGameWidgetState extends State<OngoingGameWidget> {
                       OngoingGamePage1(
                         game: widget.game,
                         teamOneStats: teamOneStats,
-                        databaseReference: database,
                       ),
                       OngoingGamePage2(
                         game: widget.game,
                         teamTwoStats: teamTwoStats,
-                        databaseReference: database,
                       ),
                       OngoingGamePage3(
                         game: widget.game,
-                        databaseReference: database,
                       ),
                     ],
                   ),
@@ -110,14 +91,12 @@ class _OngoingGameWidgetState extends State<OngoingGameWidget> {
 class OngoingGamePage1 extends StatefulWidget {
   GameShort game;
   List<PlayerGameStats> teamOneStats;
-  DatabaseReference databaseReference;
 
-  OngoingGamePage1(
-      {Key? key,
-      required this.game,
-      required this.teamOneStats,
-      required this.databaseReference})
-      : super(key: key);
+  OngoingGamePage1({
+    Key? key,
+    required this.game,
+    required this.teamOneStats,
+  }) : super(key: key);
 
   @override
   State<OngoingGamePage1> createState() => _OngoingGamePage1State();
@@ -133,7 +112,6 @@ class _OngoingGamePage1State extends State<OngoingGamePage1> {
           game: widget.game,
           teamOneStats: true,
           teamTwoStats: false,
-          databaseReference: widget.databaseReference,
         ),
         Expanded(
           child: Scrollbar(
@@ -160,12 +138,7 @@ class _OngoingGamePage1State extends State<OngoingGamePage1> {
 class OngoingGamePage2 extends StatefulWidget {
   GameShort game;
   List<PlayerGameStats> teamTwoStats;
-  DatabaseReference databaseReference;
-  OngoingGamePage2(
-      {Key? key,
-      required this.game,
-      required this.teamTwoStats,
-      required this.databaseReference})
+  OngoingGamePage2({Key? key, required this.game, required this.teamTwoStats})
       : super(key: key);
 
   @override
@@ -183,7 +156,6 @@ class _OngoingGamePage2State extends State<OngoingGamePage2> {
           game: widget.game,
           teamOneStats: false,
           teamTwoStats: true,
-          databaseReference: widget.databaseReference,
         ),
         Expanded(
           child: Scrollbar(
@@ -209,10 +181,7 @@ class _OngoingGamePage2State extends State<OngoingGamePage2> {
 
 class OngoingGamePage3 extends StatefulWidget {
   GameShort game;
-  DatabaseReference databaseReference;
-  OngoingGamePage3(
-      {Key? key, required this.game, required this.databaseReference})
-      : super(key: key);
+  OngoingGamePage3({Key? key, required this.game}) : super(key: key);
 
   @override
   State<OngoingGamePage3> createState() => _OngoingGamePage3State();
@@ -228,7 +197,6 @@ class _OngoingGamePage3State extends State<OngoingGamePage3> {
           game: widget.game,
           teamOneStats: true,
           teamTwoStats: true,
-          databaseReference: widget.databaseReference,
         ),
         StatHeadToHeadCompareChart(
           statName: "Service Ace",
@@ -264,13 +232,11 @@ class GameScoreCard extends StatefulWidget {
   GameShort game;
   bool teamOneStats;
   bool teamTwoStats;
-  DatabaseReference databaseReference;
   GameScoreCard(
       {Key? key,
       required this.game,
       required this.teamOneStats,
-      required this.teamTwoStats,
-      required this.databaseReference})
+      required this.teamTwoStats})
       : super(key: key);
 
   @override
@@ -284,9 +250,6 @@ class _GameScoreCardState extends State<GameScoreCard> {
       stream: OngoingGameService().getGameStream(widget.game.gameId),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          // final response = (snapshot.data! as DatabaseEvent).snapshot.value;
-          // final String parsed = json.encode(response);
-          // Game gameData = Game.fromRTDB(jsonDecode(parsed));
           final Game gameData = snapshot.data as Game;
           return ConstrainedBox(
             constraints: BoxConstraints(

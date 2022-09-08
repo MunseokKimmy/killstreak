@@ -15,7 +15,7 @@ class OngoingGameService {
         .equalTo(gameId)
         .onValue;
     final results = playerStatStream.map((event) {
-      final String parsed = json.encode(event);
+      final String parsed = json.encode(event.snapshot.value);
       Map<String, dynamic> map = jsonDecode(parsed);
       final statList = map.entries.map((element) {
         return PlayerGameStats.fromRTDB(
