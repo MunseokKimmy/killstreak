@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:killstreak/main.dart';
 import 'package:killstreak/model/dtos/game.dto.dart';
 import 'package:killstreak/model/game_service.dart';
+import 'package:killstreak/model/ongoing_game_service.dart';
 import 'package:killstreak/model/stats_service.dart';
 import 'package:killstreak/view/game/game_player_stats_widget.dart';
 import 'package:killstreak/view/game/stat_compare_bar_chart.dart';
@@ -98,7 +99,7 @@ class _OngoingGameWidgetState extends State<OngoingGameWidget> {
               ],
             );
           } else {
-            return CircularProgressIndicator();
+            return const CircularProgressIndicator();
           }
         }),
       ),
@@ -108,7 +109,6 @@ class _OngoingGameWidgetState extends State<OngoingGameWidget> {
 
 class OngoingGamePage1 extends StatefulWidget {
   GameShort game;
-  var gameData;
   List<PlayerGameStats> teamOneStats;
   DatabaseReference databaseReference;
 
@@ -281,14 +281,13 @@ class _GameScoreCardState extends State<GameScoreCard> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-      stream: widget.databaseReference
-          .child('/games/game-${widget.game.gameId}')
-          .onValue,
+      stream: OngoingGameService().getGameStream(widget.game.gameId),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          final response = (snapshot.data! as DatabaseEvent).snapshot.value;
-          final String parsed = json.encode(response);
-          Game gameData = Game.fromRTDB(jsonDecode(parsed));
+          // final response = (snapshot.data! as DatabaseEvent).snapshot.value;
+          // final String parsed = json.encode(response);
+          // Game gameData = Game.fromRTDB(jsonDecode(parsed));
+          final Game gameData = snapshot.data as Game;
           return ConstrainedBox(
             constraints: BoxConstraints(
                 maxHeight: MediaQuery.of(context).size.height * .2),
@@ -417,7 +416,7 @@ class _GameScoreCardState extends State<GameScoreCard> {
             ),
           );
         } else {
-          return CircularProgressIndicator();
+          return const CircularProgressIndicator();
         }
       },
     );
