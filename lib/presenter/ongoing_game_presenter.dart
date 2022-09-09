@@ -2,6 +2,8 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+
+import 'package:killstreak/main.dart';
 //https://killstreak-7038f-default-rtdb.firebaseio.com
 
 class CheckDatabase extends StatefulWidget {
@@ -54,7 +56,8 @@ class _CheckDatabaseState extends State<CheckDatabase> {
             title: Text("GeeksforGeeks"),
           ),
           body: isLoading
-              ? CircularProgressIndicator()
+              ? CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation<Color>(lightColor))
               : ListView.builder(
                   padding: const EdgeInsets.all(8),
                   itemCount: list.length,

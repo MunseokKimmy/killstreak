@@ -51,7 +51,9 @@ class MyApp extends StatelessWidget {
           stream: FirebaseAuth.instance.authStateChanges(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(child: CircularProgressIndicator());
+              return const Center(
+                  child: CircularProgressIndicator(
+                      valueColor: AlwaysStoppedAnimation<Color>(lightColor)));
             } else if (snapshot.hasError) {
               return const Center(child: Text("Login failed"));
             } else if (snapshot.hasData) {

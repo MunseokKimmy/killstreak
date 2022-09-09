@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:killstreak/main.dart';
+import 'package:killstreak/model/ongoing_game_service.dart';
 import 'package:killstreak/model/stats_service.dart';
 
 class GamePlayerStatExpansionPanel extends StatefulWidget {
-  PlayerGameStats playerGameStats;
+  String playerGameStats;
   GamePlayerStatExpansionPanel({Key? key, required this.playerGameStats})
       : super(key: key);
 
@@ -49,7 +50,7 @@ class _GamePlayerStatExpansionPanelState
 }
 
 class GamePlayerStatTileHeader extends StatefulWidget {
-  PlayerGameStats playerGameStats;
+  String playerGameStats;
   GamePlayerStatTileHeader({Key? key, required this.playerGameStats})
       : super(key: key);
 
@@ -69,12 +70,24 @@ class _GamePlayerStatTileHeaderState extends State<GamePlayerStatTileHeader> {
             flex: 2,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text(
-                widget.playerGameStats.playerName,
-                style: const TextStyle(
-                  fontSize: 22,
-                  color: lightGrey,
-                ),
+              child: StreamBuilder(
+                stream: OngoingGameService().getSingleStatStreamString(
+                    widget.playerGameStats, 'player_name'),
+                builder: (context, snapshot) {
+                  // if (snapshot.hasData) {
+                  //   final String playerName = snapshot.data as String;
+                  //   return Text(
+                  //     playerName,
+                  //     style: const TextStyle(
+                  //       fontSize: 22,
+                  //       color: lightGrey,
+                  //     ),
+                  //   );
+                  // } else {
+                  return CircularProgressIndicator(
+                      valueColor: AlwaysStoppedAnimation<Color>(lightColor));
+                  // }
+                },
               ),
             )),
         Expanded(
@@ -89,7 +102,7 @@ class _GamePlayerStatTileHeaderState extends State<GamePlayerStatTileHeader> {
                   padding: const EdgeInsets.all(2.0),
                   avatar: CircleAvatar(
                     backgroundColor: baseColor,
-                    child: Text(widget.playerGameStats.aces.toString(),
+                    child: Text("", //widget.playerGameStats.aces.toString(),
                         style: const TextStyle(
                             color: lightGrey,
                             fontWeight: FontWeight.w600,
@@ -101,9 +114,9 @@ class _GamePlayerStatTileHeaderState extends State<GamePlayerStatTileHeader> {
                           fontWeight: FontWeight.w500,
                           fontSize: 15)),
                   onPressed: () {
-                    setState(() {
-                      widget.playerGameStats.aces++;
-                    });
+                    // setState(() {
+                    //   widget.playerGameStats.aces++;
+                    // });
                   },
                   backgroundColor: Colors.grey[200],
                   shape: const StadiumBorder(
@@ -120,7 +133,8 @@ class _GamePlayerStatTileHeaderState extends State<GamePlayerStatTileHeader> {
                   padding: const EdgeInsets.all(2.0),
                   avatar: CircleAvatar(
                     backgroundColor: baseColor,
-                    child: Text(widget.playerGameStats.serviceErrors.toString(),
+                    child: Text(
+                        "", //widget.playerGameStats.serviceErrors.toString(),
                         style: TextStyle(
                             color: Colors.grey[200],
                             fontWeight: FontWeight.w600,
@@ -132,9 +146,9 @@ class _GamePlayerStatTileHeaderState extends State<GamePlayerStatTileHeader> {
                           fontWeight: FontWeight.w500,
                           fontSize: 15)),
                   onPressed: () {
-                    setState(() {
-                      widget.playerGameStats.serviceErrors++;
-                    });
+                    // setState(() {
+                    //   widget.playerGameStats.serviceErrors++;
+                    // });
                   },
                   backgroundColor: Colors.grey[200],
                   shape: const StadiumBorder(
@@ -153,7 +167,7 @@ class _GamePlayerStatTileHeaderState extends State<GamePlayerStatTileHeader> {
 }
 
 class GamePlayerStatTileFooter extends StatefulWidget {
-  PlayerGameStats playerGameStats;
+  String playerGameStats;
 
   GamePlayerStatTileFooter({Key? key, required this.playerGameStats})
       : super(key: key);
@@ -178,8 +192,8 @@ class _GamePlayerStatTileFooterState extends State<GamePlayerStatTileFooter> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                AtkAstRow(playerGameStats: widget.playerGameStats),
-                BlkDigRow(playerGameStats: widget.playerGameStats)
+                //AtkAstRow(playerGameStats: widget.playerGameStats),
+                //BlkDigRow(playerGameStats: widget.playerGameStats)
               ],
             ),
           )

@@ -109,20 +109,9 @@ class _OngoingGamePage1State extends State<OngoingGamePage1> {
                     controller: _firstController,
                     itemCount: playerList.length,
                     itemBuilder: (context, index) {
-                      return StreamBuilder(
-                          stream: OngoingGameService()
-                              .getSinglePlayerStatStream(playerList[index]),
-                          builder: ((context, snapshot2) {
-                            if (snapshot2.hasData) {
-                              final PlayerGameStats playerStat =
-                                  snapshot2.data as PlayerGameStats;
-                              return GamePlayerStatExpansionPanel(
-                                playerGameStats: playerStat,
-                              );
-                            } else {
-                              return Center(child: CircularProgressIndicator());
-                            }
-                          }));
+                      return GamePlayerStatExpansionPanel(
+                        playerGameStats: playerList[index],
+                      );
                     },
                     separatorBuilder: (context, index) {
                       return const Divider(color: Colors.white);
@@ -131,7 +120,10 @@ class _OngoingGamePage1State extends State<OngoingGamePage1> {
                 ),
               );
             } else {
-              return Center(child: CircularProgressIndicator());
+              return const Center(
+                  child: CircularProgressIndicator(
+                      valueColor:
+                          const AlwaysStoppedAnimation<Color>(lightColor)));
             }
           }),
         )
@@ -173,20 +165,8 @@ class _OngoingGamePage2State extends State<OngoingGamePage2> {
                     controller: _firstController,
                     itemCount: playerList.length,
                     itemBuilder: (context, index) {
-                      return StreamBuilder(
-                        stream: OngoingGameService()
-                            .getSinglePlayerStatStream(playerList[index]),
-                        builder: (context, snapshot) {
-                          if (snapshot.hasData) {
-                            final PlayerGameStats playerStat =
-                                snapshot.data as PlayerGameStats;
-                            return GamePlayerStatExpansionPanel(
-                              playerGameStats: playerStat,
-                            );
-                          } else {
-                            return CircularProgressIndicator();
-                          }
-                        },
+                      return GamePlayerStatExpansionPanel(
+                        playerGameStats: playerList[index],
                       );
                     },
                     separatorBuilder: (context, index) {
@@ -196,7 +176,8 @@ class _OngoingGamePage2State extends State<OngoingGamePage2> {
                 ),
               );
             } else {
-              return CircularProgressIndicator();
+              return const CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation<Color>(lightColor));
             }
           },
         ),
@@ -405,7 +386,8 @@ class _GameScoreCardState extends State<GameScoreCard> {
             ),
           );
         } else {
-          return const CircularProgressIndicator();
+          return const CircularProgressIndicator(
+              valueColor: const AlwaysStoppedAnimation<Color>(lightColor));
         }
       },
     );

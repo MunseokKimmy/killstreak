@@ -49,6 +49,26 @@ class OngoingGameService {
     return result;
   }
 
+  Stream<int> getSingleStatStreamInt(String gamePlayerId, String statName) {
+    final statStream =
+        _database.child('players/$gamePlayerId/$statName').onValue;
+    final result = statStream.map((event) {
+      print(event.snapshot.value);
+      return event.snapshot.value as int;
+    });
+    return result;
+  }
+
+  Stream<String> getSingleStatStreamString(
+      String gamePlayerId, String statName) {
+    final statStream =
+        _database.child('players/$gamePlayerId/$statName').onValue;
+    final result = statStream.map((event) {
+      return event.snapshot.value as String;
+    });
+    return result;
+  }
+
   Stream<Game> getGameStream(int gameId) {
     final gameStream = _database.child('/games/game-$gameId').onValue;
     final results = gameStream.map((event) {
