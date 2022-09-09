@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:killstreak/main.dart';
 import 'package:killstreak/model/ongoing_game_service.dart';
 import 'package:killstreak/model/stats_service.dart';
+import 'package:killstreak/view/game/edit_stat_bottom_modal.dart';
 
 class GamePlayerStatExpansionPanel extends StatefulWidget {
   String playerGameStats;
@@ -51,6 +52,7 @@ class _GamePlayerStatExpansionPanelState
 
 class GamePlayerStatTileHeader extends StatefulWidget {
   String playerGameStats;
+  late String playerFirstName;
   GamePlayerStatTileHeader({Key? key, required this.playerGameStats})
       : super(key: key);
 
@@ -74,19 +76,20 @@ class _GamePlayerStatTileHeaderState extends State<GamePlayerStatTileHeader> {
                 stream: OngoingGameService().getSingleStatStreamString(
                     widget.playerGameStats, 'player_name'),
                 builder: (context, snapshot) {
-                  // if (snapshot.hasData) {
-                  //   final String playerName = snapshot.data as String;
-                  //   return Text(
-                  //     playerName,
-                  //     style: const TextStyle(
-                  //       fontSize: 22,
-                  //       color: lightGrey,
-                  //     ),
-                  //   );
-                  // } else {
-                  return CircularProgressIndicator(
-                      valueColor: AlwaysStoppedAnimation<Color>(lightColor));
-                  // }
+                  if (snapshot.hasData) {
+                    final String playerName = snapshot.data as String;
+                    widget.playerFirstName = playerName;
+                    return Text(
+                      playerName,
+                      style: const TextStyle(
+                        fontSize: 22,
+                        color: lightGrey,
+                      ),
+                    );
+                  } else {
+                    return const CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation<Color>(lightColor));
+                  }
                 },
               ),
             )),
@@ -97,65 +100,105 @@ class _GamePlayerStatTileHeaderState extends State<GamePlayerStatTileHeader> {
             children: [
               Padding(
                 padding: const EdgeInsets.only(left: 3.0, right: 8.0),
-                child: ActionChip(
-                  elevation: 8.0,
-                  padding: const EdgeInsets.all(2.0),
-                  avatar: CircleAvatar(
-                    backgroundColor: baseColor,
-                    child: Text("", //widget.playerGameStats.aces.toString(),
-                        style: const TextStyle(
-                            color: lightGrey,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 18)),
-                  ),
-                  label: const Text('Ace',
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.w500,
-                          fontSize: 15)),
-                  onPressed: () {
-                    // setState(() {
-                    //   widget.playerGameStats.aces++;
-                    // });
+                child: StreamBuilder(
+                  stream: OngoingGameService()
+                      .getSingleStatStreamInt(widget.playerGameStats, 'ace'),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      final int playerAces = snapshot.data as int;
+                      return GestureDetector(
+                        onLongPress: () {
+                          showModalBottomSheet(
+                              context: context,
+                              builder: (context) {
+                                return EditStatBottomModal(
+                                  initialStat: playerAces,
+                                  playerName: widget.playerFirstName,
+                                  playerStatId: widget.playerGameStats,
+                                  statName: 'Aces',
+                                  statDataName: 'ace',
+                                );
+                              });
+                        },
+                        child: ActionChip(
+                          elevation: 8.0,
+                          padding: const EdgeInsets.all(2.0),
+                          avatar: CircleAvatar(
+                            backgroundColor: baseColor,
+                            child: Text(playerAces.toString(),
+                                style: const TextStyle(
+                                    color: lightGrey,
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 18)),
+                          ),
+                          label: const Text('Ace',
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 15)),
+                          onPressed: () async {
+                            OngoingGameService().updateSingleStatInt(
+                                widget.playerGameStats, 'ace', playerAces + 1);
+                          },
+                          backgroundColor: Colors.grey[200],
+                          shape: const StadiumBorder(
+                              side: BorderSide(
+                            width: 1,
+                            color: baseColor,
+                          )),
+                        ),
+                      );
+                    } else {
+                      return const CircularProgressIndicator(
+                          valueColor:
+                              AlwaysStoppedAnimation<Color>(lightColor));
+                    }
                   },
-                  backgroundColor: Colors.grey[200],
-                  shape: const StadiumBorder(
-                      side: BorderSide(
-                    width: 1,
-                    color: baseColor,
-                  )),
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 0, right: 3.0),
-                child: ActionChip(
-                  elevation: 8.0,
-                  padding: const EdgeInsets.all(2.0),
-                  avatar: CircleAvatar(
-                    backgroundColor: baseColor,
-                    child: Text(
-                        "", //widget.playerGameStats.serviceErrors.toString(),
-                        style: TextStyle(
-                            color: Colors.grey[200],
-                            fontWeight: FontWeight.w600,
-                            fontSize: 18)),
-                  ),
-                  label: const Text('Service Err',
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.w500,
-                          fontSize: 15)),
-                  onPressed: () {
-                    // setState(() {
-                    //   widget.playerGameStats.serviceErrors++;
-                    // });
-                  },
-                  backgroundColor: Colors.grey[200],
-                  shape: const StadiumBorder(
-                      side: BorderSide(
-                    width: 1,
-                    color: baseColor,
-                  )),
+                child: StreamBuilder(
+                  stream: OngoingGameService().getSingleStatStreamInt(
+                      widget.playerGameStats, 'service_errors'),
+                  builder: ((context, snapshot) {
+                    if (snapshot.hasData) {
+                      final int playerServiceErrors = snapshot.data as int;
+                      return ActionChip(
+                        elevation: 8.0,
+                        padding: const EdgeInsets.all(2.0),
+                        avatar: CircleAvatar(
+                          backgroundColor: baseColor,
+                          child: Text(playerServiceErrors.toString(),
+                              style: TextStyle(
+                                  color: Colors.grey[200],
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 18)),
+                        ),
+                        label: const Text('Service Err',
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.w500,
+                                fontSize: 15)),
+                        onPressed: () {
+                          OngoingGameService().updateSingleStatInt(
+                              widget.playerGameStats,
+                              'service_errors',
+                              playerServiceErrors + 1);
+                        },
+                        backgroundColor: Colors.grey[200],
+                        shape: const StadiumBorder(
+                            side: BorderSide(
+                          width: 1,
+                          color: baseColor,
+                        )),
+                      );
+                    } else {
+                      return const CircularProgressIndicator(
+                          valueColor:
+                              AlwaysStoppedAnimation<Color>(lightColor));
+                    }
+                  }),
                 ),
               ),
             ],
@@ -192,8 +235,8 @@ class _GamePlayerStatTileFooterState extends State<GamePlayerStatTileFooter> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                //AtkAstRow(playerGameStats: widget.playerGameStats),
-                //BlkDigRow(playerGameStats: widget.playerGameStats)
+                AtkAstRow(playerGameStats: widget.playerGameStats),
+                BlkDigRow(playerGameStats: widget.playerGameStats)
               ],
             ),
           )
@@ -204,7 +247,7 @@ class _GamePlayerStatTileFooterState extends State<GamePlayerStatTileFooter> {
 }
 
 class AtkAstRow extends StatefulWidget {
-  PlayerGameStats playerGameStats;
+  String playerGameStats;
   AtkAstRow({Key? key, required this.playerGameStats}) : super(key: key);
 
   @override
@@ -218,110 +261,158 @@ class _AtkAstRowState extends State<AtkAstRow> {
       children: [
         Padding(
           padding: const EdgeInsets.only(left: 3.0, right: 3.0),
-          child: ActionChip(
-            elevation: 8.0,
-            padding: const EdgeInsets.all(2.0),
-            avatar: CircleAvatar(
-              backgroundColor: Colors.lightBlueAccent,
-              child: Text(widget.playerGameStats.kills.toString(),
-                  style: const TextStyle(
-                      color: Color.fromARGB(255, 56, 56, 56),
-                      fontWeight: FontWeight.w600,
-                      fontSize: 18)),
-            ),
-            label: const Text('Kill'),
-            onPressed: () {
-              setState(() {
-                widget.playerGameStats.kills++;
-              });
+          child: StreamBuilder(
+            stream: OngoingGameService()
+                .getSingleStatStreamInt(widget.playerGameStats, 'kills'),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                final int playerKills = snapshot.data as int;
+                return ActionChip(
+                  elevation: 8.0,
+                  padding: const EdgeInsets.all(2.0),
+                  avatar: CircleAvatar(
+                    backgroundColor: Colors.lightBlueAccent,
+                    child: Text(playerKills.toString(),
+                        style: const TextStyle(
+                            color: Color.fromARGB(255, 56, 56, 56),
+                            fontWeight: FontWeight.w600,
+                            fontSize: 18)),
+                  ),
+                  label: const Text('Kill'),
+                  onPressed: () {
+                    OngoingGameService().updateSingleStatInt(
+                        widget.playerGameStats, 'kills', playerKills + 1);
+                  },
+                  backgroundColor: Colors.grey[200],
+                  shape: const StadiumBorder(
+                      side: BorderSide(
+                    width: 1,
+                    color: Colors.lightBlueAccent,
+                  )),
+                );
+              } else {
+                return const CircularProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation<Color>(lightColor));
+              }
             },
-            backgroundColor: Colors.grey[200],
-            shape: const StadiumBorder(
-                side: BorderSide(
-              width: 1,
-              color: Colors.lightBlueAccent,
-            )),
           ),
         ),
         Padding(
           padding: const EdgeInsets.only(left: 3.0, right: 3.0),
-          child: ActionChip(
-            elevation: 8.0,
-            padding: const EdgeInsets.all(2.0),
-            avatar: CircleAvatar(
-              backgroundColor: Colors.lightBlueAccent,
-              child: Text(widget.playerGameStats.atkErrors.toString(),
-                  style: const TextStyle(
-                      color: Color.fromARGB(255, 56, 56, 56),
-                      fontWeight: FontWeight.w600,
-                      fontSize: 18)),
-            ),
-            label: const Text('Atk Err'),
-            onPressed: () {
-              setState(() {
-                widget.playerGameStats.atkErrors++;
-              });
+          child: StreamBuilder(
+            stream: OngoingGameService().getSingleStatStreamInt(
+                widget.playerGameStats, 'attack_errors'),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                final int playerAttackErrors = snapshot.data as int;
+                return ActionChip(
+                  elevation: 8.0,
+                  padding: const EdgeInsets.all(2.0),
+                  avatar: CircleAvatar(
+                    backgroundColor: Colors.lightBlueAccent,
+                    child: Text(playerAttackErrors.toString(),
+                        style: const TextStyle(
+                            color: Color.fromARGB(255, 56, 56, 56),
+                            fontWeight: FontWeight.w600,
+                            fontSize: 18)),
+                  ),
+                  label: const Text('Atk Err'),
+                  onPressed: () {
+                    OngoingGameService().updateSingleStatInt(
+                        widget.playerGameStats,
+                        'attack_errors',
+                        playerAttackErrors + 1);
+                  },
+                  backgroundColor: Colors.grey[200],
+                  shape: const StadiumBorder(
+                      side: BorderSide(
+                    width: 1,
+                    color: Colors.lightBlueAccent,
+                  )),
+                );
+              } else {
+                return const CircularProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation<Color>(lightColor));
+              }
             },
-            backgroundColor: Colors.grey[200],
-            shape: const StadiumBorder(
-                side: BorderSide(
-              width: 1,
-              color: Colors.lightBlueAccent,
-            )),
           ),
         ),
         Padding(
           padding: const EdgeInsets.only(left: 3.0, right: 3.0),
-          child: ActionChip(
-            elevation: 8.0,
-            padding: const EdgeInsets.all(2.0),
-            avatar: CircleAvatar(
-              backgroundColor: Colors.pinkAccent,
-              child: Text(widget.playerGameStats.assists.toString(),
-                  style: const TextStyle(
-                      color: Color.fromARGB(255, 56, 56, 56),
-                      fontWeight: FontWeight.w600,
-                      fontSize: 18)),
-            ),
-            label: const Text('Ast'),
-            onPressed: () {
-              setState(() {
-                widget.playerGameStats.assists++;
-              });
+          child: StreamBuilder(
+            stream: OngoingGameService()
+                .getSingleStatStreamInt(widget.playerGameStats, 'assists'),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                final int playerAssists = snapshot.data as int;
+                return ActionChip(
+                  elevation: 8.0,
+                  padding: const EdgeInsets.all(2.0),
+                  avatar: CircleAvatar(
+                    backgroundColor: Colors.pinkAccent,
+                    child: Text(playerAssists.toString(),
+                        style: const TextStyle(
+                            color: Color.fromARGB(255, 56, 56, 56),
+                            fontWeight: FontWeight.w600,
+                            fontSize: 18)),
+                  ),
+                  label: const Text('Ast'),
+                  onPressed: () {
+                    OngoingGameService().updateSingleStatInt(
+                        widget.playerGameStats, 'assists', playerAssists + 1);
+                  },
+                  backgroundColor: Colors.grey[200],
+                  shape: const StadiumBorder(
+                      side: BorderSide(
+                    width: 1,
+                    color: Colors.pinkAccent,
+                  )),
+                );
+              } else {
+                return const CircularProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation<Color>(lightColor));
+              }
             },
-            backgroundColor: Colors.grey[200],
-            shape: const StadiumBorder(
-                side: BorderSide(
-              width: 1,
-              color: Colors.pinkAccent,
-            )),
           ),
         ),
         Padding(
           padding: const EdgeInsets.only(left: 3.0, right: 3.0),
-          child: ActionChip(
-            elevation: 8.0,
-            padding: const EdgeInsets.all(2.0),
-            avatar: CircleAvatar(
-              backgroundColor: Colors.pinkAccent,
-              child: Text(widget.playerGameStats.ballHandlingErrors.toString(),
-                  style: const TextStyle(
-                      color: Color.fromARGB(255, 56, 56, 56),
-                      fontWeight: FontWeight.w600,
-                      fontSize: 18)),
-            ),
-            label: const Text('BH Err'),
-            onPressed: () {
-              setState(() {
-                widget.playerGameStats.ballHandlingErrors++;
-              });
+          child: StreamBuilder(
+            stream: OngoingGameService().getSingleStatStreamInt(
+                widget.playerGameStats, 'ball_handling_errors'),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                final int playerBHE = snapshot.data as int;
+                return ActionChip(
+                  elevation: 8.0,
+                  padding: const EdgeInsets.all(2.0),
+                  avatar: CircleAvatar(
+                    backgroundColor: Colors.pinkAccent,
+                    child: Text(playerBHE.toString(),
+                        style: const TextStyle(
+                            color: Color.fromARGB(255, 56, 56, 56),
+                            fontWeight: FontWeight.w600,
+                            fontSize: 18)),
+                  ),
+                  label: const Text('BH Err'),
+                  onPressed: () {
+                    OngoingGameService().updateSingleStatInt(
+                        widget.playerGameStats,
+                        'ball_handling_errors',
+                        playerBHE + 1);
+                  },
+                  backgroundColor: Colors.grey[200],
+                  shape: const StadiumBorder(
+                      side: BorderSide(
+                    width: 1,
+                    color: Colors.pinkAccent,
+                  )),
+                );
+              } else {
+                return const CircularProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation<Color>(lightColor));
+              }
             },
-            backgroundColor: Colors.grey[200],
-            shape: const StadiumBorder(
-                side: BorderSide(
-              width: 1,
-              color: Colors.pinkAccent,
-            )),
           ),
         ),
       ],
@@ -330,7 +421,7 @@ class _AtkAstRowState extends State<AtkAstRow> {
 }
 
 class BlkDigRow extends StatefulWidget {
-  PlayerGameStats playerGameStats;
+  String playerGameStats;
   BlkDigRow({Key? key, required this.playerGameStats}) : super(key: key);
 
   @override
@@ -345,110 +436,158 @@ class _BlkDigRowState extends State<BlkDigRow> {
       children: [
         Padding(
           padding: const EdgeInsets.only(left: 3.0, right: 3.0),
-          child: ActionChip(
-            elevation: 8.0,
-            padding: const EdgeInsets.all(2.0),
-            avatar: CircleAvatar(
-              backgroundColor: Colors.purpleAccent,
-              child: Text(widget.playerGameStats.digs.toString(),
-                  style: const TextStyle(
-                      color: Color.fromARGB(255, 56, 56, 56),
-                      fontWeight: FontWeight.w600,
-                      fontSize: 18)),
-            ),
-            label: const Text('Dig'),
-            onPressed: () {
-              setState(() {
-                widget.playerGameStats.digs++;
-              });
+          child: StreamBuilder(
+            stream: OngoingGameService()
+                .getSingleStatStreamInt(widget.playerGameStats, 'digs'),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                final int playerDigs = snapshot.data as int;
+                return ActionChip(
+                  elevation: 8.0,
+                  padding: const EdgeInsets.all(2.0),
+                  avatar: CircleAvatar(
+                    backgroundColor: Colors.purpleAccent,
+                    child: Text(playerDigs.toString(),
+                        style: const TextStyle(
+                            color: Color.fromARGB(255, 56, 56, 56),
+                            fontWeight: FontWeight.w600,
+                            fontSize: 18)),
+                  ),
+                  label: const Text('Dig'),
+                  onPressed: () {
+                    OngoingGameService().updateSingleStatInt(
+                        widget.playerGameStats, 'digs', playerDigs + 1);
+                  },
+                  backgroundColor: Colors.grey[200],
+                  shape: const StadiumBorder(
+                      side: BorderSide(
+                    width: 1,
+                    color: Colors.purpleAccent,
+                  )),
+                );
+              } else {
+                return const CircularProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation<Color>(lightColor));
+              }
             },
-            backgroundColor: Colors.grey[200],
-            shape: const StadiumBorder(
-                side: BorderSide(
-              width: 1,
-              color: Colors.purpleAccent,
-            )),
           ),
         ),
         Padding(
           padding: const EdgeInsets.only(left: 3.0, right: 3.0),
-          child: ActionChip(
-            elevation: 8.0,
-            padding: const EdgeInsets.all(2.0),
-            avatar: CircleAvatar(
-              backgroundColor: Colors.purpleAccent,
-              child: Text(widget.playerGameStats.receptionErrors.toString(),
-                  style: const TextStyle(
-                      color: Color.fromARGB(255, 56, 56, 56),
-                      fontWeight: FontWeight.w600,
-                      fontSize: 18)),
-            ),
-            label: const Text('Rec Err'),
-            onPressed: () {
-              setState(() {
-                widget.playerGameStats.receptionErrors++;
-              });
+          child: StreamBuilder(
+            stream: OngoingGameService().getSingleStatStreamInt(
+                widget.playerGameStats, 'reception_errors'),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                final int playerReceptionErrors = snapshot.data as int;
+                return ActionChip(
+                  elevation: 8.0,
+                  padding: const EdgeInsets.all(2.0),
+                  avatar: CircleAvatar(
+                    backgroundColor: Colors.purpleAccent,
+                    child: Text(playerReceptionErrors.toString(),
+                        style: const TextStyle(
+                            color: Color.fromARGB(255, 56, 56, 56),
+                            fontWeight: FontWeight.w600,
+                            fontSize: 18)),
+                  ),
+                  label: const Text('Rec Err'),
+                  onPressed: () {
+                    OngoingGameService().updateSingleStatInt(
+                        widget.playerGameStats,
+                        'reception_errors',
+                        playerReceptionErrors + 1);
+                  },
+                  backgroundColor: Colors.grey[200],
+                  shape: const StadiumBorder(
+                      side: BorderSide(
+                    width: 1,
+                    color: Colors.purpleAccent,
+                  )),
+                );
+              } else {
+                return const CircularProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation<Color>(lightColor));
+              }
             },
-            backgroundColor: Colors.grey[200],
-            shape: const StadiumBorder(
-                side: BorderSide(
-              width: 1,
-              color: Colors.purpleAccent,
-            )),
           ),
         ),
         Padding(
           padding: const EdgeInsets.only(left: 3.0, right: 3.0),
-          child: ActionChip(
-            elevation: 8.0,
-            padding: const EdgeInsets.all(2.0),
-            avatar: CircleAvatar(
-              backgroundColor: Colors.greenAccent,
-              child: Text(widget.playerGameStats.blocks.toString(),
-                  style: const TextStyle(
-                      color: Color.fromARGB(255, 56, 56, 56),
-                      fontWeight: FontWeight.w600,
-                      fontSize: 18)),
-            ),
-            label: const Text('Blk'),
-            onPressed: () {
-              setState(() {
-                widget.playerGameStats.blocks++;
-              });
+          child: StreamBuilder(
+            stream: OngoingGameService()
+                .getSingleStatStreamInt(widget.playerGameStats, 'blocks'),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                final int playerBlocks = snapshot.data as int;
+                return ActionChip(
+                  elevation: 8.0,
+                  padding: const EdgeInsets.all(2.0),
+                  avatar: CircleAvatar(
+                    backgroundColor: Colors.greenAccent,
+                    child: Text(playerBlocks.toString(),
+                        style: const TextStyle(
+                            color: Color.fromARGB(255, 56, 56, 56),
+                            fontWeight: FontWeight.w600,
+                            fontSize: 18)),
+                  ),
+                  label: const Text('Blk'),
+                  onPressed: () {
+                    OngoingGameService().updateSingleStatInt(
+                        widget.playerGameStats, 'blocks', playerBlocks + 1);
+                  },
+                  backgroundColor: Colors.grey[200],
+                  shape: const StadiumBorder(
+                      side: BorderSide(
+                    width: 1,
+                    color: Colors.greenAccent,
+                  )),
+                );
+              } else {
+                return const CircularProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation<Color>(lightColor));
+              }
             },
-            backgroundColor: Colors.grey[200],
-            shape: const StadiumBorder(
-                side: BorderSide(
-              width: 1,
-              color: Colors.greenAccent,
-            )),
           ),
         ),
         Padding(
           padding: const EdgeInsets.only(left: 3.0, right: 3.0),
-          child: ActionChip(
-            elevation: 8.0,
-            padding: const EdgeInsets.all(2.0),
-            avatar: CircleAvatar(
-              backgroundColor: Colors.greenAccent,
-              child: Text(widget.playerGameStats.blockErrors.toString(),
-                  style: TextStyle(
-                      color: Color.fromARGB(255, 56, 56, 56),
-                      fontWeight: FontWeight.w600,
-                      fontSize: 18)),
-            ),
-            label: const Text('Blk Err'),
-            onPressed: () {
-              setState(() {
-                widget.playerGameStats.blockErrors++;
-              });
+          child: StreamBuilder(
+            stream: OngoingGameService()
+                .getSingleStatStreamInt(widget.playerGameStats, 'block_errors'),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                final int playerBlockErrors = snapshot.data as int;
+                return ActionChip(
+                  elevation: 8.0,
+                  padding: const EdgeInsets.all(2.0),
+                  avatar: CircleAvatar(
+                    backgroundColor: Colors.greenAccent,
+                    child: Text(playerBlockErrors.toString(),
+                        style: const TextStyle(
+                            color: const Color.fromARGB(255, 56, 56, 56),
+                            fontWeight: FontWeight.w600,
+                            fontSize: 18)),
+                  ),
+                  label: const Text('Blk Err'),
+                  onPressed: () {
+                    OngoingGameService().updateSingleStatInt(
+                        widget.playerGameStats,
+                        'block_errors',
+                        playerBlockErrors + 1);
+                  },
+                  backgroundColor: Colors.grey[200],
+                  shape: const StadiumBorder(
+                      side: BorderSide(
+                    width: 1,
+                    color: Colors.greenAccent,
+                  )),
+                );
+              } else {
+                return const CircularProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation<Color>(lightColor));
+              }
             },
-            backgroundColor: Colors.grey[200],
-            shape: const StadiumBorder(
-                side: BorderSide(
-              width: 1,
-              color: Colors.greenAccent,
-            )),
           ),
         ),
       ],

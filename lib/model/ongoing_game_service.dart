@@ -53,10 +53,21 @@ class OngoingGameService {
     final statStream =
         _database.child('players/$gamePlayerId/$statName').onValue;
     final result = statStream.map((event) {
-      print(event.snapshot.value);
       return event.snapshot.value as int;
     });
     return result;
+  }
+
+  void updateSingleStatInt(
+      String gamePlayerId, String statName, int newStatCount) async {
+    await _database
+        .child('players/$gamePlayerId')
+        .update({statName: newStatCount});
+  }
+
+  void updatePlayerName(
+      String gamePlayerId, String newName, String newLastName) async {
+    // await _database.child('players/$gamePlayerId').
   }
 
   Stream<String> getSingleStatStreamString(
