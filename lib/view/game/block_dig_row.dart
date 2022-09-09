@@ -181,6 +181,8 @@ class _BlkDigRowState extends State<BlkDigRow> {
                     onPressed: () {
                       OngoingGameService().updateSingleStatInt(
                           widget.playerGameStats, 'blocks', playerBlocks + 1);
+                      OngoingGameService()
+                          .updateTeamScore(widget.gameId, widget.onTeamOne, 1);
                     },
                     backgroundColor: Colors.grey[200],
                     shape: const StadiumBorder(

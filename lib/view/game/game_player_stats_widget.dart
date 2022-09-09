@@ -225,6 +225,8 @@ class _GamePlayerStatTileHeaderState extends State<GamePlayerStatTileHeader> {
                                 widget.playerGameStats,
                                 'service_errors',
                                 playerServiceErrors + 1);
+                            OngoingGameService().updateTeamScore(
+                                widget.game.gameId, !widget.onTeamOne, 1);
                           },
                           backgroundColor: Colors.grey[200],
                           shape: const StadiumBorder(

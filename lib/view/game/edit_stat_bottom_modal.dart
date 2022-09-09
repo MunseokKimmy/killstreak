@@ -133,6 +133,11 @@ class _EditStatBottomModalState extends State<EditStatBottomModal> {
                     int difference = widget._counter - widget.initialStat;
                     OngoingGameService().updateTeamScore(
                         widget.gameId, widget.onTeamOne, difference);
+                  } else if (widget.immediatePointForOpposingTeam
+                      .contains(widget.statDataName)) {
+                    int difference = widget._counter - widget.initialStat;
+                    OngoingGameService().updateTeamScore(
+                        widget.gameId, !widget.onTeamOne, difference);
                   }
                 }
                 Navigator.pop(context);

@@ -70,6 +70,8 @@ class _AtkAstRowState extends State<AtkAstRow> {
                           widget.playerGameStats,
                           killsDataString,
                           playerKills + 1);
+                      OngoingGameService()
+                          .updateTeamScore(widget.gameId, widget.onTeamOne, 1);
                     },
                     backgroundColor: Colors.grey[200],
                     shape: const StadiumBorder(
@@ -127,6 +129,8 @@ class _AtkAstRowState extends State<AtkAstRow> {
                           widget.playerGameStats,
                           attackErrorDataString,
                           playerAttackErrors + 1);
+                      OngoingGameService()
+                          .updateTeamScore(widget.gameId, !widget.onTeamOne, 1);
                     },
                     backgroundColor: Colors.grey[200],
                     shape: const StadiumBorder(
@@ -239,6 +243,8 @@ class _AtkAstRowState extends State<AtkAstRow> {
                     onPressed: () {
                       OngoingGameService().updateSingleStatInt(
                           widget.playerGameStats, bheDataString, playerBHE + 1);
+                      OngoingGameService()
+                          .updateTeamScore(widget.gameId, !widget.onTeamOne, 1);
                     },
                     backgroundColor: Colors.grey[200],
                     shape: const StadiumBorder(
