@@ -51,7 +51,7 @@ class _EditStatBottomModalState extends State<EditStatBottomModal> {
         children: [
           Text(
             "${widget.playerName}'s ${widget.statName}",
-            style: const TextStyle(fontSize: 22),
+            style: const TextStyle(fontSize: 22, color: Colors.white),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -77,7 +77,7 @@ class _EditStatBottomModalState extends State<EditStatBottomModal> {
               ),
               Text(
                 widget._counter.toString(),
-                style: TextStyle(fontSize: 28),
+                style: TextStyle(fontSize: 28, color: Colors.white),
               ),
               SizedBox(
                 height: 60,
@@ -112,8 +112,10 @@ class _EditStatBottomModalState extends State<EditStatBottomModal> {
                 }),
               ),
               onPressed: () async {
-                OngoingGameService().updateSingleStatInt(
-                    widget.playerStatId, widget.statDataName, widget._counter);
+                if (widget.initialStat != widget._counter) {
+                  OngoingGameService().updateSingleStatInt(widget.playerStatId,
+                      widget.statDataName, widget._counter);
+                }
                 Navigator.pop(context);
               },
               child: Text("Done", style: TextStyle(fontSize: 20))),
