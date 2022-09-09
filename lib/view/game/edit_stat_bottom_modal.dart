@@ -1,6 +1,7 @@
 import 'package:customizable_counter/customizable_counter.dart';
 import 'package:flutter/material.dart';
 import 'package:killstreak/main.dart';
+import 'package:killstreak/model/dtos/stat_info_literal.dart';
 import 'package:killstreak/model/ongoing_game_service.dart';
 
 class EditStatBottomModal extends StatefulWidget {
@@ -44,7 +45,7 @@ class _EditStatBottomModalState extends State<EditStatBottomModal> {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(20),
-      height: MediaQuery.of(context).size.height * .35,
+      height: MediaQuery.of(context).size.height * .5,
       color: baseColor,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -53,6 +54,8 @@ class _EditStatBottomModalState extends State<EditStatBottomModal> {
             "${widget.playerName}'s ${widget.statName}",
             style: const TextStyle(fontSize: 22, color: Colors.white),
           ),
+          Text(StatInfoLiteral().getInfo(widget.statDataName),
+              style: TextStyle(color: Colors.white, fontSize: 18)),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.center,
