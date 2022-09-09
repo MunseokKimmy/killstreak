@@ -6,8 +6,14 @@ import 'package:killstreak/view/game/edit_stat_bottom_modal.dart';
 class AtkAstRow extends StatefulWidget {
   String playerGameStats;
   String playerFirstName;
+  int gameId;
+  bool onTeamOne;
   AtkAstRow(
-      {Key? key, required this.playerGameStats, required this.playerFirstName})
+      {Key? key,
+      required this.playerGameStats,
+      required this.playerFirstName,
+      required this.gameId,
+      required this.onTeamOne})
       : super(key: key);
 
   @override
@@ -42,6 +48,8 @@ class _AtkAstRowState extends State<AtkAstRow> {
                             playerStatId: widget.playerGameStats,
                             statName: 'Kills',
                             statDataName: killsDataString,
+                            gameId: widget.gameId,
+                            onTeamOne: widget.onTeamOne,
                           );
                         });
                   },
@@ -97,6 +105,8 @@ class _AtkAstRowState extends State<AtkAstRow> {
                             playerStatId: widget.playerGameStats,
                             statName: 'Attack Errors',
                             statDataName: attackErrorDataString,
+                            gameId: widget.gameId,
+                            onTeamOne: widget.onTeamOne,
                           );
                         });
                   },
@@ -152,6 +162,8 @@ class _AtkAstRowState extends State<AtkAstRow> {
                             playerStatId: widget.playerGameStats,
                             statName: 'Assists',
                             statDataName: assistsDataString,
+                            gameId: widget.gameId,
+                            onTeamOne: widget.onTeamOne,
                           );
                         });
                   },
@@ -207,6 +219,8 @@ class _AtkAstRowState extends State<AtkAstRow> {
                             playerStatId: widget.playerGameStats,
                             statName: 'Ball Handling Errors',
                             statDataName: bheDataString,
+                            gameId: widget.gameId,
+                            onTeamOne: widget.onTeamOne,
                           );
                         });
                   },

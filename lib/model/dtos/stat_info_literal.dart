@@ -15,7 +15,7 @@ class StatInfoLiteral {
     'blocks':
         'A block is when a player blocks a ball, immediately leading to a point. If the ball is kept in play, no block is recorded.',
     'block_errors':
-        'When a player\'s attempt to block a ball results in an error. Ex. Blocker in the net, across center line, reaches over net. If a player stuffs an overpass, it is a kill, not a block.',
+        'When a player\'s attempt to block a ball results in an error. If there\'s a block error, there must be a kill for the other team. Ex. Blocker in the net, across center line, reaches over net. If a player stuffs an overpass, it is a kill, not a block.',
     'digs':
         'A dig is when a player receives an attacked ball and keeps the ball in play. Remember, free balls and serves are not attacked balls.',
     'reception_errors':

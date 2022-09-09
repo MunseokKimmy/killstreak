@@ -65,8 +65,16 @@ class OngoingGameService {
         .update({statName: newStatCount});
   }
 
-  void updatePlayerName(
-      String gamePlayerId, String newName, String newLastName) async {
+  void updateTeamScore(int gameId, bool teamOne, int pointsToAdd) async {
+    String teamAddress = teamOne ? 'team_one_score' : 'team_two_score';
+    await _database
+        .child('games/game-$gameId/teams/$teamAddress')
+        .set(ServerValue.increment(pointsToAdd));
+  }
+
+  void updatePlayerName() {
+    //next release
+    // String gamePlayerId, String newName, String newLastName) async {
     // await _database.child('players/$gamePlayerId').
   }
 

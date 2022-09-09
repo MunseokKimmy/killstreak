@@ -10,14 +10,24 @@ class EditStatBottomModal extends StatefulWidget {
   String playerStatId;
   String statName;
   String statDataName;
+  bool onTeamOne;
+  int gameId;
   late int _counter;
+  List<String> immediatePointForTeam = ["kills", "ace", "blocks"];
+  List<String> immediatePointForOpposingTeam = [
+    "service_errors",
+    "ball_handling_errors",
+    "attack_errors"
+  ];
   EditStatBottomModal(
       {Key? key,
       required this.initialStat,
       required this.playerName,
       required this.playerStatId,
       required this.statName,
-      required this.statDataName})
+      required this.statDataName,
+      required this.onTeamOne,
+      required this.gameId})
       : super(key: key) {
     _counter = initialStat;
   }
@@ -118,6 +128,12 @@ class _EditStatBottomModalState extends State<EditStatBottomModal> {
                 if (widget.initialStat != widget._counter) {
                   OngoingGameService().updateSingleStatInt(widget.playerStatId,
                       widget.statDataName, widget._counter);
+                  if (widget.immediatePointForTeam
+                      .contains(widget.statDataName)) {
+                    int difference = widget._counter - widget.initialStat;
+                    OngoingGameService().updateTeamScore(
+                        widget.gameId, widget.onTeamOne, difference);
+                  }
                 }
                 Navigator.pop(context);
               },

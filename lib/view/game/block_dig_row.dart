@@ -6,9 +6,14 @@ import 'package:killstreak/view/game/edit_stat_bottom_modal.dart';
 class BlkDigRow extends StatefulWidget {
   String playerGameStats;
   String playerFirstName;
-
+  int gameId;
+  bool onTeamOne;
   BlkDigRow(
-      {Key? key, required this.playerGameStats, required this.playerFirstName})
+      {Key? key,
+      required this.playerGameStats,
+      required this.playerFirstName,
+      required this.gameId,
+      required this.onTeamOne})
       : super(key: key);
 
   @override
@@ -44,6 +49,8 @@ class _BlkDigRowState extends State<BlkDigRow> {
                             playerStatId: widget.playerGameStats,
                             statName: 'Digs',
                             statDataName: 'digs',
+                            gameId: widget.gameId,
+                            onTeamOne: widget.onTeamOne,
                           );
                         });
                   },
@@ -97,6 +104,8 @@ class _BlkDigRowState extends State<BlkDigRow> {
                             playerStatId: widget.playerGameStats,
                             statName: 'Reception Errors',
                             statDataName: 'reception_errors',
+                            gameId: widget.gameId,
+                            onTeamOne: widget.onTeamOne,
                           );
                         });
                   },
@@ -152,6 +161,8 @@ class _BlkDigRowState extends State<BlkDigRow> {
                             playerStatId: widget.playerGameStats,
                             statName: 'Blocks',
                             statDataName: 'blocks',
+                            gameId: widget.gameId,
+                            onTeamOne: widget.onTeamOne,
                           );
                         });
                   },
@@ -205,6 +216,8 @@ class _BlkDigRowState extends State<BlkDigRow> {
                             playerStatId: widget.playerGameStats,
                             statName: 'Block Errors',
                             statDataName: 'block_errors',
+                            gameId: widget.gameId,
+                            onTeamOne: widget.onTeamOne,
                           );
                         });
                   },

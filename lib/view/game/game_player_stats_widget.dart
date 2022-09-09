@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:killstreak/main.dart';
+import 'package:killstreak/model/dtos/game.dto.dart';
 import 'package:killstreak/model/ongoing_game_service.dart';
 import 'package:killstreak/view/game/attack_assist_row.dart';
 import 'package:killstreak/view/game/block_dig_row.dart';
@@ -7,7 +8,13 @@ import 'package:killstreak/view/game/edit_stat_bottom_modal.dart';
 
 class GamePlayerStatExpansionPanel extends StatefulWidget {
   String playerGameStats;
-  GamePlayerStatExpansionPanel({Key? key, required this.playerGameStats})
+  GameShort game;
+  bool onTeamOne;
+  GamePlayerStatExpansionPanel(
+      {Key? key,
+      required this.playerGameStats,
+      required this.game,
+      required this.onTeamOne})
       : super(key: key);
 
   @override
@@ -41,11 +48,15 @@ class _GamePlayerStatExpansionPanelState
                             return GamePlayerStatTileHeader(
                               playerGameStats: widget.playerGameStats,
                               playerFirstName: playerName,
+                              game: widget.game,
+                              onTeamOne: widget.onTeamOne,
                             );
                           },
                           body: GamePlayerStatTileFooter(
                             playerGameStats: widget.playerGameStats,
                             playerFirstName: playerName,
+                            game: widget.game,
+                            onTeamOne: widget.onTeamOne,
                           ))
                     ],
                     expansionCallback: ((panelIndex, isExpanded) {
@@ -68,8 +79,14 @@ class _GamePlayerStatExpansionPanelState
 class GamePlayerStatTileHeader extends StatefulWidget {
   String playerGameStats;
   String playerFirstName;
+  GameShort game;
+  bool onTeamOne;
   GamePlayerStatTileHeader(
-      {Key? key, required this.playerGameStats, required this.playerFirstName})
+      {Key? key,
+      required this.playerGameStats,
+      required this.playerFirstName,
+      required this.game,
+      required this.onTeamOne})
       : super(key: key);
 
   @override
@@ -120,6 +137,8 @@ class _GamePlayerStatTileHeaderState extends State<GamePlayerStatTileHeader> {
                                   playerStatId: widget.playerGameStats,
                                   statName: 'Aces',
                                   statDataName: 'ace',
+                                  gameId: widget.game.gameId,
+                                  onTeamOne: widget.onTeamOne,
                                 );
                               });
                         },
@@ -142,6 +161,8 @@ class _GamePlayerStatTileHeaderState extends State<GamePlayerStatTileHeader> {
                           onPressed: () async {
                             OngoingGameService().updateSingleStatInt(
                                 widget.playerGameStats, 'ace', playerAces + 1);
+                            OngoingGameService().updateTeamScore(
+                                widget.game.gameId, widget.onTeamOne, 1);
                           },
                           backgroundColor: Colors.grey[200],
                           shape: const StadiumBorder(
@@ -178,6 +199,8 @@ class _GamePlayerStatTileHeaderState extends State<GamePlayerStatTileHeader> {
                                   playerStatId: widget.playerGameStats,
                                   statName: 'Service Errors',
                                   statDataName: 'service_errors',
+                                  gameId: widget.game.gameId,
+                                  onTeamOne: widget.onTeamOne,
                                 );
                               });
                         },
@@ -230,9 +253,15 @@ class _GamePlayerStatTileHeaderState extends State<GamePlayerStatTileHeader> {
 class GamePlayerStatTileFooter extends StatefulWidget {
   String playerGameStats;
   String playerFirstName;
+  GameShort game;
+  bool onTeamOne;
 
   GamePlayerStatTileFooter(
-      {Key? key, required this.playerGameStats, required this.playerFirstName})
+      {Key? key,
+      required this.playerGameStats,
+      required this.playerFirstName,
+      required this.game,
+      required this.onTeamOne})
       : super(key: key);
 
   @override
@@ -258,10 +287,14 @@ class _GamePlayerStatTileFooterState extends State<GamePlayerStatTileFooter> {
                 AtkAstRow(
                   playerGameStats: widget.playerGameStats,
                   playerFirstName: widget.playerFirstName,
+                  onTeamOne: widget.onTeamOne,
+                  gameId: widget.game.gameId,
                 ),
                 BlkDigRow(
                   playerGameStats: widget.playerGameStats,
                   playerFirstName: widget.playerFirstName,
+                  onTeamOne: widget.onTeamOne,
+                  gameId: widget.game.gameId,
                 )
               ],
             ),

@@ -111,6 +111,8 @@ class _OngoingGamePage1State extends State<OngoingGamePage1> {
                     itemBuilder: (context, index) {
                       return GamePlayerStatExpansionPanel(
                         playerGameStats: playerList[index],
+                        game: widget.game,
+                        onTeamOne: true,
                       );
                     },
                     separatorBuilder: (context, index) {
@@ -167,6 +169,8 @@ class _OngoingGamePage2State extends State<OngoingGamePage2> {
                     itemBuilder: (context, index) {
                       return GamePlayerStatExpansionPanel(
                         playerGameStats: playerList[index],
+                        game: widget.game,
+                        onTeamOne: false,
                       );
                     },
                     separatorBuilder: (context, index) {
