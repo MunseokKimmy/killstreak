@@ -78,6 +78,10 @@ class OngoingGameService {
     await _database.child('games/game-$gameId/teams/$teamAddress').set(teamOne);
   }
 
+  void gameCompleted(int gameId) async {
+    await _database.child('games/game-$gameId/completed/').set(true);
+  }
+
   void updatePlayerName() {
     //next release
     // String gamePlayerId, String newName, String newLastName) async {

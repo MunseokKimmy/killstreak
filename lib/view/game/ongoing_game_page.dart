@@ -3,6 +3,7 @@ import 'package:killstreak/main.dart';
 import 'package:killstreak/model/dtos/game.dto.dart';
 import 'package:killstreak/model/ongoing_game_service.dart';
 import 'package:killstreak/model/stats_service.dart';
+import 'package:killstreak/view/game/complete_game_modal.dart';
 import 'package:killstreak/view/game/game_player_stats_widget.dart';
 import 'package:killstreak/view/game/stat_compare_bar_chart.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -203,39 +204,74 @@ class _OngoingGamePage3State extends State<OngoingGamePage3> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        // CheckButton(),
         GameScoreCard(
           game: widget.game,
           teamOneStats: true,
           teamTwoStats: true,
         ),
-        StatHeadToHeadCompareChart(
-          statName: "Service Ace",
-          teamOneStatCount: 9,
-          teamTwoStatCount: 1,
-        ),
-        StatHeadToHeadCompareChart(
-          statName: "Kills",
-          teamOneStatCount: 6,
-          teamTwoStatCount: 8,
-        ),
-        StatHeadToHeadCompareChart(
-          statName: "Assists",
-          teamOneStatCount: 3,
-          teamTwoStatCount: 2,
-        ),
-        StatHeadToHeadCompareChart(
-          statName: "Blocks",
-          teamOneStatCount: 1,
-          teamTwoStatCount: 1,
-        ),
-        StatHeadToHeadCompareChart(
-          statName: "Digs",
-          teamOneStatCount: 6,
-          teamTwoStatCount: 4,
-        ),
+        FinishGameButton(gameId: widget.game.gameId),
+        // CheckButton(),
+        // StatHeadToHeadCompareChart(
+        //   statName: "Service Ace",
+        //   teamOneStatCount: 9,
+        //   teamTwoStatCount: 1,
+        // ),
+        // StatHeadToHeadCompareChart(
+        //   statName: "Kills",
+        //   teamOneStatCount: 6,
+        //   teamTwoStatCount: 8,
+        // ),
+        // StatHeadToHeadCompareChart(
+        //   statName: "Assists",
+        //   teamOneStatCount: 3,
+        //   teamTwoStatCount: 2,
+        // ),
+        // StatHeadToHeadCompareChart(
+        //   statName: "Blocks",
+        //   teamOneStatCount: 1,
+        //   teamTwoStatCount: 1,
+        // ),
+        // StatHeadToHeadCompareChart(
+        //   statName: "Digs",
+        //   teamOneStatCount: 6,
+        //   teamTwoStatCount: 4,
+        // ),
       ],
     );
+  }
+}
+
+class FinishGameButton extends StatelessWidget {
+  int gameId;
+  FinishGameButton({Key? key, required this.gameId}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+        padding: const EdgeInsets.all(8),
+        child: ElevatedButton.icon(
+          icon: const Icon(
+            Icons.done,
+            size: 40,
+          ),
+          label: const Text(
+            "Complete Game",
+            style: TextStyle(fontSize: 17),
+          ),
+          style: ElevatedButton.styleFrom(
+            primary: lightColor,
+            fixedSize: Size(MediaQuery.of(context).size.width * .8, 50),
+          ),
+          onPressed: () {
+            showModalBottomSheet(
+                context: context,
+                builder: (context) {
+                  return CompleteGameModal(
+                    gameId: gameId,
+                  );
+                });
+          },
+        ));
   }
 }
 

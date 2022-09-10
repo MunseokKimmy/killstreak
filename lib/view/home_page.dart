@@ -41,10 +41,9 @@ class HomePage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  MyGroupsButton(),
-                  MyStatsButton(),
+                  // MyGroupsButton(),
+                  // MyStatsButton(),
                   LogoutButton(),
-                  CheckButton()
                 ],
               ),
             ),
@@ -149,47 +148,6 @@ class MyGroupsButton extends StatelessWidget {
               builder: (context) => const GroupsPage(),
             ),
           );
-        },
-      ),
-    );
-  }
-}
-
-class CheckButton extends StatelessWidget {
-  Future readData() async {
-    DatabaseReference ref = FirebaseDatabase.instance.ref("games/game-1/teams");
-    // final snapshot = await ref.get();
-    // ref.onValue.listen((event) {
-    //   final data = event.snapshot.value;
-    // });
-    // if (snapshot.exists) {
-    //   print(snapshot.value);
-    // } else {
-    //   print('No data available.');
-    // }
-  }
-
-  CheckButton({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: ElevatedButton.icon(
-        icon: const Icon(
-          Icons.groups,
-          size: 40,
-        ),
-        label: const Text(
-          "Check Database",
-          style: TextStyle(fontSize: 17),
-        ),
-        style: ElevatedButton.styleFrom(
-          primary: lightColor,
-          fixedSize: Size(MediaQuery.of(context).size.width * .8, 50),
-        ),
-        onPressed: () {
-          readData();
         },
       ),
     );
