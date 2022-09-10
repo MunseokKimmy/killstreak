@@ -37,7 +37,7 @@ class Game {
       this.location, this.players, this.teaminfo);
 
   factory Game.fromRTDB(Map<String, dynamic> json) {
-    TeamInfo teamInfo = TeamInfo.fromMap(json['teams']);
+    TeamInfo teamInfo = TeamInfo.fromRTDB(json['teams']);
     if (json['players'] != null) {
       List playersJson = json['players'];
       return Game(
@@ -72,7 +72,7 @@ class TeamInfo {
   TeamInfo(this.teamOneName, this.teamOneScore, this.teamTwoName,
       this.teamTwoScore, this.teamOneServing);
 
-  factory TeamInfo.fromMap(Map<String, dynamic> json) {
+  factory TeamInfo.fromRTDB(Map<String, dynamic> json) {
     return TeamInfo(
         json['team_one_name'] ?? "",
         json['team_one_score'] ?? 0,

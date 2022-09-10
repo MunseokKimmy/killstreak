@@ -67,9 +67,15 @@ class OngoingGameService {
 
   void updateTeamScore(int gameId, bool teamOne, int pointsToAdd) async {
     String teamAddress = teamOne ? 'team_one_score' : 'team_two_score';
+    updateTeamServing(gameId, teamOne);
     await _database
         .child('games/game-$gameId/teams/$teamAddress')
         .set(ServerValue.increment(pointsToAdd));
+  }
+
+  void updateTeamServing(int gameId, bool teamOne) async {
+    String teamAddress = 'team_one_serving';
+    await _database.child('games/game-$gameId/teams/$teamAddress').set(teamOne);
   }
 
   void updatePlayerName() {
@@ -95,6 +101,17 @@ class OngoingGameService {
       Map<String, dynamic> map = jsonDecode(parsed);
       Game game = Game.fromRTDB(map);
       return game;
+    });
+    return results;
+  }
+
+  Stream<TeamInfo> getGameTeamInfoStream(int gameId) {
+    final gameStream = _database.child('/games/game-$gameId/teams').onValue;
+    final results = gameStream.map((event) {
+      final String parsed = json.encode(event.snapshot.value);
+      Map<String, dynamic> map = jsonDecode(parsed);
+      TeamInfo teamInfo = TeamInfo.fromRTDB(map);
+      return teamInfo;
     });
     return results;
   }

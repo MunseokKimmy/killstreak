@@ -54,7 +54,7 @@ class _EditStatBottomModalState extends State<EditStatBottomModal> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(20),
+      padding: const EdgeInsets.all(20),
       height: MediaQuery.of(context).size.height * .5,
       color: baseColor,
       child: Column(
@@ -65,7 +65,7 @@ class _EditStatBottomModalState extends State<EditStatBottomModal> {
             style: const TextStyle(fontSize: 22, color: Colors.white),
           ),
           Text(StatInfoLiteral().getInfo(widget.statDataName),
-              style: TextStyle(color: Colors.white, fontSize: 18)),
+              style: const TextStyle(color: Colors.white, fontSize: 18)),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -75,7 +75,8 @@ class _EditStatBottomModalState extends State<EditStatBottomModal> {
                 width: 60,
                 child: Material(
                   color: accentColor,
-                  borderRadius: BorderRadius.all(Radius.circular(15)),
+                  borderRadius:
+                      const BorderRadius.all(const Radius.circular(15)),
                   child: IconButton(
                     iconSize: 30,
                     onPressed: _decrementCounter,
@@ -90,14 +91,15 @@ class _EditStatBottomModalState extends State<EditStatBottomModal> {
               ),
               Text(
                 widget._counter.toString(),
-                style: TextStyle(fontSize: 28, color: Colors.white),
+                style: const TextStyle(fontSize: 28, color: Colors.white),
               ),
               SizedBox(
                 height: 60,
                 width: 60,
                 child: Material(
                   color: accentColor,
-                  borderRadius: BorderRadius.all(Radius.circular(15)),
+                  borderRadius:
+                      const BorderRadius.all(const Radius.circular(15)),
                   child: IconButton(
                     iconSize: 30,
                     onPressed: _incrementCounter,
@@ -115,7 +117,8 @@ class _EditStatBottomModalState extends State<EditStatBottomModal> {
           ElevatedButton(
               style: ButtonStyle(
                 padding: MaterialStateProperty.resolveWith((states) =>
-                    EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10)),
+                    const EdgeInsets.only(
+                        left: 20, right: 20, top: 10, bottom: 10)),
                 backgroundColor: MaterialStateProperty.resolveWith((states) {
                   // If the button is pressed, return green, otherwise blue
                   if (states.contains(MaterialState.pressed)) {
@@ -142,7 +145,7 @@ class _EditStatBottomModalState extends State<EditStatBottomModal> {
                 }
                 Navigator.pop(context);
               },
-              child: Text("Done", style: TextStyle(fontSize: 20))),
+              child: const Text("Done", style: const TextStyle(fontSize: 20))),
         ],
       ),
     );

@@ -258,10 +258,10 @@ class _GameScoreCardState extends State<GameScoreCard> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-      stream: OngoingGameService().getGameStream(widget.game.gameId),
+      stream: OngoingGameService().getGameTeamInfoStream(widget.game.gameId),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          final Game gameData = snapshot.data as Game;
+          final TeamInfo gameData = snapshot.data as TeamInfo;
           return ConstrainedBox(
             constraints: BoxConstraints(
                 maxHeight: MediaQuery.of(context).size.height * .2),
@@ -273,38 +273,45 @@ class _GameScoreCardState extends State<GameScoreCard> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text(
-                      gameData.teaminfo.teamOneName,
+                      gameData.teamOneName,
                       style: TextStyle(
                         color: widget.teamOneStats ? Colors.white : Colors.grey,
                         fontSize: 20,
                       ),
                     ),
-                    Container(
-                      padding: const EdgeInsets.all(10.0),
-                      margin: const EdgeInsets.only(
-                          left: 5, right: 5, top: 10, bottom: 10),
-                      decoration: BoxDecoration(
-                        color: (widget.teamOneStats && !widget.teamTwoStats)
-                            ? lightColor
-                            : null,
-                        border: Border.all(
-                            color: widget.teamOneStats
-                                ? Colors.white
-                                : Colors.grey),
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                      child: Text(
-                        gameData.teaminfo.teamOneScore.toString(),
-                        style: TextStyle(
-                          color: widget.teamOneStats ? lightGrey : Colors.grey,
-                          fontSize: 40,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: "Courier New",
+                    GestureDetector(
+                      onTap: () async {
+                        OngoingGameService()
+                            .updateTeamServing(widget.game.gameId, true);
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.all(10.0),
+                        margin: const EdgeInsets.only(
+                            left: 5, right: 5, top: 10, bottom: 10),
+                        decoration: BoxDecoration(
+                          color: (widget.teamOneStats && !widget.teamTwoStats)
+                              ? lightColor
+                              : null,
+                          border: Border.all(
+                              color: widget.teamOneStats
+                                  ? Colors.white
+                                  : Colors.grey),
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        child: Text(
+                          gameData.teamOneScore.toString(),
+                          style: TextStyle(
+                            color:
+                                widget.teamOneStats ? lightGrey : Colors.grey,
+                            fontSize: 40,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: "Courier New",
+                          ),
                         ),
                       ),
                     ),
                     Visibility(
-                      visible: gameData.teaminfo.teamOneServing,
+                      visible: gameData.teamOneServing,
                       child: const Icon(
                         Icons.sports_volleyball,
                         color: Colors.yellow,
@@ -346,38 +353,45 @@ class _GameScoreCardState extends State<GameScoreCard> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text(
-                      gameData.teaminfo.teamTwoName,
+                      gameData.teamTwoName,
                       style: TextStyle(
                         color: widget.teamTwoStats ? lightGrey : Colors.grey,
                         fontSize: 20,
                       ),
                     ),
-                    Container(
-                      padding: const EdgeInsets.all(10),
-                      margin: const EdgeInsets.only(
-                          left: 5, right: 5, top: 10, bottom: 10),
-                      decoration: BoxDecoration(
-                        color: (!widget.teamOneStats && widget.teamTwoStats)
-                            ? lightColor
-                            : null,
-                        border: Border.all(
-                            color: widget.teamTwoStats
-                                ? Colors.white
-                                : Colors.grey),
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                      child: Text(
-                        gameData.teaminfo.teamTwoScore.toString(),
-                        style: TextStyle(
-                          color: widget.teamTwoStats ? lightGrey : Colors.grey,
-                          fontSize: 40,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: "Courier New",
+                    GestureDetector(
+                      onTap: () async {
+                        OngoingGameService()
+                            .updateTeamServing(widget.game.gameId, false);
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.all(10),
+                        margin: const EdgeInsets.only(
+                            left: 5, right: 5, top: 10, bottom: 10),
+                        decoration: BoxDecoration(
+                          color: (!widget.teamOneStats && widget.teamTwoStats)
+                              ? lightColor
+                              : null,
+                          border: Border.all(
+                              color: widget.teamTwoStats
+                                  ? Colors.white
+                                  : Colors.grey),
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        child: Text(
+                          gameData.teamTwoScore.toString(),
+                          style: TextStyle(
+                            color:
+                                widget.teamTwoStats ? lightGrey : Colors.grey,
+                            fontSize: 40,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: "Courier New",
+                          ),
                         ),
                       ),
                     ),
                     Visibility(
-                      visible: !gameData.teaminfo.teamOneServing,
+                      visible: !gameData.teamOneServing,
                       child: const Icon(
                         Icons.sports_volleyball,
                         color: Colors.yellow,
