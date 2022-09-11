@@ -88,6 +88,36 @@ class OngoingGameService {
     // await _database.child('players/$gamePlayerId').
   }
 
+  Future<List<String>> getRecentGameIds(String uid) async {
+    final snapshot =
+        await _database.child('accounts/$uid').limitToLast(5).get();
+    if (snapshot.exists) {
+      List gameList = snapshot.value as List;
+      List<String> gameIds = [];
+      for (var element in gameList) {
+        if (element != null) {
+          var gameId = "game-${element as int}";
+          gameIds.add(gameId);
+        }
+      }
+      return gameIds;
+    } else {
+      return [];
+    }
+  }
+
+  Future<List<Game>> getGames(List<String> gameIds) async {
+    List<Game> games = [];
+    for (var element in gameIds) {
+      final snapshot = await _database.child('games/$element').get();
+      final String parsed = json.encode(snapshot.value);
+      Map<String, dynamic> map = jsonDecode(parsed);
+      Game game = Game.fromRTDB(map);
+      games.add(game);
+    }
+    return games;
+  }
+
   Stream<String> getSingleStatStreamString(
       String gamePlayerId, String statName) {
     final statStream =

@@ -1,9 +1,11 @@
 import 'package:carousel_slider/carousel_options.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:killstreak/main.dart';
 import 'package:killstreak/model/dtos/game.dto.dart';
+import 'package:killstreak/model/ongoing_game_service.dart';
 import 'package:killstreak/view/game/create_a_new_game_page.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -29,12 +31,20 @@ class _RecentGamesCarouselState extends State<RecentGamesCarousel> {
     return result;
   }
 
+  Future<List<Game>> getGames() async {
+    final user = FirebaseAuth.instance.currentUser!;
+    List<String> gameIds =
+        await OngoingGameService().getRecentGameIds(user.uid);
+    List<Game> games = await OngoingGameService().getGames(gameIds);
+    return games;
+  }
+
   @override
   Widget build(BuildContext context) {
-    GameService testService = GameService();
-    gameList = testService.getGameShorts();
+    // GameService testService = GameService();
+    // gameList = testService.getGameShorts();
     cardList = [
-      GameCard(game: gameList[0]),
+      // GameCard(game: gameList[0]),
       // GameCard(game: gameList[1]),
       // GameCard(game: gameList[2]),
       // GameCard(game: gameList[3]),
