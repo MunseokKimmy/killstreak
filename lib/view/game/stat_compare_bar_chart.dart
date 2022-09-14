@@ -34,17 +34,17 @@ class _StatHeadToHeadCompareChartState
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(widget.teamOneStatCount.toString(),
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontFamily: 'Poppins',
                             // fontStyle: FontStyle.italic,
                             fontSize: 20)),
                     Text(widget.statName,
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontFamily: 'Poppins',
                             fontStyle: FontStyle.italic,
                             fontSize: 20)),
                     Text(widget.teamTwoStatCount.toString(),
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontFamily: 'Poppins',
                             // fontStyle: FontStyle.italic,
                             fontSize: 20)),
