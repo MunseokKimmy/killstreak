@@ -115,8 +115,7 @@ class _CompletedGamePage1State extends State<CompletedGamePage1> {
             } else {
               return const Center(
                   child: CircularProgressIndicator(
-                      valueColor:
-                          const AlwaysStoppedAnimation<Color>(lightColor)));
+                      valueColor: AlwaysStoppedAnimation<Color>(lightColor)));
             }
           }),
         )
@@ -126,8 +125,6 @@ class _CompletedGamePage1State extends State<CompletedGamePage1> {
 }
 
 class CompletedGamePage2 extends StatefulWidget {
-  final ScrollController _firstController = ScrollController();
-
   GameShort game;
 
   CompletedGamePage2({Key? key, required this.game}) : super(key: key);
@@ -137,9 +134,50 @@ class CompletedGamePage2 extends StatefulWidget {
 }
 
 class _CompletedGamePage2State extends State<CompletedGamePage2> {
+  final ScrollController _secondController = ScrollController();
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Column(
+      children: [
+        GameScoreCard(
+          game: widget.game,
+          teamOneStats: false,
+          teamTwoStats: true,
+        ),
+        FutureBuilder(
+          future: OngoingGameService()
+              .getPlayerListFuture(widget.game.gameId, false),
+          builder: ((context, snapshot) {
+            if (snapshot.hasData) {
+              final List<String> playerList = snapshot.data as List<String>;
+              return Expanded(
+                child: Scrollbar(
+                  controller: _secondController,
+                  child: ListView.separated(
+                    controller: _secondController,
+                    itemCount: playerList.length,
+                    itemBuilder: (context, index) {
+                      return CompletedGamePlayerStats(
+                        playerGameStats: playerList[index],
+                        game: widget.game,
+                        onTeamOne: false,
+                      );
+                    },
+                    separatorBuilder: (context, index) {
+                      return const Divider(color: Colors.white);
+                    },
+                  ),
+                ),
+              );
+            } else {
+              return const Center(
+                  child: CircularProgressIndicator(
+                      valueColor: AlwaysStoppedAnimation<Color>(lightColor)));
+            }
+          }),
+        )
+      ],
+    );
   }
 }
 
