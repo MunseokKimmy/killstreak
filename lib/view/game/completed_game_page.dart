@@ -93,7 +93,6 @@ class _CompletedGamePage1State extends State<CompletedGamePage1> {
           builder: ((context, snapshot) {
             if (snapshot.hasData) {
               final List<String> playerList = snapshot.data as List<String>;
-              print(snapshot.data);
               return Expanded(
                 child: Scrollbar(
                   controller: _firstController,

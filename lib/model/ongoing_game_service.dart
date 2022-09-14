@@ -160,15 +160,14 @@ class OngoingGameService {
     return result;
   }
 
-  Future<String> getSingleStatFutureString(
+  Future<PlayerGameStats> getSingleStatFutureString(
       String gamePlayerId, int gameId, String statName) async {
     final snapshot =
-        await _database.child('players/$gameId/$gamePlayerId/$statName').get();
-    if (snapshot.exists) {
-      return snapshot.value as String;
-    } else {
-      return "";
-    }
+        await _database.child('players/$gameId/$gamePlayerId').get();
+    final String parsed = json.encode(snapshot.value);
+    Map<String, dynamic> map = jsonDecode(parsed);
+    PlayerGameStats stats = PlayerGameStats.fromRTDB(map);
+    return stats;
   }
 
   Stream<Game> getGameStream(int gameId) {

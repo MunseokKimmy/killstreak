@@ -102,17 +102,18 @@ class _GamePlayerStatTileHeaderState extends State<GamePlayerStatTileHeader> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Expanded(
-            flex: 2,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                widget.playerFirstName,
-                style: const TextStyle(
-                  fontSize: 22,
-                  color: lightGrey,
-                ),
+          flex: 2,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              widget.playerFirstName,
+              style: const TextStyle(
+                fontSize: 22,
+                color: lightGrey,
               ),
-            )),
+            ),
+          ),
+        ),
         Expanded(
           flex: 3,
           child: Row(

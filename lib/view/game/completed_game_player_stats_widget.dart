@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:killstreak/main.dart';
 import 'package:killstreak/model/dtos/game.dto.dart';
 import 'package:killstreak/model/ongoing_game_service.dart';
+import 'package:killstreak/model/stats_service.dart';
 
 class CompletedGamePlayerStats extends StatefulWidget {
   String playerGameStats;
@@ -32,8 +33,8 @@ class _CompletedGamePlayerStatsState extends State<CompletedGamePlayerStats> {
                   widget.playerGameStats, widget.game.gameId, 'player_name'),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
-                  final String playerName = snapshot.data as String;
-
+                  final PlayerGameStats stats =
+                      snapshot.data as PlayerGameStats;
                   return ExpansionPanelList(
                     animationDuration: const Duration(milliseconds: 500),
                     children: [
@@ -43,15 +44,15 @@ class _CompletedGamePlayerStatsState extends State<CompletedGamePlayerStats> {
                           canTapOnHeader: true,
                           headerBuilder: (context, isExpanded) {
                             return PlayerStatsHeader(
-                              playerGameStats: widget.playerGameStats,
-                              playerFirstName: playerName,
+                              playerGameStats: stats,
+                              playerFirstName: stats.playerName,
                               game: widget.game,
                               onTeamOne: widget.onTeamOne,
                             );
                           },
                           body: PlayerStatsFooter(
-                            playerGameStats: widget.playerGameStats,
-                            playerFirstName: playerName,
+                            playerGameStats: stats,
+                            playerFirstName: stats.playerName,
                             game: widget.game,
                             onTeamOne: widget.onTeamOne,
                           ))
@@ -74,7 +75,7 @@ class _CompletedGamePlayerStatsState extends State<CompletedGamePlayerStats> {
 }
 
 class PlayerStatsHeader extends StatefulWidget {
-  String playerGameStats;
+  PlayerGameStats playerGameStats;
   String playerFirstName;
   GameShort game;
   bool onTeamOne;
@@ -93,12 +94,228 @@ class PlayerStatsHeader extends StatefulWidget {
 class _PlayerStatsHeaderState extends State<PlayerStatsHeader> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Expanded(
+          flex: 2,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              widget.playerFirstName,
+              style: const TextStyle(
+                fontSize: 22,
+                color: lightGrey,
+              ),
+            ),
+          ),
+        ),
+        Expanded(
+            flex: 3,
+            child: Padding(
+              padding: const EdgeInsets.only(right: 8.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Row(
+                    children: const [
+                      Expanded(
+                        child: Text(
+                          "A",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontFamily: "Courier New",
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      Expanded(
+                        child: Text(
+                          "|",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontFamily: "Courier New",
+                            fontSize: 18,
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Text(
+                          "K",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontFamily: "Courier New",
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      Expanded(
+                        child: Text(
+                          "|",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontFamily: "Courier New",
+                            fontSize: 18,
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Text(
+                          "As",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontFamily: "Courier New",
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      Expanded(
+                        child: Text(
+                          "|",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontFamily: "Courier New",
+                            fontSize: 18,
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Text(
+                          "B",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontFamily: "Courier New",
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      Expanded(
+                        child: Text(
+                          "|",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontFamily: "Courier New",
+                            fontSize: 18,
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Text(
+                          "D",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontFamily: "Courier New",
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          "${widget.playerGameStats.aces}",
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                              fontFamily: "Courier New",
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      const Expanded(
+                        child: Text(
+                          "|",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontFamily: "Courier New",
+                            fontSize: 18,
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Text(
+                          "${widget.playerGameStats.kills}",
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                              fontFamily: "Courier New",
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      const Expanded(
+                        child: Text(
+                          "|",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontFamily: "Courier New",
+                            fontSize: 18,
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Text(
+                          "${widget.playerGameStats.assists}",
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                              fontFamily: "Courier New",
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      const Expanded(
+                        child: Text(
+                          "|",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontFamily: "Courier New",
+                            fontSize: 18,
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Text(
+                          "${widget.playerGameStats.blocks} ",
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                              fontFamily: "Courier New",
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      const Expanded(
+                        child: Text(
+                          "| ",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontFamily: "Courier New",
+                            fontSize: 18,
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Text(
+                          "${widget.playerGameStats.digs} ",
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                              fontFamily: "Courier New",
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            )),
+      ],
+    );
   }
 }
 
 class PlayerStatsFooter extends StatefulWidget {
-  String playerGameStats;
+  PlayerGameStats playerGameStats;
   String playerFirstName;
   GameShort game;
   bool onTeamOne;
