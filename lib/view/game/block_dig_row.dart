@@ -33,8 +33,8 @@ class _BlkDigRowState extends State<BlkDigRow> {
         Padding(
           padding: const EdgeInsets.only(left: 3.0, right: 3.0),
           child: StreamBuilder(
-            stream: OngoingGameService()
-                .getSingleStatStreamInt(widget.playerGameStats, 'digs'),
+            stream: OngoingGameService().getSingleStatStreamInt(
+                widget.gameId, widget.playerGameStats, 'digs'),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 final int playerDigs = snapshot.data as int;
@@ -89,7 +89,7 @@ class _BlkDigRowState extends State<BlkDigRow> {
           padding: const EdgeInsets.only(left: 3.0, right: 3.0),
           child: StreamBuilder(
             stream: OngoingGameService().getSingleStatStreamInt(
-                widget.playerGameStats, 'reception_errors'),
+                widget.gameId, widget.playerGameStats, 'reception_errors'),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 final int playerReceptionErrors = snapshot.data as int;
@@ -145,8 +145,8 @@ class _BlkDigRowState extends State<BlkDigRow> {
         Padding(
           padding: const EdgeInsets.only(left: 3.0, right: 3.0),
           child: StreamBuilder(
-            stream: OngoingGameService()
-                .getSingleStatStreamInt(widget.playerGameStats, 'blocks'),
+            stream: OngoingGameService().getSingleStatStreamInt(
+                widget.gameId, widget.playerGameStats, 'blocks'),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 final int playerBlocks = snapshot.data as int;
@@ -202,8 +202,8 @@ class _BlkDigRowState extends State<BlkDigRow> {
         Padding(
           padding: const EdgeInsets.only(left: 3.0, right: 3.0),
           child: StreamBuilder(
-            stream: OngoingGameService()
-                .getSingleStatStreamInt(widget.playerGameStats, 'block_errors'),
+            stream: OngoingGameService().getSingleStatStreamInt(
+                widget.gameId, widget.playerGameStats, 'block_errors'),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 final int playerBlockErrors = snapshot.data as int;

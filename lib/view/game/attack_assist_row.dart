@@ -33,7 +33,7 @@ class _AtkAstRowState extends State<AtkAstRow> {
           padding: const EdgeInsets.only(left: 3.0, right: 3.0),
           child: StreamBuilder(
             stream: OngoingGameService().getSingleStatStreamInt(
-                widget.playerGameStats, killsDataString),
+                widget.gameId, widget.playerGameStats, killsDataString),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 final int playerKills = snapshot.data as int;
@@ -92,7 +92,7 @@ class _AtkAstRowState extends State<AtkAstRow> {
           padding: const EdgeInsets.only(left: 3.0, right: 3.0),
           child: StreamBuilder(
             stream: OngoingGameService().getSingleStatStreamInt(
-                widget.playerGameStats, attackErrorDataString),
+                widget.gameId, widget.playerGameStats, attackErrorDataString),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 final int playerAttackErrors = snapshot.data as int;
@@ -151,7 +151,7 @@ class _AtkAstRowState extends State<AtkAstRow> {
           padding: const EdgeInsets.only(left: 3.0, right: 3.0),
           child: StreamBuilder(
             stream: OngoingGameService().getSingleStatStreamInt(
-                widget.playerGameStats, assistsDataString),
+                widget.gameId, widget.playerGameStats, assistsDataString),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 final int playerAssists = snapshot.data as int;
@@ -207,8 +207,8 @@ class _AtkAstRowState extends State<AtkAstRow> {
         Padding(
           padding: const EdgeInsets.only(left: 3.0, right: 3.0),
           child: StreamBuilder(
-            stream: OngoingGameService()
-                .getSingleStatStreamInt(widget.playerGameStats, bheDataString),
+            stream: OngoingGameService().getSingleStatStreamInt(
+                widget.gameId, widget.playerGameStats, bheDataString),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 final int playerBHE = snapshot.data as int;

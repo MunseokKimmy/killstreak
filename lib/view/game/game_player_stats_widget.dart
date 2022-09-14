@@ -32,7 +32,7 @@ class _GamePlayerStatExpansionPanelState
         Center(
           child: StreamBuilder(
               stream: OngoingGameService().getSingleStatStreamString(
-                  widget.playerGameStats, 'player_name'),
+                  widget.playerGameStats, widget.game.gameId, 'player_name'),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   final String playerName = snapshot.data as String;
@@ -121,8 +121,8 @@ class _GamePlayerStatTileHeaderState extends State<GamePlayerStatTileHeader> {
               Padding(
                 padding: const EdgeInsets.only(left: 3.0, right: 8.0),
                 child: StreamBuilder(
-                  stream: OngoingGameService()
-                      .getSingleStatStreamInt(widget.playerGameStats, 'ace'),
+                  stream: OngoingGameService().getSingleStatStreamInt(
+                      widget.game.gameId, widget.playerGameStats, 'ace'),
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
                       final int playerAces = snapshot.data as int;
@@ -184,7 +184,9 @@ class _GamePlayerStatTileHeaderState extends State<GamePlayerStatTileHeader> {
                 padding: const EdgeInsets.only(left: 0, right: 3.0),
                 child: StreamBuilder(
                   stream: OngoingGameService().getSingleStatStreamInt(
-                      widget.playerGameStats, 'service_errors'),
+                      widget.game.gameId,
+                      widget.playerGameStats,
+                      'service_errors'),
                   builder: ((context, snapshot) {
                     if (snapshot.hasData) {
                       final int playerServiceErrors = snapshot.data as int;
