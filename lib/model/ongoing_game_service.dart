@@ -106,15 +106,17 @@ class OngoingGameService {
     }
   }
 
-  Future<List<Game>> getGames(List<String> gameIds) async {
-    List<Game> games = [];
+  Future<List<GameShort>> getGameShorts(String uid) async {
+    final List<String> gameIds = await getRecentGameIds(uid);
+    List<GameShort> games = [];
     for (var element in gameIds) {
       final snapshot = await _database.child('games/$element').get();
       final String parsed = json.encode(snapshot.value);
       Map<String, dynamic> map = jsonDecode(parsed);
-      Game game = Game.fromRTDB(map);
+      GameShort game = GameShort.fromRTDB(map);
       games.add(game);
     }
+    print("Called");
     return games;
   }
 

@@ -22,6 +22,21 @@ class GameShort {
       this.teamOneServing,
       this.onTeamOne,
       this.gameCompleted);
+
+  factory GameShort.fromRTDB(Map<String, dynamic> json) {
+    return GameShort(
+        json['game_id'],
+        json['game_name'],
+        json['group_name'],
+        json['date'],
+        json['teams/team_one_name'] ?? "",
+        json['teams/team_two_name'] ?? "",
+        json['teams/team_one_score'] ?? 0,
+        json['teams/team_two_score'] ?? 0,
+        json['teams/team_one_serving'] ?? false,
+        false,
+        json['completed']);
+  }
 }
 
 class Game {
@@ -32,9 +47,10 @@ class Game {
   String date;
   String location;
   List players;
+  bool completed;
   TeamInfo teaminfo;
   Game(this.gameName, this.gameId, this.groupName, this.groupId, this.date,
-      this.location, this.players, this.teaminfo);
+      this.location, this.players, this.completed, this.teaminfo);
 
   factory Game.fromRTDB(Map<String, dynamic> json) {
     TeamInfo teamInfo = TeamInfo.fromRTDB(json['teams']);
@@ -48,6 +64,7 @@ class Game {
           json['date'] ?? "",
           json['location'] ?? "",
           playersJson,
+          json['completed'],
           teamInfo);
     } else {
       return Game(
@@ -58,6 +75,7 @@ class Game {
           json['date'] ?? "",
           json['location'] ?? "",
           [],
+          json['completed'],
           teamInfo);
     }
   }

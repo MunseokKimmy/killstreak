@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:killstreak/model/dtos/game.dto.dart';
+import 'package:killstreak/model/ongoing_game_service.dart';
 import 'package:killstreak/model/user_service.dart';
 import 'package:killstreak/presenter/ongoing_game_presenter.dart';
 import 'package:killstreak/view/groups_page.dart';
@@ -34,7 +36,22 @@ class HomePage extends StatelessWidget {
                 style: const TextStyle(fontSize: 20),
               ),
             ),
-            RecentGamesCarousel(),
+            FutureBuilder(
+                future: OngoingGameService().getGameShorts(user.uid),
+                builder: ((context, snapshot) {
+                  if (snapshot.hasData) {
+                    List<GameShort> gameShorts =
+                        snapshot.data as List<GameShort>;
+                    List<GameCard> gameCards =
+                        gameShorts.map((game) => GameCard(game: game)).toList();
+                    return RecentGamesCarousel(
+                      gameCards: gameCards,
+                    );
+                  } else {
+                    return const CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation<Color>(lightColor));
+                  }
+                })),
             Padding(
               padding: const EdgeInsets.only(top: 10.0),
               child: Column(

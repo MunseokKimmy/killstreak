@@ -13,7 +13,8 @@ import '../model/game_service.dart';
 import '../view/game/game_page.dart';
 
 class RecentGamesCarousel extends StatefulWidget {
-  RecentGamesCarousel({Key? key}) : super(key: key);
+  List<GameCard> gameCards;
+  RecentGamesCarousel({Key? key, required this.gameCards}) : super(key: key);
 
   @override
   State<RecentGamesCarousel> createState() => _RecentGamesCarouselState();
@@ -21,8 +22,6 @@ class RecentGamesCarousel extends StatefulWidget {
 
 class _RecentGamesCarouselState extends State<RecentGamesCarousel> {
   int _currentIndex = 0;
-  List<GameShort> gameList = [];
-  List cardList = [];
   List<T> map<T>(List list, Function handler) {
     List<T> result = [];
     for (var i = 0; i < list.length; i++) {
@@ -31,25 +30,8 @@ class _RecentGamesCarouselState extends State<RecentGamesCarousel> {
     return result;
   }
 
-  Future<List<Game>> getGames() async {
-    final user = FirebaseAuth.instance.currentUser!;
-    List<String> gameIds =
-        await OngoingGameService().getRecentGameIds(user.uid);
-    List<Game> games = await OngoingGameService().getGames(gameIds);
-    return games;
-  }
-
   @override
   Widget build(BuildContext context) {
-    // GameService testService = GameService();
-    // gameList = testService.getGameShorts();
-    cardList = [
-      // GameCard(game: gameList[0]),
-      // GameCard(game: gameList[1]),
-      // GameCard(game: gameList[2]),
-      // GameCard(game: gameList[3]),
-      // GameCard(game: gameList[4])
-    ];
     return Column(
       children: [
         CarouselSlider(
@@ -68,7 +50,7 @@ class _RecentGamesCarouselState extends State<RecentGamesCarousel> {
               });
             },
           ),
-          items: cardList.map((card) {
+          items: widget.gameCards.map((card) {
             return Builder(builder: (BuildContext context) {
               return SizedBox(
                 height: MediaQuery.of(context).size.height * 0.30,
@@ -82,7 +64,7 @@ class _RecentGamesCarouselState extends State<RecentGamesCarousel> {
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: map<Widget>(cardList, (index, url) {
+          children: map<Widget>(widget.gameCards, (index, url) {
             return Container(
               width: 10.0,
               height: 5.0,
