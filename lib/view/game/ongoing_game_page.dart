@@ -5,7 +5,6 @@ import 'package:killstreak/model/ongoing_game_service.dart';
 import 'package:killstreak/model/stats_service.dart';
 import 'package:killstreak/view/game/complete_game_modal.dart';
 import 'package:killstreak/view/game/game_player_stats_widget.dart';
-import 'package:killstreak/view/game/stat_compare_bar_chart.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class OngoingGameWidget extends StatefulWidget {
@@ -22,11 +21,6 @@ class _OngoingGameWidgetState extends State<OngoingGameWidget> {
   List<PlayerGameStats> teamTwoStats = [];
 
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(20.0),
@@ -36,7 +30,6 @@ class _OngoingGameWidgetState extends State<OngoingGameWidget> {
             child: PageView(
               controller: widget._controller,
               scrollDirection: Axis.horizontal,
-              onPageChanged: ((value) {}),
               children: [
                 OngoingGamePage1(
                   game: widget.game,

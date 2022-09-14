@@ -32,7 +32,7 @@ class GamePage extends StatelessWidget {
         ),
       ),
       body: game.gameCompleted
-          ? CompletedGameWidget(game: game)
+          ? CompletedGamePage(game: game)
           : OngoingGameWidget(game: game),
       bottomNavigationBar: BottomNavigation(
         currentPage: 1,

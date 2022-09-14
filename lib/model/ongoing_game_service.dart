@@ -49,6 +49,25 @@ class OngoingGameService {
     return result;
   }
 
+  Future<List> getPlayerListFuture(int gameId, bool onTeamOne) async {
+    final teamAddress = onTeamOne ? 'team-one-players' : 'team-two-players';
+    final snapshot =
+        await _database.child('games/game-$gameId/$teamAddress').get();
+    if (snapshot.exists) {
+      List playerList = snapshot.value as List;
+      List<String> playerIds = [];
+      for (var element in playerList) {
+        if (element != null) {
+          var playerId = element;
+          playerIds.add(playerId);
+        }
+      }
+      return playerIds;
+    } else {
+      return [];
+    }
+  }
+
   Stream<int> getSingleStatStreamInt(
       int gameId, String gamePlayerId, String statName) {
     final statStream =
