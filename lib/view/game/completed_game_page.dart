@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:killstreak/model/dtos/game.dto.dart';
 
 class CompletedGameWidget extends StatelessWidget {
-  const CompletedGameWidget({Key? key}) : super(key: key);
+  GameShort game;
+  CompletedGameWidget({Key? key, required this.game}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
