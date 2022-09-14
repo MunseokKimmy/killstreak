@@ -5,13 +5,15 @@ class GameShort {
   String gameDate = "";
   TeamInfo teamInfo;
   bool gameCompleted = false;
+  String location;
+
   GameShort(this.gameId, this.gameName, this.groupName, this.gameDate,
-      this.teamInfo, this.gameCompleted);
+      this.teamInfo, this.gameCompleted, this.location);
 
   factory GameShort.fromRTDB(Map<String, dynamic> json) {
     TeamInfo teamInfo = TeamInfo.fromRTDB(json['teams']);
     return GameShort(json['game_id'], json['game_name'], json['group_name'],
-        json['date'], teamInfo, json['completed']);
+        json['date'], teamInfo, json['completed'], json['location']);
   }
 }
 

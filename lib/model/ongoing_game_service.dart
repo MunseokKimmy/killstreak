@@ -116,7 +116,6 @@ class OngoingGameService {
       GameShort game = GameShort.fromRTDB(map);
       games.add(game);
     }
-    print("Called");
     return games;
   }
 

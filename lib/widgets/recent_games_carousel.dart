@@ -153,7 +153,7 @@ class GameCard extends StatelessWidget {
                       child: Column(
                         children: [
                           Text(
-                            game.gameDate,
+                            "${game.gameDate} - (${game.location})",
                             style: TextStyle(fontSize: 16),
                           )
                         ],
