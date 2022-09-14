@@ -286,7 +286,7 @@ class _PlayerStatsHeaderState extends State<PlayerStatsHeader> {
                       ),
                       const Expanded(
                         child: Text(
-                          "| ",
+                          "|",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontFamily: "Courier New",
@@ -334,6 +334,240 @@ class PlayerStatsFooter extends StatefulWidget {
 class _PlayerStatsFooterState extends State<PlayerStatsFooter> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        const Expanded(
+          flex: 2,
+          child: Padding(
+            padding: EdgeInsets.only(left: 20.0),
+            child: Text(
+              "Errors",
+              style: TextStyle(
+                fontSize: 20,
+                color: Colors.grey,
+              ),
+            ),
+          ),
+        ),
+        Expanded(
+            flex: 3,
+            child: Padding(
+              padding: const EdgeInsets.only(right: 8.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Row(
+                    children: const [
+                      Expanded(
+                        child: Text(
+                          "Sv",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Colors.grey,
+                              fontFamily: "Courier New",
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      Expanded(
+                        child: Text(
+                          "|",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: Colors.grey,
+                            fontFamily: "Courier New",
+                            fontSize: 18,
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Text(
+                          "At",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Colors.grey,
+                              fontFamily: "Courier New",
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      Expanded(
+                        child: Text(
+                          "|",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: Colors.grey,
+                            fontFamily: "Courier New",
+                            fontSize: 18,
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Text(
+                          "BH",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Colors.grey,
+                              fontFamily: "Courier New",
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      Expanded(
+                        child: Text(
+                          "|",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: Colors.grey,
+                            fontFamily: "Courier New",
+                            fontSize: 18,
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Text(
+                          "Bl",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Colors.grey,
+                              fontFamily: "Courier New",
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      Expanded(
+                        child: Text(
+                          "|",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: Colors.grey,
+                            fontFamily: "Courier New",
+                            fontSize: 18,
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Text(
+                          "Rc",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Colors.grey,
+                              fontFamily: "Courier New",
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          "${widget.playerGameStats.aces}",
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                              color: Colors.grey,
+                              fontFamily: "Courier New",
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      const Expanded(
+                        child: Text(
+                          "|",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: Colors.grey,
+                            fontFamily: "Courier New",
+                            fontSize: 18,
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Text(
+                          "${widget.playerGameStats.kills}",
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                              color: Colors.grey,
+                              fontFamily: "Courier New",
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      const Expanded(
+                        child: Text(
+                          "|",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: Colors.grey,
+                            fontFamily: "Courier New",
+                            fontSize: 18,
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Text(
+                          "${widget.playerGameStats.assists}",
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                              color: Colors.grey,
+                              fontFamily: "Courier New",
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      const Expanded(
+                        child: Text(
+                          "|",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: Colors.grey,
+                            fontFamily: "Courier New",
+                            fontSize: 18,
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Text(
+                          "${widget.playerGameStats.blocks} ",
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                              color: Colors.grey,
+                              fontFamily: "Courier New",
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      const Expanded(
+                        child: Text(
+                          "|",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: Colors.grey,
+                            fontFamily: "Courier New",
+                            fontSize: 18,
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Text(
+                          "${widget.playerGameStats.digs} ",
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                              color: Colors.grey,
+                              fontFamily: "Courier New",
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            )),
+      ],
+    );
   }
 }
