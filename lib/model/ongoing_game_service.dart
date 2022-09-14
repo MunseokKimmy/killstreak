@@ -78,6 +78,17 @@ class OngoingGameService {
     return result;
   }
 
+  Future<int> getSingleStatFutureInt(
+      int gameId, String gamePlayerId, String statName) async {
+    final snapshot =
+        await _database.child('players/$gameId/$gamePlayerId/$statName').get();
+    if (snapshot.exists) {
+      return snapshot.value as int;
+    } else {
+      return 0;
+    }
+  }
+
   void updateSingleStatInt(
       String gamePlayerId, String statName, int newStatCount) async {
     await _database
@@ -147,6 +158,17 @@ class OngoingGameService {
       return event.snapshot.value as String;
     });
     return result;
+  }
+
+  Future<String> getSingleStatFutureString(
+      String gamePlayerId, int gameId, String statName) async {
+    final snapshot =
+        await _database.child('players/$gameId/$gamePlayerId/$statName').get();
+    if (snapshot.exists) {
+      return snapshot.value as String;
+    } else {
+      return "";
+    }
   }
 
   Stream<Game> getGameStream(int gameId) {
