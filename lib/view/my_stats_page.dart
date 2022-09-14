@@ -265,67 +265,67 @@ class _RecentGameTileHeaderState extends State<RecentGameTileHeader> {
             ],
           ),
         ),
-        Expanded(
-          flex: 1,
-          child: Container(
-            color: widget.game.onTeamOne ? accentColor : null,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
-                  widget.game.teamOneScore.toString(),
-                  style: const TextStyle(
-                    fontSize: 26,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: "Courier New",
-                  ),
-                ),
-                Text(
-                  widget.game.teamOneName,
-                  style: const TextStyle(
-                    fontSize: 16,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-        Expanded(
-          flex: 1,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: const [
-              Text("-"),
-            ],
-          ),
-        ),
-        Expanded(
-          flex: 1,
-          child: Container(
-            color: !widget.game.onTeamOne
-                ? const Color.fromRGBO(8, 51, 88, 1)
-                : null,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
-                  widget.game.teamTwoScore.toString(),
-                  style: const TextStyle(
-                    fontSize: 26,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: "Courier New",
-                  ),
-                ),
-                Text(
-                  widget.game.teamTwoName,
-                  style: const TextStyle(
-                    fontSize: 16,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        )
+        // Expanded(
+        //   flex: 1,
+        //   child: Container(
+        //     color: widget.game.onTeamOne ? accentColor : null,
+        //     child: Column(
+        //       crossAxisAlignment: CrossAxisAlignment.center,
+        //       children: [
+        //         Text(
+        //           widget.game.teamOneScore.toString(),
+        //           style: const TextStyle(
+        //             fontSize: 26,
+        //             fontWeight: FontWeight.bold,
+        //             fontFamily: "Courier New",
+        //           ),
+        //         ),
+        //         Text(
+        //           widget.game.teamOneName,
+        //           style: const TextStyle(
+        //             fontSize: 16,
+        //           ),
+        //         ),
+        //       ],
+        //     ),
+        //   ),
+        // ),
+        // Expanded(
+        //   flex: 1,
+        //   child: Column(
+        //     crossAxisAlignment: CrossAxisAlignment.center,
+        //     children: const [
+        //       Text("-"),
+        //     ],
+        //   ),
+        // ),
+        // Expanded(
+        //   flex: 1,
+        //   child: Container(
+        //     color: !widget.game.onTeamOne
+        //         ? const Color.fromRGBO(8, 51, 88, 1)
+        //         : null,
+        //     child: Column(
+        //       crossAxisAlignment: CrossAxisAlignment.center,
+        //       children: [
+        //         Text(
+        //           widget.game.teamTwoScore.toString(),
+        //           style: const TextStyle(
+        //             fontSize: 26,
+        //             fontWeight: FontWeight.bold,
+        //             fontFamily: "Courier New",
+        //           ),
+        //         ),
+        //         Text(
+        //           widget.game.teamTwoName,
+        //           style: const TextStyle(
+        //             fontSize: 16,
+        //           ),
+        //         ),
+        //       ],
+        //     ),
+        //   ),
+        // )
       ],
     );
   }

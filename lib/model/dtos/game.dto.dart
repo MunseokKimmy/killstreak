@@ -3,39 +3,15 @@ class GameShort {
   String gameName = "";
   String groupName = "";
   String gameDate = "";
-  String teamOneName = "";
-  String teamTwoName = "";
-  int teamOneScore = 0;
-  int teamTwoScore = 0;
-  bool teamOneServing = true;
-  bool onTeamOne;
+  TeamInfo teamInfo;
   bool gameCompleted = false;
-  GameShort(
-      this.gameId,
-      this.gameName,
-      this.groupName,
-      this.gameDate,
-      this.teamOneName,
-      this.teamTwoName,
-      this.teamOneScore,
-      this.teamTwoScore,
-      this.teamOneServing,
-      this.onTeamOne,
-      this.gameCompleted);
+  GameShort(this.gameId, this.gameName, this.groupName, this.gameDate,
+      this.teamInfo, this.gameCompleted);
 
   factory GameShort.fromRTDB(Map<String, dynamic> json) {
-    return GameShort(
-        json['game_id'],
-        json['game_name'],
-        json['group_name'],
-        json['date'],
-        json['teams/team_one_name'] ?? "",
-        json['teams/team_two_name'] ?? "",
-        json['teams/team_one_score'] ?? 0,
-        json['teams/team_two_score'] ?? 0,
-        json['teams/team_one_serving'] ?? false,
-        false,
-        json['completed']);
+    TeamInfo teamInfo = TeamInfo.fromRTDB(json['teams']);
+    return GameShort(json['game_id'], json['game_name'], json['group_name'],
+        json['date'], teamInfo, json['completed']);
   }
 }
 

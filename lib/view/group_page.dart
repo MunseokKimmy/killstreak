@@ -350,41 +350,41 @@ class _GroupGameState extends State<GroupGame> {
               ],
             ),
           ),
-          Expanded(
-            flex: 1,
-            child: Container(
-              color: widget.game.onTeamOne ? lightColor : null,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    widget.game.teamOneScore.toString(),
-                    style: TextStyle(
-                      fontSize: 26,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: "Courier New",
-                      color: (widget.game.gameCompleted &&
-                              (widget.game.teamOneScore >
-                                  widget.game.teamTwoScore))
-                          ? Colors.yellow
-                          : null,
-                    ),
-                  ),
-                  Text(
-                    widget.game.teamOneName,
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: (widget.game.gameCompleted &&
-                              (widget.game.teamOneScore >
-                                  widget.game.teamTwoScore))
-                          ? Colors.yellow
-                          : null,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
+          // Expanded(
+          //   flex: 1,
+          //   child: Container(
+          //     color: widget.game.teamInfo.onTeamOne ? lightColor : null,
+          //     child: Column(
+          //       crossAxisAlignment: CrossAxisAlignment.center,
+          //       children: [
+          //         Text(
+          //           widget.game.teamOneScore.toString(),
+          //           style: TextStyle(
+          //             fontSize: 26,
+          //             fontWeight: FontWeight.bold,
+          //             fontFamily: "Courier New",
+          //             color: (widget.game.gameCompleted &&
+          //                     (widget.game.teamOneScore >
+          //                         widget.game.teamTwoScore))
+          //                 ? Colors.yellow
+          //                 : null,
+          //           ),
+          //         ),
+          //         Text(
+          //           widget.game.teamOneName,
+          //           style: TextStyle(
+          //             fontSize: 16,
+          //             color: (widget.game.gameCompleted &&
+          //                     (widget.game.teamOneScore >
+          //                         widget.game.teamTwoScore))
+          //                 ? Colors.yellow
+          //                 : null,
+          //           ),
+          //         ),
+          //       ],
+          //     ),
+          //   ),
+          // ),
           Expanded(
             flex: 1,
             child: Column(
@@ -394,41 +394,41 @@ class _GroupGameState extends State<GroupGame> {
               ],
             ),
           ),
-          Expanded(
-            flex: 1,
-            child: Container(
-              color: !widget.game.onTeamOne ? lightColor : null,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    widget.game.teamTwoScore.toString(),
-                    style: TextStyle(
-                      fontSize: 26,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: "Courier New",
-                      color: (widget.game.gameCompleted &&
-                              (widget.game.teamOneScore <
-                                  widget.game.teamTwoScore))
-                          ? Colors.yellow
-                          : null,
-                    ),
-                  ),
-                  Text(
-                    widget.game.teamTwoName,
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: (widget.game.gameCompleted &&
-                              (widget.game.teamOneScore <
-                                  widget.game.teamTwoScore))
-                          ? Colors.yellow
-                          : null,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          )
+          // Expanded(
+          //   flex: 1,
+          //   child: Container(
+          //     color: !widget.game.onTeamOne ? lightColor : null,
+          //     child: Column(
+          //       crossAxisAlignment: CrossAxisAlignment.center,
+          //       children: [
+          //         Text(
+          //           widget.game.teamTwoScore.toString(),
+          //           style: TextStyle(
+          //             fontSize: 26,
+          //             fontWeight: FontWeight.bold,
+          //             fontFamily: "Courier New",
+          //             color: (widget.game.gameCompleted &&
+          //                     (widget.game.teamOneScore <
+          //                         widget.game.teamTwoScore))
+          //                 ? Colors.yellow
+          //                 : null,
+          //           ),
+          //         ),
+          //         Text(
+          //           widget.game.teamTwoName,
+          //           style: TextStyle(
+          //             fontSize: 16,
+          //             color: (widget.game.gameCompleted &&
+          //                     (widget.game.teamOneScore <
+          //                         widget.game.teamTwoScore))
+          //                 ? Colors.yellow
+          //                 : null,
+          //           ),
+          //         ),
+          //       ],
+          //     ),
+          //   ),
+          // )
         ],
       ),
     );

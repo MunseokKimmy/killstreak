@@ -31,7 +31,7 @@ class HomePage extends StatelessWidget {
             Container(
               margin: const EdgeInsets.all(20.0),
               child: Text(
-                "Signed in as ${user.uid}",
+                "Signed in as ${user.email}",
                 textAlign: TextAlign.center,
                 style: const TextStyle(fontSize: 20),
               ),

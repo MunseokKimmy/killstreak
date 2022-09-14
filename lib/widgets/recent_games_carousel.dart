@@ -166,11 +166,11 @@ class GameCard extends StatelessWidget {
             Expanded(
               flex: 1,
               child: GameCardScores(
-                teamOneName: game.teamOneName,
-                teamTwoName: game.teamTwoName,
-                teamOneScore: game.teamOneScore,
-                teamTwoScore: game.teamTwoScore,
-                teamOneServing: game.teamOneServing,
+                teamOneName: game.teamInfo.teamOneName,
+                teamTwoName: game.teamInfo.teamTwoName,
+                teamOneScore: game.teamInfo.teamOneScore,
+                teamTwoScore: game.teamInfo.teamTwoScore,
+                teamOneServing: game.teamInfo.teamOneServing,
               ),
             ),
           ],
