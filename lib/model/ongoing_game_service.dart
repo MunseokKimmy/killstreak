@@ -49,7 +49,7 @@ class OngoingGameService {
     return result;
   }
 
-  Future<List> getPlayerListFuture(int gameId, bool onTeamOne) async {
+  Future<List<String>> getPlayerListFuture(int gameId, bool onTeamOne) async {
     final teamAddress = onTeamOne ? 'team-one-players' : 'team-two-players';
     final snapshot =
         await _database.child('games/game-$gameId/$teamAddress').get();
@@ -70,6 +70,7 @@ class OngoingGameService {
 
   Stream<int> getSingleStatStreamInt(
       int gameId, String gamePlayerId, String statName) {
+    print("called");
     final statStream =
         _database.child('players/$gameId/$gamePlayerId/$statName').onValue;
     final result = statStream.map((event) {

@@ -26,6 +26,11 @@ class _OngoingGameWidgetState extends State<OngoingGameWidget> {
       padding: const EdgeInsets.all(20.0),
       child: Column(
         children: [
+          Container(
+            padding: EdgeInsets.all(10),
+            child: Text("${widget.game.gameName} - ${widget.game.location}",
+                textAlign: TextAlign.center, style: TextStyle(fontSize: 22)),
+          ),
           Expanded(
             child: PageView(
               controller: widget._controller,
@@ -39,22 +44,23 @@ class _OngoingGameWidgetState extends State<OngoingGameWidget> {
                   game: widget.game,
                   // teamTwoStats: teamTwoStats,
                 ),
-                OngoingGamePage3(
-                  game: widget.game,
-                ),
+                // OngoingGamePage3(
+                //   game: widget.game,
+                // ),
               ],
             ),
           ),
           SmoothPageIndicator(
             controller: widget._controller,
-            count: 3,
+            count: 2,
             effect: const SwapEffect(
               activeDotColor: Colors.yellow,
               spacing: 14,
               dotHeight: 7,
               dotWidth: 14,
             ),
-          )
+          ),
+          FinishGameButton(gameId: widget.game.gameId),
         ],
         //   );
         // } else {

@@ -62,10 +62,10 @@ class _StatHeadToHeadCompareChartState
                           decoration: const BoxDecoration(
                             color: Color.fromRGBO(255, 215, 0, 1),
                             borderRadius: BorderRadius.only(
-                              bottomLeft: const Radius.circular(25),
+                              bottomLeft: Radius.circular(25),
                               bottomRight: Radius.circular(0),
-                              topLeft: const Radius.circular(25),
-                              topRight: const Radius.circular(0),
+                              topLeft: Radius.circular(25),
+                              topRight: Radius.circular(0),
                             ),
                           ),
                         ),
@@ -76,11 +76,11 @@ class _StatHeadToHeadCompareChartState
                           height: 5,
                           decoration: const BoxDecoration(
                             color: Color.fromRGBO(0, 161, 16, 1),
-                            borderRadius: const BorderRadius.only(
-                              bottomLeft: const Radius.circular(0),
+                            borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(0),
                               bottomRight: Radius.circular(25),
                               topLeft: Radius.circular(0),
-                              topRight: const Radius.circular(25),
+                              topRight: Radius.circular(25),
                             ),
                           ),
                         ),

@@ -39,15 +39,15 @@ class _CompletedGamePageState extends State<CompletedGamePage> {
                   game: widget.game,
                   // teamTwoStats: teamTwoStats,
                 ),
-                CompletedGamePage3(
-                  game: widget.game,
-                ),
+                // CompletedGamePage3(
+                //   game: widget.game,
+                // ),
               ],
             ),
           ),
           SmoothPageIndicator(
             controller: widget._controller,
-            count: 3,
+            count: 2,
             effect: const SwapEffect(
               activeDotColor: Colors.yellow,
               spacing: 14,
