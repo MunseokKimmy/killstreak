@@ -68,7 +68,10 @@ class _BlkDigRowState extends State<BlkDigRow> {
                     label: const Text('Dig'),
                     onPressed: () {
                       OngoingGameService().updateSingleStatInt(
-                          widget.playerGameStats, 'digs', playerDigs + 1);
+                          widget.playerGameStats,
+                          'digs',
+                          playerDigs + 1,
+                          widget.gameId);
                     },
                     backgroundColor: Colors.grey[200],
                     shape: const StadiumBorder(
@@ -125,7 +128,8 @@ class _BlkDigRowState extends State<BlkDigRow> {
                       OngoingGameService().updateSingleStatInt(
                           widget.playerGameStats,
                           'reception_errors',
-                          playerReceptionErrors + 1);
+                          playerReceptionErrors + 1,
+                          widget.gameId);
                     },
                     backgroundColor: Colors.grey[200],
                     shape: const StadiumBorder(
@@ -180,7 +184,10 @@ class _BlkDigRowState extends State<BlkDigRow> {
                     label: const Text('Blk'),
                     onPressed: () {
                       OngoingGameService().updateSingleStatInt(
-                          widget.playerGameStats, 'blocks', playerBlocks + 1);
+                          widget.playerGameStats,
+                          'blocks',
+                          playerBlocks + 1,
+                          widget.gameId);
                       OngoingGameService()
                           .updateTeamScore(widget.gameId, widget.onTeamOne, 1);
                     },
@@ -239,7 +246,8 @@ class _BlkDigRowState extends State<BlkDigRow> {
                       OngoingGameService().updateSingleStatInt(
                           widget.playerGameStats,
                           'block_errors',
-                          playerBlockErrors + 1);
+                          playerBlockErrors + 1,
+                          widget.gameId);
                     },
                     backgroundColor: Colors.grey[200],
                     shape: const StadiumBorder(

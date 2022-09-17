@@ -242,9 +242,6 @@ class MyFormState extends State<MyForm> {
                 onPressed: () async {
                   if (_formKey.currentState!.validate()) {
                     _formKey.currentState!.save();
-                    print(_formKey.toString());
-                    print(teamOneList.toString());
-                    print(teamTwoList.toString());
                     GameShort game = await OngoingGameService().createANewGame(
                         _nameController.text,
                         _locationController.text,

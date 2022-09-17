@@ -69,7 +69,8 @@ class _AtkAstRowState extends State<AtkAstRow> {
                       OngoingGameService().updateSingleStatInt(
                           widget.playerGameStats,
                           killsDataString,
-                          playerKills + 1);
+                          playerKills + 1,
+                          widget.gameId);
                       OngoingGameService()
                           .updateTeamScore(widget.gameId, widget.onTeamOne, 1);
                     },
@@ -128,7 +129,8 @@ class _AtkAstRowState extends State<AtkAstRow> {
                       OngoingGameService().updateSingleStatInt(
                           widget.playerGameStats,
                           attackErrorDataString,
-                          playerAttackErrors + 1);
+                          playerAttackErrors + 1,
+                          widget.gameId);
                       OngoingGameService()
                           .updateTeamScore(widget.gameId, !widget.onTeamOne, 1);
                     },
@@ -187,7 +189,8 @@ class _AtkAstRowState extends State<AtkAstRow> {
                       OngoingGameService().updateSingleStatInt(
                           widget.playerGameStats,
                           assistsDataString,
-                          playerAssists + 1);
+                          playerAssists + 1,
+                          widget.gameId);
                     },
                     backgroundColor: Colors.grey[200],
                     shape: const StadiumBorder(
@@ -242,7 +245,10 @@ class _AtkAstRowState extends State<AtkAstRow> {
                     label: const Text('BH Err'),
                     onPressed: () {
                       OngoingGameService().updateSingleStatInt(
-                          widget.playerGameStats, bheDataString, playerBHE + 1);
+                          widget.playerGameStats,
+                          bheDataString,
+                          playerBHE + 1,
+                          widget.gameId);
                       OngoingGameService()
                           .updateTeamScore(widget.gameId, !widget.onTeamOne, 1);
                     },

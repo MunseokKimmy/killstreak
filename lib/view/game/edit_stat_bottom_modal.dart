@@ -130,7 +130,7 @@ class _EditStatBottomModalState extends State<EditStatBottomModal> {
               onPressed: () async {
                 if (widget.initialStat != widget._counter) {
                   OngoingGameService().updateSingleStatInt(widget.playerStatId,
-                      widget.statDataName, widget._counter);
+                      widget.statDataName, widget._counter, widget.gameId);
                   if (widget.immediatePointForTeam
                       .contains(widget.statDataName)) {
                     int difference = widget._counter - widget.initialStat;

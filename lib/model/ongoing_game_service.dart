@@ -180,10 +180,10 @@ class OngoingGameService {
     }
   }
 
-  void updateSingleStatInt(
-      String gamePlayerId, String statName, int newStatCount) async {
+  void updateSingleStatInt(String gamePlayerId, String statName,
+      int newStatCount, int gameId) async {
     await _database
-        .child('players/$gamePlayerId')
+        .child('players/$gameId/$gamePlayerId')
         .update({statName: newStatCount});
   }
 

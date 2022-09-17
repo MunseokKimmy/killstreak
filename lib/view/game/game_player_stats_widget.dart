@@ -161,7 +161,10 @@ class _GamePlayerStatTileHeaderState extends State<GamePlayerStatTileHeader> {
                                   fontSize: 15)),
                           onPressed: () async {
                             OngoingGameService().updateSingleStatInt(
-                                widget.playerGameStats, 'ace', playerAces + 1);
+                                widget.playerGameStats,
+                                'ace',
+                                playerAces + 1,
+                                widget.game.gameId);
                             OngoingGameService().updateTeamScore(
                                 widget.game.gameId, widget.onTeamOne, 1);
                           },
@@ -227,7 +230,8 @@ class _GamePlayerStatTileHeaderState extends State<GamePlayerStatTileHeader> {
                             OngoingGameService().updateSingleStatInt(
                                 widget.playerGameStats,
                                 'service_errors',
-                                playerServiceErrors + 1);
+                                playerServiceErrors + 1,
+                                widget.game.gameId);
                             OngoingGameService().updateTeamScore(
                                 widget.game.gameId, !widget.onTeamOne, 1);
                           },
