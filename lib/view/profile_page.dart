@@ -33,7 +33,7 @@ class ProfilePage extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            const LifeTimeTotals(),
+            // const LifeTimeTotals(),
           ],
         ),
       ),

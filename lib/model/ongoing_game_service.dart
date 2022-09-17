@@ -1,11 +1,102 @@
 import 'dart:convert';
 
 import 'package:firebase_database/firebase_database.dart';
+import 'package:intl/intl.dart';
 import 'package:killstreak/model/dtos/game.dto.dart';
 import 'package:killstreak/model/stats_service.dart';
 
 class OngoingGameService {
   final _database = FirebaseDatabase.instance.ref();
+
+  addGameToAccount(String uid, int gameId) async {
+    final snapshot = await _database.child('accounts/$uid').get();
+    List gameIds = snapshot.value as List;
+    gameIds = [...gameIds, gameId];
+    await _database.child('accounts/$uid').set(gameIds);
+  }
+
+  Future<GameShort> createANewGame(String gameName, String location,
+      List<String> teamOnePlayers, List<String> teamTwoPlayers) async {
+    final snapshot = await _database
+        .child('games')
+        .orderByChild('game_id')
+        .limitToLast(1)
+        .get();
+    final String parsed = json.encode(snapshot.value);
+    Map<String, dynamic> map = jsonDecode(parsed);
+    String key = map.keys.first;
+    int nextGameId = map[key]['game_id'] + 1;
+    List<String> playerTeamOneIds =
+        teamOnePlayers.map((e) => "$e-$nextGameId").toList();
+    List<String> playerTeamTwoIds =
+        teamTwoPlayers.map((e) => "$e-$nextGameId").toList();
+
+    String date = DateFormat("MM/dd/yy").format(DateTime.now());
+    await _database.child('games/game-$nextGameId').set({
+      "completed": false,
+      "date": date,
+      "game_id": nextGameId,
+      "game_name": gameName,
+      "group_id": 1,
+      "group_name": "Aldair's Volleyball Group",
+      "location": location,
+      "team-one-players": playerTeamOneIds,
+      "team-two-players": playerTeamTwoIds,
+      "teams": {
+        "team_one_name": "Red",
+        "team_one_score": 0,
+        "team_one_serving": true,
+        "team_two_name": "Blue",
+        "team_two_score": 0,
+      }
+    });
+
+    for (var element in teamOnePlayers) {
+      await _database.child('players/$nextGameId/$element-$nextGameId').update({
+        "ace": 0,
+        "assists": 0,
+        "attack_errors": 0,
+        "ball_handling_errors": 0,
+        "block_errors": 0,
+        "blocks": 0,
+        "digs": 0,
+        "game_id": nextGameId,
+        "group_id": 1,
+        "kills": 0,
+        "on_team_one": true,
+        "player_id": 1,
+        "player_last_name": "",
+        "player_name": element,
+        "reception_errors": 0,
+        "service_errors": 0
+      });
+    }
+
+    for (var element in teamTwoPlayers) {
+      await _database.child('players/$nextGameId/$element-$nextGameId').update({
+        "ace": 0,
+        "assists": 0,
+        "attack_errors": 0,
+        "ball_handling_errors": 0,
+        "block_errors": 0,
+        "blocks": 0,
+        "digs": 0,
+        "game_id": nextGameId,
+        "group_id": 1,
+        "kills": 0,
+        "on_team_one": false,
+        "player_id": 1,
+        "player_last_name": "",
+        "player_name": element,
+        "reception_errors": 0,
+        "service_errors": 0
+      });
+    }
+    TeamInfo teamInfo = TeamInfo("Red", 0, "Blue", 0, true);
+    GameShort game = GameShort(nextGameId, gameName,
+        "Aldair's Volleyball Group", date, teamInfo, false, location);
+    return game;
+  }
 
   Stream<List<PlayerGameStats>> getPlayerStatsStream(int gameId) {
     final playerStatStream = _database
@@ -70,7 +161,6 @@ class OngoingGameService {
 
   Stream<int> getSingleStatStreamInt(
       int gameId, String gamePlayerId, String statName) {
-    print("called");
     final statStream =
         _database.child('players/$gameId/$gamePlayerId/$statName').onValue;
     final result = statStream.map((event) {
