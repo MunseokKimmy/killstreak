@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:killstreak/custom/custom_expansion_panel.dart';
 import 'package:killstreak/main.dart';
 import 'package:killstreak/model/dtos/game.dto.dart';
 import 'package:killstreak/model/game_service.dart';
@@ -120,10 +121,10 @@ class _GameSummaryExpansionPanelState extends State<GameSummaryExpansionPanel> {
   Widget build(BuildContext context) {
     return Column(children: [
       Center(
-        child: ExpansionPanelList(
+        child: CustomExpansionTileList(
           animationDuration: const Duration(milliseconds: 500),
           children: [
-            ExpansionPanel(
+            CustomExpansionTile(
               hasIcon: false,
               headerBuilder: (context, isExpanded) {
                 return RecentGameTileHeader(game: widget.game);

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:killstreak/custom/custom_expansion_panel.dart';
 import 'package:killstreak/main.dart';
 import 'package:killstreak/model/dtos/game.dto.dart';
 import 'package:killstreak/model/ongoing_game_service.dart';
@@ -37,10 +38,10 @@ class _GamePlayerStatExpansionPanelState
                 if (snapshot.hasData) {
                   final String playerName = snapshot.data as String;
 
-                  return ExpansionPanelList(
+                  return CustomExpansionTileList(
                     animationDuration: const Duration(milliseconds: 500),
                     children: [
-                      ExpansionPanel(
+                      CustomExpansionTile(
                           hasIcon: false,
                           isExpanded: _expanded,
                           canTapOnHeader: true,
