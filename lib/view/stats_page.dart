@@ -11,9 +11,7 @@ class StatsPage extends StatelessWidget {
           automaticallyImplyLeading: false,
           actions: [
             IconButton(
-              onPressed: () {
-                debugPrint('stats');
-              },
+              onPressed: () {},
               icon: const Icon(Icons.info_outline),
             ),
           ],
