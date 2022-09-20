@@ -1,10 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:killstreak/model/dtos/game.dto.dart';
 import 'package:killstreak/model/ongoing_game_service.dart';
-import 'package:killstreak/model/user_service.dart';
-import 'package:killstreak/presenter/ongoing_game_presenter.dart';
 import 'package:killstreak/view/groups_page.dart';
 import 'package:killstreak/view/my_stats_page.dart';
 import 'package:killstreak/widgets/bottom_navigation.dart';

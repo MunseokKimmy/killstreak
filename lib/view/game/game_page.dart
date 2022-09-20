@@ -4,8 +4,6 @@ import 'package:killstreak/view/game/completed_game_page.dart';
 import 'package:killstreak/view/game/ongoing_game_page.dart';
 import 'package:killstreak/widgets/bottom_navigation.dart';
 
-import '../../model/game_service.dart';
-
 class GamePage extends StatelessWidget {
   GameShort game;
   GamePage({Key? key, required this.game}) : super(key: key);

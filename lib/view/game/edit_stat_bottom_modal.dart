@@ -1,4 +1,3 @@
-import 'package:customizable_counter/customizable_counter.dart';
 import 'package:flutter/material.dart';
 import 'package:killstreak/main.dart';
 import 'package:killstreak/model/dtos/stat_info_literal.dart';
@@ -75,8 +74,7 @@ class _EditStatBottomModalState extends State<EditStatBottomModal> {
                 width: 60,
                 child: Material(
                   color: accentColor,
-                  borderRadius:
-                      const BorderRadius.all(const Radius.circular(15)),
+                  borderRadius: const BorderRadius.all(Radius.circular(15)),
                   child: IconButton(
                     iconSize: 30,
                     onPressed: _decrementCounter,
