@@ -23,14 +23,9 @@ class _OngoingGameWidgetState extends State<OngoingGameWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(20.0),
+      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 40),
       child: Column(
         children: [
-          Container(
-            padding: EdgeInsets.all(10),
-            child: Text("${widget.game.gameName} - ${widget.game.location}",
-                textAlign: TextAlign.center, style: TextStyle(fontSize: 22)),
-          ),
           Expanded(
             child: PageView(
               controller: widget._controller,
@@ -60,7 +55,10 @@ class _OngoingGameWidgetState extends State<OngoingGameWidget> {
               dotWidth: 14,
             ),
           ),
-          FinishGameButton(gameId: widget.game.gameId),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: FinishGameButton(gameId: widget.game.gameId),
+          ),
         ],
         //   );
         // } else {

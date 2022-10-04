@@ -103,20 +103,20 @@ class _GamePlayerStatTileHeaderState extends State<GamePlayerStatTileHeader> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Expanded(
-          flex: 2,
+          flex: 1,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
               widget.playerFirstName,
               style: const TextStyle(
-                fontSize: 22,
+                fontSize: 20,
                 color: lightGrey,
               ),
             ),
           ),
         ),
         Expanded(
-          flex: 3,
+          flex: 2,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
@@ -186,7 +186,7 @@ class _GamePlayerStatTileHeaderState extends State<GamePlayerStatTileHeader> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 0, right: 3.0),
+                padding: const EdgeInsets.only(left: 0, right: 12.0),
                 child: StreamBuilder(
                   stream: OngoingGameService().getSingleStatStreamInt(
                       widget.game.gameId,
@@ -222,7 +222,7 @@ class _GamePlayerStatTileHeaderState extends State<GamePlayerStatTileHeader> {
                                     fontWeight: FontWeight.w600,
                                     fontSize: 18)),
                           ),
-                          label: const Text('Service Err',
+                          label: const Text('Srv Err',
                               style: TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.w500,
