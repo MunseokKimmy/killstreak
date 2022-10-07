@@ -28,9 +28,10 @@ class _AtkAstRowState extends State<AtkAstRow> {
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Padding(
-          padding: const EdgeInsets.only(left: 3.0, right: 3.0),
+          padding: const EdgeInsets.symmetric(horizontal: 2.0),
           child: StreamBuilder(
             stream: OngoingGameService().getSingleStatStreamInt(
                 widget.gameId, widget.playerGameStats, killsDataString),
@@ -90,7 +91,7 @@ class _AtkAstRowState extends State<AtkAstRow> {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(left: 3.0, right: 3.0),
+          padding: const EdgeInsets.symmetric(horizontal: 2.0),
           child: StreamBuilder(
             stream: OngoingGameService().getSingleStatStreamInt(
                 widget.gameId, widget.playerGameStats, attackErrorDataString),
@@ -150,7 +151,7 @@ class _AtkAstRowState extends State<AtkAstRow> {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(left: 3.0, right: 3.0),
+          padding: const EdgeInsets.symmetric(horizontal: 2.0),
           child: StreamBuilder(
             stream: OngoingGameService().getSingleStatStreamInt(
                 widget.gameId, widget.playerGameStats, assistsDataString),
@@ -208,7 +209,7 @@ class _AtkAstRowState extends State<AtkAstRow> {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(left: 3.0, right: 3.0),
+          padding: const EdgeInsets.symmetric(horizontal: 2.0),
           child: StreamBuilder(
             stream: OngoingGameService().getSingleStatStreamInt(
                 widget.gameId, widget.playerGameStats, bheDataString),

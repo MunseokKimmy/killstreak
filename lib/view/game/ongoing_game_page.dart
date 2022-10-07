@@ -23,7 +23,7 @@ class _OngoingGameWidgetState extends State<OngoingGameWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 40),
+      padding: const EdgeInsets.all(10.0),
       child: Column(
         children: [
           Expanded(
@@ -45,19 +45,22 @@ class _OngoingGameWidgetState extends State<OngoingGameWidget> {
               ],
             ),
           ),
-          SmoothPageIndicator(
-            controller: widget._controller,
-            count: 2,
-            effect: const SwapEffect(
-              activeDotColor: Colors.yellow,
-              spacing: 14,
-              dotHeight: 7,
-              dotWidth: 14,
-            ),
-          ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: FinishGameButton(gameId: widget.game.gameId),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: SmoothPageIndicator(
+              controller: widget._controller,
+              count: 2,
+              effect: const SwapEffect(
+                activeDotColor: Colors.yellow,
+                spacing: 14,
+                dotHeight: 7,
+                dotWidth: 14,
+              ),
+            ),
           ),
         ],
         //   );
@@ -104,6 +107,7 @@ class _OngoingGamePage1State extends State<OngoingGamePage1> {
                 child: Scrollbar(
                   controller: _firstController,
                   child: ListView.separated(
+                    shrinkWrap: true,
                     controller: _firstController,
                     itemCount: playerList.length,
                     itemBuilder: (context, index) {

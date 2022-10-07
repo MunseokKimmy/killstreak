@@ -28,10 +28,10 @@ class _BlkDigRowState extends State<BlkDigRow> {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Padding(
-          padding: const EdgeInsets.only(left: 3.0, right: 3.0),
+          padding: const EdgeInsets.symmetric(horizontal: 2.0),
           child: StreamBuilder(
             stream: OngoingGameService().getSingleStatStreamInt(
                 widget.gameId, widget.playerGameStats, 'digs'),
@@ -89,7 +89,7 @@ class _BlkDigRowState extends State<BlkDigRow> {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(left: 3.0, right: 3.0),
+          padding: const EdgeInsets.symmetric(horizontal: 2.0),
           child: StreamBuilder(
             stream: OngoingGameService().getSingleStatStreamInt(
                 widget.gameId, widget.playerGameStats, 'reception_errors'),
@@ -147,7 +147,7 @@ class _BlkDigRowState extends State<BlkDigRow> {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(left: 3.0, right: 3.0),
+          padding: const EdgeInsets.symmetric(horizontal: 2.0),
           child: StreamBuilder(
             stream: OngoingGameService().getSingleStatStreamInt(
                 widget.gameId, widget.playerGameStats, 'blocks'),
@@ -207,7 +207,7 @@ class _BlkDigRowState extends State<BlkDigRow> {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(left: 3.0, right: 3.0),
+          padding: const EdgeInsets.symmetric(horizontal: 2.0),
           child: StreamBuilder(
             stream: OngoingGameService().getSingleStatStreamInt(
                 widget.gameId, widget.playerGameStats, 'block_errors'),

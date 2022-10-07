@@ -6,6 +6,7 @@ import 'package:killstreak/model/ongoing_game_service.dart';
 import 'package:killstreak/view/game/attack_assist_row.dart';
 import 'package:killstreak/view/game/block_dig_row.dart';
 import 'package:killstreak/view/game/edit_stat_bottom_modal.dart';
+import 'package:killstreak/view/game/misc_row.dart';
 
 class GamePlayerStatExpansionPanel extends StatefulWidget {
   String playerGameStats;
@@ -284,32 +285,34 @@ class _GamePlayerStatTileFooterState extends State<GamePlayerStatTileFooter> {
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
-      child: Row(
-        children: [
-          Theme(
-            data: ThemeData(
-                textTheme: const TextTheme(
-              bodyText1: TextStyle(fontSize: 16),
-            )),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                AtkAstRow(
-                  playerGameStats: widget.playerGameStats,
-                  playerFirstName: widget.playerFirstName,
-                  onTeamOne: widget.onTeamOne,
-                  gameId: widget.game.gameId,
-                ),
-                BlkDigRow(
-                  playerGameStats: widget.playerGameStats,
-                  playerFirstName: widget.playerFirstName,
-                  onTeamOne: widget.onTeamOne,
-                  gameId: widget.game.gameId,
-                )
-              ],
+      child: Theme(
+        data: ThemeData(
+            textTheme: const TextTheme(
+          bodyText1: TextStyle(fontSize: 16),
+        )),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            AtkAstRow(
+              playerGameStats: widget.playerGameStats,
+              playerFirstName: widget.playerFirstName,
+              onTeamOne: widget.onTeamOne,
+              gameId: widget.game.gameId,
             ),
-          )
-        ],
+            BlkDigRow(
+              playerGameStats: widget.playerGameStats,
+              playerFirstName: widget.playerFirstName,
+              onTeamOne: widget.onTeamOne,
+              gameId: widget.game.gameId,
+            ),
+            // MiscRow(
+            //   playerGameStats: widget.playerGameStats,
+            //   playerFirstName: widget.playerFirstName,
+            //   onTeamOne: widget.onTeamOne,
+            //   gameId: widget.game.gameId,
+            // )
+          ],
+        ),
       ),
     );
   }
