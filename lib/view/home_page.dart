@@ -45,8 +45,9 @@ class HomePage extends StatelessWidget {
                       gameCards: gameCards,
                     );
                   } else {
-                    return const CircularProgressIndicator(
-                        valueColor: AlwaysStoppedAnimation<Color>(lightColor));
+                    return const Text("No Games on Account!");
+                    // CircularProgressIndicator(
+                    //     valueColor: AlwaysStoppedAnimation<Color>(lightColor));
                   }
                 })),
             Padding(
