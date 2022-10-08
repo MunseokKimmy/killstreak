@@ -218,7 +218,7 @@ class OngoingGameService {
       List<String> gameIds = [];
       for (var element in gameList) {
         if (element != null) {
-          var gameId = "game-${element as int}";
+          var gameId = "game-$element";
           gameIds.add(gameId);
         }
       }
